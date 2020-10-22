@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Inzynierka</string>
+    <string name="nav_header_title">Pomocnik</string>
+
+    <string name="menu_setting">Ustawienia</string>
+    <string name="menu_article">Artykuły</string>
+    <string name="trip_plans">Planuj wyjście</string>
+    <string name="share_data">Udostępnione dane</string>
+</resources>
