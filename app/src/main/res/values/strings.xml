@@ -6,4 +6,6 @@
     <string name="menu_article">Artykuły</string>
     <string name="trip_plans">Planuj wyjście</string>
     <string name="share_data">Udostępnione dane</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
