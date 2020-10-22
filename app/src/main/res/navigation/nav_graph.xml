@@ -8,21 +8,21 @@
     <fragment
         android:id="@+id/nav_article"
         android:name="com.example.inzynierka.ui.article.ArticleFragment"
-        android:label="fragment_article"
+        android:label="@string/menu_article"
         tools:layout="@layout/fragment_article" />
     <fragment
         android:id="@+id/nav_setting"
         android:name="com.example.inzynierka.ui.settings.SettingsFragment"
-        android:label="fragment_setting"
+        android:label="@string/menu_setting"
         tools:layout="@layout/fragment_setting" />
     <fragment
         android:id="@+id/nav_share_data"
         android:name="com.example.inzynierka.ui.shareData.ShareDataFragment"
-        android:label="fragment_share_data"
+        android:label="@string/menu_share_data"
         tools:layout="@layout/fragment_share_data" />
     <fragment
         android:id="@+id/nav_trip_plans"
         android:name="com.example.inzynierka.ui.tripPlans.TripPlansFragment"
-        android:label="fragment_trip_plans"
+        android:label="@string/menu_trip_plans"
         tools:layout="@layout/fragment_trip_plans" />
 </navigation>

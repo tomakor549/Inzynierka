@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="100dp"
-    android:background="@drawable/side_nav_bar"
-    android:orientation="vertical"
+    android:background="@drawable/ic_app_bar_background"
     android:gravity="bottom"
+    android:orientation="vertical"
     android:paddingLeft="16dp"
     android:paddingTop="16dp"
     android:paddingRight="16dp"
@@ -19,14 +18,14 @@
         android:paddingTop="8dp"
         android:text="@string/nav_header_title"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textSize="30dp"
+        android:textSize="30sp"
         app:fontFamily="sans-serif-black" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="W czym mogę ci pomóc?"
+        android:text="@string/nav_header_text"
         app:fontFamily="sans-serif-black" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>
