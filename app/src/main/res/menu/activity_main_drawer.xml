@@ -4,6 +4,9 @@
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
+        <item android:id="@+id/nav_profile"
+            android:icon="@drawable/ic_profile"
+            android:title="@string/menu_profile" />
         <item
             android:id="@+id/nav_article"
             android:icon="@drawable/ic_library"
@@ -16,9 +19,5 @@
         <item android:id="@+id/nav_share_data"
             android:icon="@drawable/ic_share_data"
             android:title="@string/menu_share_data" />
-
-        <item android:id="@+id/nav_setting"
-            android:icon="@drawable/ic_settings"
-            android:title="@string/menu_setting" />
     </group>
 </menu>

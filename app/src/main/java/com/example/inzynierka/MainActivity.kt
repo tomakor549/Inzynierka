@@ -2,6 +2,7 @@ package com.example.inzynierka
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
@@ -11,6 +12,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.ui.navigateUp
 
+//start activity
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
@@ -19,17 +21,20 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
-        setSupportActionBar(toolbar)
+        setSupportActionBar(toolbar)//przycis dziedziczony przez view (own view in android)
+        //jak przycisk na dolnej krawędzi (contrain layout ograniczenia na lewą krawędź)
 
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
         val navController = findNavController(R.id.nav_host_fragment)
 
         appBarConfiguration = AppBarConfiguration(setOf(
-            R.id.nav_article, R.id.nav_share_data, R.id.nav_trip_plans, R.id.nav_setting), drawerLayout)
+            R.id.nav_article, R.id.nav_share_data, R.id.nav_trip_plans, R.id.nav_profile), drawerLayout)
 
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        Log.d("m_act", "konec onCreate w MainActivity")
     }
 
     override fun onSupportNavigateUp(): Boolean {

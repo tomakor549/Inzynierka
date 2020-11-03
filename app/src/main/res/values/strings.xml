@@ -3,7 +3,7 @@
     <string name="nav_header_title">Pomocnik</string>
     <string name="nav_header_text">"W czym mogę ci pomóc?"</string>
 
-    <string name="menu_setting">Ustawienia</string>
+    <string name="menu_profile">Profil</string>
     <string name="menu_article">Artykuły</string>
     <string name="menu_trip_plans">Planuj wyjście</string>
     <string name="menu_share_data">Udostępnione dane</string>
