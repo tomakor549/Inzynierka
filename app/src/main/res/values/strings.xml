@@ -9,4 +9,6 @@
     <string name="menu_share_data">Udostępnione dane</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Witaj pusty elemencie</string>
+    <string name="ill">Choroby:</string>
+    <string name="medicines">Zażywane leki:</string>
 </resources>

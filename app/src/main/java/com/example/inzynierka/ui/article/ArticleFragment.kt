@@ -21,8 +21,8 @@ class ArticleFragment : Fragment() {
     ): View? {
         articleViewModel = ViewModelProvider(this).get(ArticleViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_article, container, false)
-        val textView: TextView = root.findViewById(R.id.txt_article)
-        articleViewModel.text.observe(viewLifecycleOwner, Observer { textView.text = it })
+        //val textView: TextView = root.findViewById(R.id.txt_article)
+        //articleViewModel.text.observe(viewLifecycleOwner, Observer { textView.text = it })
         return root
     }
 }

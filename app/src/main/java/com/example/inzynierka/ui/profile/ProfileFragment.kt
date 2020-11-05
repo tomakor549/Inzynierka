@@ -17,8 +17,6 @@ import com.example.inzynierka.User
 class ProfileFragment : Fragment() {
 
     private lateinit var profileViewModel: ProfileViewModel
-    private val PREFERENCES_KEY = "profile"
-    //private lateinit var sharedPref: SharedPreferences
 
     private lateinit var user: User
 
@@ -28,15 +26,16 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         if(context!=null){
-            //sharedPref = requireContext().getSharedPreferences(PREFERENCES_KEY, Context.MODE_PRIVATE)
             user = User(requireContext())
             Log.d("ProfileFragment", "stworzenie usera")
         }
         else
             Log.d("ProfileFragment", "nie ma context")
+
+
         profileViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_profile, container, false)
-        val userName: TextView = root.findViewById(R.id.textUserName)
+        val userName: TextView = root.findViewById(R.id.text_UserName)
         Log.d("ProfileFragment", "podtawowe ustawienie Profilu")
 
         //user.setName("Tomek K")
@@ -47,7 +46,7 @@ class ProfileFragment : Fragment() {
         Log.d("ProfileFragment", "wpisanie imienia")
 
         profileViewModel.userName.observe(viewLifecycleOwner, Observer { userName.text = it })
-        Log.d("ProfileFragment", "ustaiwnei obserwera")
+        Log.d("ProfileFragment", "ustaiwnei observera")
 
         return root
     }
