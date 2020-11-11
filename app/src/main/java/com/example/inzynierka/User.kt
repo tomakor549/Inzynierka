@@ -14,7 +14,9 @@ class User {//context przez user
     private val KEY_ICE_3 = "ICE3"
     private val KEY_MEDICINES = "medicines"
     private val KEY_ILLNESSES = "diseases"
-    private lateinit var sharedPref: SharedPreferences
+
+    private var sharedPref: SharedPreferences
+    //private var context: Context
 
     constructor (context: Context) {
         sharedPref =  context.getSharedPreferences(PREFERENCES_KEY, Context.MODE_PRIVATE)
@@ -87,7 +89,9 @@ class User {//context przez user
     }
 
     fun checkExistence(): Boolean{
-        if(sharedPref.contains(KEY_USER_NAME))
+        if(!sharedPref.contains(KEY_USER_NAME))
+            return false
+        if(!(sharedPref.contains(KEY_ICE_1) || sharedPref.contains(KEY_ICE_2) || sharedPref.contains(KEY_ICE_3)))
             return false
 
         return true
