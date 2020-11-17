@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="bloodName">
+        <item>-</item>
+        <item>A</item>
+        <item>B</item>
+        <item>AB</item>
+        <item>0</item>
+    </string-array>
+
+    <string-array name="bloodRh">
+        <item>-</item>
+        <item>Rh+</item>
+        <item>Rh-</item>
+    </string-array>
+</resources>

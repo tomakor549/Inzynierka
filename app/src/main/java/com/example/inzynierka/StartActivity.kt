@@ -8,9 +8,7 @@ import android.os.Bundle
 import android.provider.ContactsContract
 import android.text.TextWatcher
 import android.util.Log
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
+import android.widget.*
 import kotlinx.android.synthetic.main.activity_start.*
 
 class StartActivity : AppCompatActivity() {
@@ -20,7 +18,6 @@ class StartActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_start)
 
         if(applicationContext!=null){
             user = User(applicationContext)
@@ -35,25 +32,34 @@ class StartActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        setContentView(R.layout.activity_start)
+
         user_ICE1.setOnClickListener{
+            phoneNumber = user_ICE1
+            nameNumber = user_ICE1_name
+
             var contactPickIntent = Intent(Intent.ACTION_PICK)
             contactPickIntent.type = ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE
             startActivityForResult(contactPickIntent, 111)
         }
 
         user_ICE2.setOnClickListener{
+            phoneNumber = user_ICE2
+            nameNumber = user_ICE2_name
             var contactPickIntent = Intent(Intent.ACTION_PICK)
             contactPickIntent.type = ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE
-            startActivityForResult(contactPickIntent, 112)
+            startActivityForResult(contactPickIntent, 111)
         }
 
         user_ICE3.setOnClickListener{
+            phoneNumber = user_ICE3
+            nameNumber = user_ICE3_name
             var contactPickIntent = Intent(Intent.ACTION_PICK)
             contactPickIntent.type = ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE
-            startActivityForResult(contactPickIntent, 113)
+            startActivityForResult(contactPickIntent, 111)
         }
 
-        val startApp = findViewById<Button>(R.id.button_saveData)
+        val startApp = button_saveData
         startApp.setOnClickListener{
             saveData()
             val intent = Intent(this, MainActivity::class.java)
@@ -64,6 +70,17 @@ class StartActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
+        if(resultCode == Activity.RESULT_OK){
+            var contacturi = data?.data ?: return
+            var cols = arrayOf(ContactsContract.CommonDataKinds.Phone.NUMBER,
+                ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME)
+            var rs = contentResolver.query(contacturi, cols, null, null, null)
+            if(rs?.moveToFirst()!!){
+                phoneNumber.setText(rs.getString(0))
+                nameNumber.setText(rs.getString(1) + ": ")
+            }
+        }
+        /* request
         when(requestCode){
             111->{
                 if(resultCode == Activity.RESULT_OK){
@@ -72,8 +89,11 @@ class StartActivity : AppCompatActivity() {
                         ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME)
                     var rs = contentResolver.query(contacturi, cols, null, null, null)
                     if(rs?.moveToFirst()!!){
-                        user_ICE1.setText(rs.getString(0))
-                        user_ICE1_name.setText(rs.getString(1) + ": ")
+                        phoneNumber.setText(rs.getString(0))
+                        nameNumber.setText(rs.getString(1) + ": ")
+
+                        //user_ICE1.setText(rs.getString(0))
+                        //user_ICE1_name.setText(rs.getString(1) + ": ")
                     }
                 }
             }
@@ -101,11 +121,14 @@ class StartActivity : AppCompatActivity() {
                     }
                 }
             }
-        }
+        }*/
     }
 
     fun checkData(): Boolean{
-        return user.checkExistence()
+        if(user_name.length() >= 5)
+            if(user_ICE1.length()!=0 || user_ICE2.length()!=0 || user_ICE3.length()!=0)
+                return true
+        return false
     }
 
     fun saveData(){

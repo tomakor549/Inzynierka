@@ -20,7 +20,7 @@
         app:layout_constraintVertical_bias="0.0">
 
         <TextView
-            android:id="@+id/text_UserName"
+            android:id="@+id/profile_UserName"
             android:layout_width="222dp"
             android:layout_height="68dp"
             android:layout_weight="1"
@@ -59,7 +59,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/bloodtype"
-                android:textSize="30sp"
+                android:textSize="25sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -69,11 +69,11 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/text_bloodType"
+                android:id="@+id/profile_bloodType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="AB Rh+"
+                android:text="-"
                 android:textColor="#F30505"
                 android:textSize="20sp"
                 android:textStyle="bold"/>
@@ -106,7 +106,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/text_ice1"
+                android:id="@+id/profile_ice1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/red"
@@ -129,7 +129,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/text_ice2"
+                android:id="@+id/profile_ice2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -152,7 +152,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/text_ice3"
+                android:id="@+id/profile_ice3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -193,7 +193,7 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/text_medicines"
+                android:id="@+id/profile_medicines"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="left"
@@ -234,7 +234,7 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/text_illnesses"
+                android:id="@+id/profile_illnesses"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="choroby"

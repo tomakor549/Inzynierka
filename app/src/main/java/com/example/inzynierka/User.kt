@@ -14,12 +14,27 @@ class User {//context przez user
     private val KEY_ICE_3 = "ICE3"
     private val KEY_MEDICINES = "medicines"
     private val KEY_ILLNESSES = "diseases"
+    private val KEY_BLOOD_NAME = "medicines"
+    private val KEY_BLOOD_RH = "diseases"
 
     private var sharedPref: SharedPreferences
     //private var context: Context
 
     constructor (context: Context) {
         sharedPref =  context.getSharedPreferences(PREFERENCES_KEY, Context.MODE_PRIVATE)
+    }
+
+    fun setBloodType(blood:String, rh:String){
+        val editor: SharedPreferences.Editor = sharedPref.edit()
+        editor.putString(KEY_BLOOD_NAME, blood)
+        editor.putString(KEY_BLOOD_RH, rh)
+        editor.apply()
+    }
+
+    fun getBloodType(): String {
+        val str: String = (sharedPref.getString(KEY_BLOOD_NAME, "-") + " " + sharedPref.getString(KEY_BLOOD_RH, "-"))
+
+        return str
     }
 
     fun setIllnesses(data: String){
@@ -98,7 +113,6 @@ class User {//context przez user
     }
 
     fun clear(){
-        //nie czyści - nie wiem dlaczego
         sharedPref.edit().clear().apply();
     }
 }
