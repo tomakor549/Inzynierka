@@ -29,6 +29,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="12dp"
+                    android:clickable="true"
+                    android:focusable="true"
                     app:cardCornerRadius="12dp"
                     app:cardElevation="6dp">
 
@@ -94,29 +96,14 @@
                         android:gravity="center"
                         android:orientation="vertical"
                         android:padding="16dp">
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="#FFFFFF"
-                        app:cardBackgroundColor="#2196F3"
-                        app:cardCornerRadius="20dp"
-                        android:layout_gravity="center">
-
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginRight="10dp"
-                            android:layout_marginBottom="10dp"
                             android:foregroundGravity="bottom"
                             android:text="Morze"
+
                             android:textColor="#FFFFFF"
-                            android:textSize="35sp"
-                            android:textStyle="bold"
-                            app:fontFamily="sans-serif" />
-                    </androidx.cardview.widget.CardView>
+                            android:textSize="35sp" />
 
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
