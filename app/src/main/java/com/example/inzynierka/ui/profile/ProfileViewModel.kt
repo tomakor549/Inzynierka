@@ -1,24 +1,30 @@
 package com.example.inzynierka.ui.profile
 
+import android.app.Application
 import android.content.Context
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.example.inzynierka.User
+import javax.inject.Inject
 
-class ProfileViewModel: ViewModel() {
+class ProfileViewModel @Inject constructor(con: Context) : ViewModel() {
 
-    /*private lateinit var user: User
+    private var user = User(con)
+    var name = user.getName()
 
-    fun setUser(con: Context){
-        this.user = User(con)
+    class Factory constructor(
+        private val con: Context
+    ) : ViewModelProvider.Factory {
+
+        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            return ProfileViewModel(con) as T
+        }
     }
+
 
     //imie i nazwisko
     private val _userName = MutableLiveData<String>().apply {
         //value = name
-        value = user.getName()
+        value = name
     }
     val userName: LiveData<String> = _userName
 
@@ -53,5 +59,5 @@ class ProfileViewModel: ViewModel() {
         value = user.getMedicines()
     }
     val userMedicines: LiveData<String> = _userMedicines
-*/
+
 }

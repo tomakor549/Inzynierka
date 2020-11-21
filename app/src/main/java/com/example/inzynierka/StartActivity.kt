@@ -10,6 +10,7 @@ import android.text.TextWatcher
 import android.util.Log
 import android.widget.*
 import kotlinx.android.synthetic.main.activity_start.*
+import kotlinx.android.synthetic.main.fragment_profile.*
 
 class StartActivity : AppCompatActivity() {
     private lateinit var user: User
@@ -131,8 +132,21 @@ class StartActivity : AppCompatActivity() {
         return false
     }
 
-    fun saveData(){
-        user.setName(user_name.toString())
-        user.setICE1(user_ICE1.toString())
+    private fun saveData(){
+        user.setName("Tom Kor")
+        /*if(profile_UserName.text.isNotEmpty()) {
+            user.setName(user_name.text.toString())
+        }
+
+        if(!profile_ice1.text.isEmpty() || !profile_ice2.text.isEmpty() || !profile_ice3.text.isEmpty()){
+            user.setICE1(user_ICE1.text.toString())
+            user.setICE2(user_ICE2.text.toString())
+            user.setICE3(user_ICE3.text.toString())
+        }
+
+        if(!profile_illnesses.text.isEmpty())
+            user.setIllnesses(user_ill.text.toString())
+        if(!profile_medicines.text.isEmpty())
+            user.setMedicines(user_medicines.text.toString())*/
     }
 }
