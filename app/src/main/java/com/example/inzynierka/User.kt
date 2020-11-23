@@ -2,7 +2,6 @@ package com.example.inzynierka
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.os.Bundle
 
 //shared preferences
 class User {//context przez user
@@ -14,8 +13,8 @@ class User {//context przez user
     private val KEY_ICE_3 = "ICE3"
     private val KEY_MEDICINES = "medicines"
     private val KEY_ILLNESSES = "diseases"
-    private val KEY_BLOOD_NAME = "medicines"
-    private val KEY_BLOOD_RH = "diseases"
+    private val KEY_BLOOD_NAME = "bloodName"
+    private val KEY_BLOOD_RH = "bloodRH"
 
     private var sharedPref: SharedPreferences
     //private var context: Context
@@ -24,15 +23,15 @@ class User {//context przez user
         sharedPref =  context.getSharedPreferences(PREFERENCES_KEY, Context.MODE_PRIVATE)
     }
 
-    fun setBloodType(blood:String, rh:String){
+    fun setBloodType(name:String, rh:String){
         val editor: SharedPreferences.Editor = sharedPref.edit()
-        editor.putString(KEY_BLOOD_NAME, blood)
+        editor.putString(KEY_BLOOD_NAME, name)
         editor.putString(KEY_BLOOD_RH, rh)
         editor.apply()
     }
 
     fun getBloodType(): String {
-        val str: String = (sharedPref.getString(KEY_BLOOD_NAME, "-") + " " + sharedPref.getString(KEY_BLOOD_RH, "-"))
+        val str = sharedPref.getString(KEY_BLOOD_NAME, "-") + " " + sharedPref.getString(KEY_BLOOD_RH, "-")
 
         return str
     }

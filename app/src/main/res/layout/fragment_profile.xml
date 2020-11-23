@@ -20,7 +20,7 @@
         app:layout_constraintVertical_bias="0.0">
 
         <TextView
-            android:id="@+id/profile_UserName"
+            android:id="@+id/profile_user_name"
             android:layout_width="222dp"
             android:layout_height="68dp"
             android:layout_weight="1"
@@ -29,6 +29,24 @@
             android:textColor="#FFFFFF"
             android:textSize="24sp"
             android:textStyle="bold"
+            app:fontFamily="serif"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.301" />
+        <EditText
+            android:id="@+id/profile_user_name_edit"
+            android:layout_width="222dp"
+            android:layout_height="68dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Imię i Nazwisko"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:visibility="gone"
             app:fontFamily="serif"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -77,6 +95,21 @@
                 android:textColor="#F30505"
                 android:textSize="20sp"
                 android:textStyle="bold"/>
+            <Spinner
+                android:id="@+id/profile_blood_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:visibility="gone"
+                android:entries="@array/bloodName"/>
+
+            <Spinner
+                android:id="@+id/profile_blood_Rh"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:visibility="gone"
+                android:entries="@array/bloodRh"/>
         </LinearLayout>
 
     </LinearLayout>
@@ -99,7 +132,7 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="ICE1:"
                 android:textSize="17dp"
@@ -108,12 +141,25 @@
             <TextView
                 android:id="@+id/profile_ice1"
                 android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="@color/red"
+                android:layout_gravity="center_vertical"
+                android:focusable="true"
+                android:clickable="true"
+                android:gravity="center"
+                android:paddingLeft="20dp"
+                android:textSize="17sp" />
+            <EditText
+                android:id="@+id/profile_ice1_edit"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/red"
                 android:layout_gravity="center_vertical"
+                android:focusable="true"
+                android:clickable="true"
+                android:visibility="gone"
                 android:paddingLeft="20dp"
-                android:text="numer ICE"
-                android:textSize="17dp" />
+                android:textSize="17sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -134,9 +180,21 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:textColor="@color/red"
+                android:focusable="true"
+                android:clickable="true"
                 android:paddingLeft="20dp"
-                android:text="numer ICE"
-                android:textSize="17dp" />
+                android:textSize="17sp" />
+            <EditText
+                android:id="@+id/profile_ice2_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/red"
+                android:layout_gravity="center_vertical"
+                android:focusable="true"
+                android:clickable="true"
+                android:visibility="gone"
+                android:paddingLeft="20dp"
+                android:textSize="17sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -157,9 +215,21 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:textColor="@color/red"
+                android:focusable="true"
+                android:clickable="true"
                 android:paddingLeft="20dp"
-                android:text="numer ICE"
-                android:textSize="17dp" />
+                android:textSize="17sp" />
+            <EditText
+                android:id="@+id/profile_ice3_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/red"
+                android:layout_gravity="center_vertical"
+                android:focusable="true"
+                android:clickable="true"
+                android:visibility="gone"
+                android:paddingLeft="20dp"
+                android:textSize="17sp" />
         </LinearLayout>
     </LinearLayout>
 
@@ -197,7 +267,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="left"
-                android:text="choroby"
+                android:text="@string/medicines"
+                android:textSize="17sp" />
+            <EditText
+                android:id="@+id/profile_medicines_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:visibility="gone"
+                android:text="@string/medicines"
                 android:textSize="17sp" />
         </LinearLayout>
 
@@ -237,14 +315,21 @@
                 android:id="@+id/profile_illnesses"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="choroby"
+                android:text="@string/ill"
+                android:textSize="17sp" />
+            <EditText
+                android:id="@+id/profile_illnesses_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ill"
+                android:visibility="gone"
                 android:textSize="17sp" />
         </LinearLayout>
 
     </LinearLayout>
 
     <Button
-        android:id="@+id/button_profile_editData"
+        android:id="@+id/profile_button"
         android:layout_width="196dp"
         android:layout_height="45dp"
         android:layout_marginTop="30dp"

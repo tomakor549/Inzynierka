@@ -1,30 +1,28 @@
 package com.example.inzynierka.ui.profile
 
-import android.app.Application
 import android.content.Context
 import androidx.lifecycle.*
 import com.example.inzynierka.User
 import javax.inject.Inject
 
-class ProfileViewModel @Inject constructor(con: Context) : ViewModel() {
+class ProfileViewModel @Inject constructor(context: Context) : ViewModel() {
 
-    private var user = User(con)
-    var name = user.getName()
+    private var user = User(context)
 
     class Factory constructor(
         private val con: Context
     ) : ViewModelProvider.Factory {
-
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             return ProfileViewModel(con) as T
         }
     }
 
+    val buttonEditText = "edytuj dane"
+    val buttonViewText = "zapisz"
 
     //imie i nazwisko
     private val _userName = MutableLiveData<String>().apply {
-        //value = name
-        value = name
+        value = user.getName()
     }
     val userName: LiveData<String> = _userName
 

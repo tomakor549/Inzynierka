@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        Log.d("m_act", "konec onCreate w MainActivity")
+        Log.d("m_act", "koniec onCreate w MainActivity")
     }
 
     override fun onSupportNavigateUp(): Boolean {
