@@ -5,6 +5,7 @@ import androidx.lifecycle.*
 import com.example.inzynierka.User
 import javax.inject.Inject
 
+@Suppress("UNCHECKED_CAST")
 class ProfileViewModel @Inject constructor(context: Context) : ViewModel() {
 
     private var user = User(context)

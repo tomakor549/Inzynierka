@@ -6,6 +6,7 @@ import android.content.Intent
 import android.opengl.Visibility
 import android.os.Bundle
 import android.provider.ContactsContract
+import android.text.InputType
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -37,7 +38,6 @@ class StartActivity : AppCompatActivity() {
         }
 
         setContentView(R.layout.activity_start)
-
         hideKeyboardEmptyField()
         onClickListeners()
         setButton()

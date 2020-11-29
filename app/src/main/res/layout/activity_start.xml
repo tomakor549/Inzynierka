@@ -85,7 +85,6 @@
                 android:layout_height="wrap_content"
                 android:drawableRight="@drawable/ic_contact"
                 android:ems="10"
-                android:editable="false"
                 android:textSize="17sp" />
         </LinearLayout>
         <LinearLayout
