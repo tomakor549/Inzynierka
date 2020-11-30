@@ -20,33 +20,16 @@ class ShareDataViewModel @Inject constructor(requireContext: Context) : ViewMode
     private var WRAP_CONTENT = ViewGroup.LayoutParams.WRAP_CONTENT
 
     //funkcja ma przyjmować jako argument tytuł nagłówka i wypełniony szablon nagłówka
-    fun addShareData(name: String, dayEnd: String){
+    fun addShareData(name: String, dayEnd: String):TableRow{
 
-        var userName = TextView(context, null, 0, R.style.MyStyles_TableUserNameTextView)
+        val userName = TextView(context, null, 0, R.style.MyStyles_TableUserNameTextView)
+        userName.text = name
 
-        TextViewCompat.setTextAppearance(userName)
-        userName.setTypeface(this)
-        // ustawianie textview
-        (userName.layoutParams as ConstraintLayout.LayoutParams).apply {
-            // individually set text view any side margin
-            setMargins(0, 0, 2, 2)
-
-        }
-
-        userName.layoutParams = layoutParams(0, WRAP_CONTENT)
-        userName.gravity = Gravity.CENTER
-        userName.setBackgroundColor(Color.WHITE)
-
-        var time = TextView(context)
+        val time = TextView(context, null, 0, R.style.MyStyles_TableUserTimeTextView)
+        time.text=dayEnd
         //główny (zwracany) layaut zawierający wszystskie elementy
         val table = TableRow(context)
-        var color: Color
-        var f: Float = 2F
-
-
-        time.layoutParams = layoutParams(0, WRAP_CONTENT)
-
-            return table
+        return table
     }
 
     private fun layoutParams(weight: Int, height: Int): ViewGroup.LayoutParams {

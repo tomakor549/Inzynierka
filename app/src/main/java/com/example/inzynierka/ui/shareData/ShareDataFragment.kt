@@ -28,16 +28,16 @@ class ShareDataFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_share_data, container, false)
 
 
-
+        var rowTable = shareDataViewModel.addShareData("Ola Korniluk", "10.12.2020")
         var weight = ViewGroup.LayoutParams.WRAP_CONTENT
         var height = ViewGroup.LayoutParams.WRAP_CONTENT
         var layoutParams = ViewGroup.LayoutParams(weight, height)
 
         val table = root.share_data_table
-        val textView = TextView(requireContext())
+        /*val textView = TextView(requireContext())
         textView.text = "habdjkan ak f lkdsflkds"
-        textView.layoutParams = layoutParams
-        table.addView(textView)
+        textView.layoutParams = layoutParams*/
+        table.addView(rowTable)
 
         return root
     }
