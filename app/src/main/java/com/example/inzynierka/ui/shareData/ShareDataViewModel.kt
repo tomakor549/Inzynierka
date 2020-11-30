@@ -24,7 +24,6 @@ class ShareDataViewModel @Inject constructor(requireContext: Context) : ViewMode
 
         var userName = TextView(context, null, 0, R.style.MyStyles_TableUserNameTextView)
 
-        userName.styl
         TextViewCompat.setTextAppearance(userName)
         userName.setTypeface(this)
         // ustawianie textview
