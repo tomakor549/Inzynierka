@@ -9,11 +9,21 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.TextViewCompat
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.example.inzynierka.R
+import com.example.inzynierka.ui.profile.ProfileViewModel
 import javax.inject.Inject
 
 
 class ShareDataViewModel @Inject constructor(requireContext: Context) : ViewModel() {
+
+    class Factory constructor(
+        private val con: Context
+    ) : ViewModelProvider.Factory {
+        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            return ProfileViewModel(con) as T
+        }
+    }
 
     private var context: Context = requireContext
     private var MATCH_PARENT = ViewGroup.LayoutParams.MATCH_PARENT
@@ -29,6 +39,8 @@ class ShareDataViewModel @Inject constructor(requireContext: Context) : ViewMode
         time.text=dayEnd
         //główny (zwracany) layaut zawierający wszystskie elementy
         val table = TableRow(context)
+        table.addView(userName)
+        table.addView(time)
         return table
     }
 
