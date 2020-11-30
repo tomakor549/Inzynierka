@@ -16,4 +16,6 @@ class TripPlansViewModel @Inject constructor(context: Context): ViewModel() {
             return ProfileViewModel(con) as T
         }
     }
+
+
 }

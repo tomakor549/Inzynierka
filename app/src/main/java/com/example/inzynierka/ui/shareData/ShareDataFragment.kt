@@ -27,15 +27,17 @@ class ShareDataFragment : Fragment() {
         shareDataViewModel = ViewModelProvider(this, factory).get(ShareDataViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_share_data, container, false)
 
+
+
         var weight = ViewGroup.LayoutParams.WRAP_CONTENT
         var height = ViewGroup.LayoutParams.WRAP_CONTENT
         var layoutParams = ViewGroup.LayoutParams(weight, height)
 
-        val linearLayout = root.share_data_main_linearLayout
+        val table = root.share_data_table
         val textView = TextView(requireContext())
         textView.text = "habdjkan ak f lkdsflkds"
         textView.layoutParams = layoutParams
-        root.share_data_main_linearLayout.addView(textView)
+        table.addView(textView)
 
         return root
     }

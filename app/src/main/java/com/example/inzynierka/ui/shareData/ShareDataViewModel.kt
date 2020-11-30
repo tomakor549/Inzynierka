@@ -1,14 +1,17 @@
 package com.example.inzynierka.ui.shareData
 
 import android.content.Context
+import android.graphics.Color
+import android.view.Gravity
 import android.view.ViewGroup
-import android.widget.ImageButton
-import android.widget.LinearLayout
-import android.widget.RelativeLayout
+import android.widget.TableRow
 import android.widget.TextView
-import androidx.lifecycle.*
-import com.example.inzynierka.ui.profile.ProfileViewModel
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.widget.TextViewCompat
+import androidx.lifecycle.ViewModel
+import com.example.inzynierka.R
 import javax.inject.Inject
+
 
 class ShareDataViewModel @Inject constructor(requireContext: Context) : ViewModel() {
 
@@ -16,30 +19,35 @@ class ShareDataViewModel @Inject constructor(requireContext: Context) : ViewMode
     private var MATCH_PARENT = ViewGroup.LayoutParams.MATCH_PARENT
     private var WRAP_CONTENT = ViewGroup.LayoutParams.WRAP_CONTENT
 
-    @Suppress("UNCHECKED_CAST")
-    class Factory constructor(
-        private val con: Context
-    ) : ViewModelProvider.Factory {
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return ProfileViewModel(con) as T
-        }
-    }
-
     //funkcja ma przyjmować jako argument tytuł nagłówka i wypełniony szablon nagłówka
-    fun expandList(){
-        var deleteImageButton = ImageButton(context)
-        var editImageButton = ImageButton(context)
-        var expandImageButton = ImageButton(context)
-        var textHeaderView = TextView(context)
+    fun addShareData(name: String, dayEnd: String){
 
+        var userName = TextView(context, null, 0, R.style.MyStyles_TableUserNameTextView)
+
+        userName.styl
+        TextViewCompat.setTextAppearance(userName)
+        userName.setTypeface(this)
+        // ustawianie textview
+        (userName.layoutParams as ConstraintLayout.LayoutParams).apply {
+            // individually set text view any side margin
+            setMargins(0, 0, 2, 2)
+
+        }
+
+        userName.layoutParams = layoutParams(0, WRAP_CONTENT)
+        userName.gravity = Gravity.CENTER
+        userName.setBackgroundColor(Color.WHITE)
+
+        var time = TextView(context)
         //główny (zwracany) layaut zawierający wszystskie elementy
-        var mainLayout = LinearLayout(context)
-        //layout z danymi
-        var headerRelativeLayout = RelativeLayout(context)
-        //rozwijany layout
-        var dataLinearLayout = LinearLayout(context)
+        val table = TableRow(context)
+        var color: Color
+        var f: Float = 2F
 
 
+        time.layoutParams = layoutParams(0, WRAP_CONTENT)
+
+            return table
     }
 
     private fun layoutParams(weight: Int, height: Int): ViewGroup.LayoutParams {

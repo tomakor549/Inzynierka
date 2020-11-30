@@ -1,26 +1,32 @@
 package com.example.inzynierka.ui.article
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.LinearLayout
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.ScrollView
-import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import com.example.inzynierka.R
-import kotlinx.android.synthetic.main.activity_article.*
-import androidx.core.view.marginTop as marginTop1
+
 
 class ArticleActivity : AppCompatActivity() {
     lateinit var scrollview: ScrollView
+    private lateinit var toolbar: Toolbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_article)
-        var txt = TextView(this)
-        txt.text = "Przykład"
-        txt.textSize = 20f
 
+        // Dodawanie toolbara
+        toolbar = findViewById<Toolbar>(R.id.toolbar)
+        // ustawienie toolbara jako actionBar
+        setSupportActionBar(toolbar)
 
-        scrollview = article_activity_scrollView
+    }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.toolbar_menu, menu)
+        return true
     }
 }
