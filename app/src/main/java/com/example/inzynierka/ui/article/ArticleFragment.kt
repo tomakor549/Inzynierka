@@ -26,6 +26,7 @@ class ArticleFragment : Fragment() {
 
         root.article_city.setOnClickListener{
             val intent = Intent(activity, ArticleActivity::class.java)
+            intent.putExtra("title", article_name_city.text)
             startActivity(intent)
         }
         //val textView: TextView = root.findViewById(R.id.txt_article)

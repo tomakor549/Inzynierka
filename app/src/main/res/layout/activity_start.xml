@@ -85,6 +85,7 @@
                 android:layout_height="wrap_content"
                 android:drawableRight="@drawable/ic_contact"
                 android:ems="10"
+                android:inputType="none"
                 android:textSize="17sp" />
         </LinearLayout>
         <LinearLayout

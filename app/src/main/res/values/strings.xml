@@ -12,4 +12,9 @@
     <string name="ill">Choroby:</string>
     <string name="medicines">Zażywane leki:</string>
     <string name="bloodtype">Typ Krwi</string>
+
+    <string name="article_city">Miasto</string>
+    <string name="article_name_option_city">Miasto</string>
+    <string name="article_name_option_mountain">Góry</string>
+    <string name="article_name_option_sea">Morze</string>
 </resources>
