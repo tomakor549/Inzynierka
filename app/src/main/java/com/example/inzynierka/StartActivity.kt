@@ -46,7 +46,7 @@ class StartActivity : AppCompatActivity() {
     @SuppressLint("ClickableViewAccessibility")
     private fun hideKeyboardEmptyField() {
         //ukrywanie klawiatury po kliknieciu na puste pole
-        findViewById<View>(R.id.start_main_layout).setOnTouchListener { v, event ->
+        findViewById<View>(R.id.start_main_layout).setOnTouchListener { _, _ ->
             val imm: InputMethodManager =
                 getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)

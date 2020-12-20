@@ -17,6 +17,7 @@ import javax.inject.Inject
 
 class ShareDataViewModel @Inject constructor(requireContext: Context) : ViewModel() {
 
+    @Suppress("UNCHECKED_CAST")
     class Factory constructor(
         private val con: Context
     ) : ViewModelProvider.Factory {

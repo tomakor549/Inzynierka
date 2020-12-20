@@ -20,6 +20,7 @@
             android:text="Udostępnienia:"
             android:textSize="35dp"
             android:textStyle="bold" />
+
     </LinearLayout>
 
     <ScrollView
@@ -48,25 +49,8 @@
                         style="@style/MyStyles.TableUserNameTextView"
                         android:text="Imię i nazwisko" />
 
-                    <TextView
-                        style="@style/MyStyles.TableUserTimeTextView"
-                        android:text="Termin " />
                 </TableRow>
             </TableLayout>
         </LinearLayout>
     </ScrollView>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:ignore="MissingConstraints">
-
-        <Button
-            android:id="@+id/trip_plans_button_add_plan"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Dodaj Plan"/>
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

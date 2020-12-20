@@ -111,6 +111,67 @@
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/article_city"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="12dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="6dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="158dp"
+                        android:background="@drawable/city"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:id="@+id/article_name_forest"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:foregroundGravity="bottom"
+                            android:text="Las"
+
+                            android:textColor="#FFFFFF"
+                            android:textSize="35sp" />
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/article_city"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="12dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="6dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="158dp"
+                        android:background="@drawable/city"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:id="@+id/article_name_road"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:foregroundGravity="bottom"
+                            android:text="Droga"
+
+                            android:textColor="#FFFFFF"
+                            android:textSize="35sp" />
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
             </GridLayout>
 
         </LinearLayout>

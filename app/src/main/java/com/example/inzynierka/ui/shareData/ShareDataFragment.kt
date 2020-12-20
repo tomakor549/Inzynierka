@@ -45,7 +45,7 @@ class ShareDataFragment : Fragment() {
         return root
     }
 
-    fun addShareData(name: String, dayEnd: String): TableRow {
+    private fun addShareData(name: String, dayEnd: String): TableRow {
 
         val userName = TextView(context, null, 0, R.style.MyStyles_TableUserNameTextView)
         userName.text = name

@@ -1,19 +1,18 @@
 package com.example.inzynierka.ui.article
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
-import android.view.View
-import android.widget.ScrollView
+import android.widget.AdapterView.OnItemClickListener
+import android.widget.ArrayAdapter
+import android.widget.ListView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import com.example.inzynierka.MainActivity
 import com.example.inzynierka.R
-import com.example.inzynierka.ui.profile.ProfileFragment
+import kotlinx.android.synthetic.main.activity_article.*
 
 
 class ArticleActivity : AppCompatActivity() {
-    lateinit var scrollview: ScrollView
     private lateinit var toolbar: Toolbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,7 +20,7 @@ class ArticleActivity : AppCompatActivity() {
         setContentView(R.layout.activity_article)
 
         // Dodawanie toolbara
-        toolbar = findViewById<Toolbar>(R.id.toolbar)
+        toolbar = toolbar_article as Toolbar
         toolbar.title = intent.getStringExtra("title")
         setSupportActionBar(toolbar)
         //supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -31,7 +30,21 @@ class ArticleActivity : AppCompatActivity() {
             onBackPressed()
         }
 
+        //lista
+        val arrayAdapter: ArrayAdapter<*>
+        val listData = ArrayList<String>()
+        listData.add("eee tam")
+        listData.add("inne ee tam")
 
+        // dostęp do listy w xml
+        val listView = findViewById<ListView>(R.id.listView_article)
+        arrayAdapter = ArrayAdapter(this,
+            android.R.layout.simple_list_item_1, listData)
+        listView.adapter = arrayAdapter
+
+        listView.setOnItemClickListener { _, _, i, _ ->
+            Toast.makeText(this, "Twój wybór to: " + listData[i], Toast.LENGTH_LONG).show()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
