@@ -7,6 +7,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.inzynierka.R
 import java.io.File
+import java.io.InputStream
 
 @Database(entities = [Article::class], version = 1, exportSchema = true)
 abstract class ArticleDatabase: RoomDatabase() {
@@ -15,11 +16,11 @@ abstract class ArticleDatabase: RoomDatabase() {
     companion object{
 
         fun getInstance(context: Context): ArticleDao {
+            var inputStream: InputStream = context.resources.openRawResource(R.raw.article)
             return Room.databaseBuilder(context,
                 ArticleDatabase::class.java,
                 "article_table")
                 .fallbackToDestructiveMigration()
-                .createFromFile(File("C:\\Users\\Admin\\StudioProjects\\Inzynierka\\app\\src\\main\\res\\raw\\article.db"))
                 .build()
                 .articleDao()
         }

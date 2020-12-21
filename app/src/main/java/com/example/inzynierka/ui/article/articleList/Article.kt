@@ -3,11 +3,22 @@ package com.example.inzynierka.ui.article.articleList
 import java.io.FileDescriptor
 
 
-class Article {
+class Article(string: String) {
     private lateinit var title: String
     private lateinit var phoneNumber: String
     private lateinit var website: String
     private lateinit var description: String
+
+    init {
+        val delim = "\n"
+        val dataList = string.split(delim)
+        if(dataList.size>=4){
+            title = dataList[0]
+            phoneNumber = dataList[1]
+            website = dataList[2]
+            description = dataList[3]
+        }
+    }
 
     fun setTitle(title: String){
         this.title = title

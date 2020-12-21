@@ -1,5 +1,6 @@
 package com.example.inzynierka.ui.article.articleList
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -10,14 +11,15 @@ import androidx.annotation.RawRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.example.inzynierka.R
+import com.example.inzynierka.ui.article.articleList.article.ArticleActivity
 import com.example.inzynierka.ui.article.articleList.room.ArticleDao
 import com.example.inzynierka.ui.article.articleList.room.ArticleDatabase
-import kotlinx.android.synthetic.main.activity_article.*
+import kotlinx.android.synthetic.main.activity_articles.*
 import java.io.*
 import java.util.logging.Level.INFO
 
 
-class ArticleActivity : AppCompatActivity() {
+class ArticlesActivity : AppCompatActivity() {
 
     companion object {
         private const val TAG = "ArticleActivity"
@@ -30,7 +32,7 @@ class ArticleActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_article)
+        setContentView(R.layout.activity_articles)
 
         /*viewModel = ViewModelProvider
             .AndroidViewModelFactory
@@ -39,20 +41,36 @@ class ArticleActivity : AppCompatActivity() {
 
         addToolbar()
 
-        readFromFile(R.raw.miasto)
-
-        //lista
+        //adapter listy
         val arrayAdapter: ArrayAdapter<*>
-        // dostęp do listy w xml
-        val listData = ArrayList<String>()
-        listData.add("bbbbb")
-        val listView = findViewById<ListView>(R.id.listView_article)
+        //wczytanie listy artykułów
+        val listData = loadList(R.raw.miasto)
+        //lista tytułów artykułów
+        val titleList = ArrayList<String>()
+        //wczytanie danych do listy tytułów
+        for(element in listData){
+            titleList.add(element.getTitle())
+        }
+
+        //uzupełnienie listy w xml o tytuły
+        val listView: ListView = listView_article
         arrayAdapter = ArrayAdapter(this,
-            android.R.layout.simple_list_item_1, listData!!)
+            android.R.layout.simple_list_item_1, titleList)
         listView.adapter = arrayAdapter
 
+        //wybór tytułu
         listView.setOnItemClickListener { _, _, i, _ ->
-            Toast.makeText(this, "Twój wybór to: " + listData[i], Toast.LENGTH_LONG).show()
+            val intent = Intent(this, ArticleActivity::class.java)
+            val article = findArticle(titleList[i], listData)
+            if (article != null) {
+                intent.putExtra("title", article.getTitle())
+                intent.putExtra("website", article.getWebsite())
+                intent.putExtra("phoneNumber", article.getPhoneNumber())
+                intent.putExtra("description", article.getDescription())
+                startActivity(intent)
+            }else{
+                Toast.makeText(this, "Brak informacji o artykule", Toast.LENGTH_LONG).show()
+            }
         }
     }
 
@@ -62,9 +80,18 @@ class ArticleActivity : AppCompatActivity() {
         return true
     }
 
+    private fun findArticle(title: String, articles:List<Article>): Article?{
+        for(article in articles){
+            if(article.getTitle()==title){
+                return article
+            }
+        }
+        return null
+    }
+
     private fun addToolbar(){
         // Dodawanie toolbara
-        toolbar = toolbar_article as Toolbar
+        toolbar = toolbar_articles as Toolbar
         toolbar.title = intent.getStringExtra("title")
         setSupportActionBar(toolbar)
         //supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -75,7 +102,19 @@ class ArticleActivity : AppCompatActivity() {
         }
     }
 
-    private fun readFromFile(@RawRes section: Int){
+    private fun loadList(@RawRes section: Int): List<Article>{
+        val string = readFromFile(section)
+        val delim = "***\n"
+
+        val dataList = string.split(delim)
+        val articles = ArrayList<Article>()
+        for(element in dataList){
+            articles.add(Article(element))
+        }
+        return articles
+    }
+
+    private fun readFromFile(@RawRes section: Int): String{
 
         var string: String? = ""
         val stringBuilder = StringBuilder()
@@ -92,6 +131,6 @@ class ArticleActivity : AppCompatActivity() {
         }
         inputStream.close()
 
-        var a = stringBuilder.toString()
+        return stringBuilder.toString()
     }
 }
