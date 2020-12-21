@@ -19,6 +19,12 @@
         android:orientation="vertical"
         android:gravity="center">
 
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Button" />
+
         <ListView
             android:id="@+id/listView_article"
             android:layout_width="match_parent"
@@ -26,7 +32,9 @@
             android:background="#82B4DC"
             tools:layout_editor_absoluteX="1dp"
             tools:layout_editor_absoluteY="84dp"
-            tools:ignore="NestedScrolling" />
+            tools:ignore="NestedScrolling" >
+
+        </ListView>
 
     </RelativeLayout>
 

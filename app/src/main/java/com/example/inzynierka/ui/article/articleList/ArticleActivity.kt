@@ -1,39 +1,68 @@
 package com.example.inzynierka.ui.article.articleList
 
-import android.content.Context
-import android.database.Cursor
-import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import android.widget.Toast
+import androidx.annotation.RawRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.lifecycle.ViewModelProvider
 import com.example.inzynierka.R
+import com.example.inzynierka.ui.article.articleList.room.ArticleDao
+import com.example.inzynierka.ui.article.articleList.room.ArticleDatabase
 import kotlinx.android.synthetic.main.activity_article.*
+import java.io.*
+import java.util.logging.Level.INFO
 
 
 class ArticleActivity : AppCompatActivity() {
+
+    companion object {
+        private const val TAG = "ArticleActivity"
+    }
+
     private lateinit var toolbar: Toolbar
-    private lateinit var viewModel: ArticleActivityViewModel
-    private lateinit var db: SQLiteDatabase
+    //private lateinit var viewModel: ArticleActivityViewModel
+    private val dao: ArticleDao
+        get() = ArticleDatabase.getInstance(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_article)
 
-        val db =
-            openOrCreateDatabase("C:\\Users\\Admin\\StudioProjects\\Inzynierka\\app\\src\\main\\res\\raw\\article", Context.MODE_PRIVATE, null)
-
-        viewModel = ViewModelProvider
+        /*viewModel = ViewModelProvider
             .AndroidViewModelFactory
             .getInstance(application)
-            .create(ArticleActivityViewModel::class.java)
+            .create(ArticleActivityViewModel::class.java)*/
 
-        //textView.text = dane.value[0].title
+        addToolbar()
 
+        readFromFile(R.raw.miasto)
+
+        //lista
+        val arrayAdapter: ArrayAdapter<*>
+        // dostęp do listy w xml
+        val listData = ArrayList<String>()
+        listData.add("bbbbb")
+        val listView = findViewById<ListView>(R.id.listView_article)
+        arrayAdapter = ArrayAdapter(this,
+            android.R.layout.simple_list_item_1, listData!!)
+        listView.adapter = arrayAdapter
+
+        listView.setOnItemClickListener { _, _, i, _ ->
+            Toast.makeText(this, "Twój wybór to: " + listData[i], Toast.LENGTH_LONG).show()
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.toolbar_menu, menu)
+        return true
+    }
+
+    private fun addToolbar(){
         // Dodawanie toolbara
         toolbar = toolbar_article as Toolbar
         toolbar.title = intent.getStringExtra("title")
@@ -44,46 +73,25 @@ class ArticleActivity : AppCompatActivity() {
         toolbar.setNavigationOnClickListener {
             onBackPressed()
         }
-
-        //lista
-        val arrayAdapter: ArrayAdapter<*>
-        val listData = getNameList()
-        if(listData!=null) {
-            // dostęp do listy w xml
-            val listView = findViewById<ListView>(R.id.listView_article)
-            arrayAdapter = ArrayAdapter(this,
-                android.R.layout.simple_list_item_1, listData!!)
-            listView.adapter = arrayAdapter
-
-            listView.setOnItemClickListener { _, _, i, _ ->
-                Toast.makeText(this, "Twój wybór to: " + listData[i], Toast.LENGTH_LONG).show()
-            }
-        }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.toolbar_menu, menu)
-        return true
-    }
+    private fun readFromFile(@RawRes section: Int){
 
-    fun getNameList(): ArrayList<String>? {
+        var string: String? = ""
+        val stringBuilder = StringBuilder()
 
-        var list = ArrayList<String>()
-
-        try {
-            var c: Cursor? = null
-            c = db.rawQuery("select * from 'sea'", null)
-            if(c.count==0)
-                return null
-
-            while(c.moveToNext()){
-                list.add(c.getString(0)+"\n")
+        var inputStream: InputStream = resources.openRawResource(section)
+        val buffreader: BufferedReader = BufferedReader(InputStreamReader(inputStream))
+        while (true) {
+            try {
+                if (buffreader.readLine().also { string = it } == null) break
+            } catch (e: IOException) {
+                e.printStackTrace()
             }
-            c.close()
-        } catch (e: Exception) {
-            e.printStackTrace()
+            stringBuilder.append(string).append("\n")
         }
-        return list
+        inputStream.close()
+
+        var a = stringBuilder.toString()
     }
 }

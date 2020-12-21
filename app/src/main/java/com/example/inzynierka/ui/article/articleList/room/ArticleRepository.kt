@@ -8,7 +8,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 
 class ArticleRepository(application: Application) {
-
+/*
     private var articleDao: ArticleDao
 
     init {
@@ -20,8 +20,10 @@ class ArticleRepository(application: Application) {
         articleDao = database!!.articleDao()
     }
 
-    fun getAllCityArticle(): Deferred<LiveData<List<Article>>> =
+    fun getAllArticle(): Deferred<LiveData<List<Article>>> =
         CoroutineScope(Dispatchers.IO).async {
-            articleDao.getAllCityArticle()
+            articleDao.getAllArticle()
         }
+
+ */
 }

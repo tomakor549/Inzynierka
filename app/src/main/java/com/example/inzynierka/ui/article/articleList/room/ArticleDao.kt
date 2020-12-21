@@ -6,12 +6,15 @@ import androidx.room.*
 @Dao
 interface ArticleDao {
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(article: Article)
+    @Update
+    suspend fun update(article: Article)
 
     @Query("DELETE FROM article_table")
     suspend fun deleteAll()
 
     @Query("SELECT * FROM article_table")
-    fun getAllCityArticle(): LiveData<List<Article>>
+    fun getAllArticle(): List<Article>
+
+    @Query("SELECT title FROM article_table")
+    fun getAllTitle(): List<String>
 }
