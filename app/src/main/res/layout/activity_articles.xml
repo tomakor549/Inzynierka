@@ -23,8 +23,6 @@
             android:id="@+id/listView_article"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#82B4DC"
-            tools:ignore="NestedScrolling"
             tools:layout_editor_absoluteX="1dp"
             tools:layout_editor_absoluteY="84dp">
 
