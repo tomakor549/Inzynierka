@@ -1,6 +1,4 @@
-package com.example.inzynierka.ui.article.articleList
-
-import java.io.FileDescriptor
+package com.example.inzynierka.ui.articles
 
 
 class Article(string: String) {

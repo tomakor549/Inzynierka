@@ -1,8 +1,7 @@
-package com.example.inzynierka.ui.article.articleList
+package com.example.inzynierka.ui.articles.articlesList
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.widget.ArrayAdapter
 import android.widget.ListView
@@ -11,12 +10,13 @@ import androidx.annotation.RawRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.example.inzynierka.R
-import com.example.inzynierka.ui.article.articleList.article.ArticleActivity
-import com.example.inzynierka.ui.article.articleList.room.ArticleDao
-import com.example.inzynierka.ui.article.articleList.room.ArticleDatabase
+import com.example.inzynierka.ui.articles.Article
+import com.example.inzynierka.ui.articles.articlesList.article.ArticleActivity
+import com.example.inzynierka.ui.articles.articlesList.room.ArticleDao
+import com.example.inzynierka.ui.articles.articlesList.room.ArticleDatabase
+import com.example.inzynierka.ui.articles.enum.ArticleNameEnum
 import kotlinx.android.synthetic.main.activity_articles.*
 import java.io.*
-import java.util.logging.Level.INFO
 
 
 class ArticlesActivity : AppCompatActivity() {
@@ -26,10 +26,13 @@ class ArticlesActivity : AppCompatActivity() {
     }
 
     private lateinit var toolbar: Toolbar
+    private lateinit var choice: String
+
     //private lateinit var viewModel: ArticleActivityViewModel
     private val dao: ArticleDao
         get() = ArticleDatabase.getInstance(this)
 
+    @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_articles)
@@ -39,16 +42,25 @@ class ArticlesActivity : AppCompatActivity() {
             .getInstance(application)
             .create(ArticleActivityViewModel::class.java)*/
 
+        choice = intent.getStringExtra("title")
+
         addToolbar()
 
         //adapter listy
         val arrayAdapter: ArrayAdapter<*>
         //wczytanie listy artykułów
+        @RawRes var section: Int
+        when(choice){
+            ArticleNameEnum.CITY.toString() ->
+                section = R.raw.miasto
+            ArticleNameEnum.SEA.toString() ->
+                section = R.raw.morze
+        }
         val listData = loadList(R.raw.miasto)
         //lista tytułów artykułów
         val titleList = ArrayList<String>()
         //wczytanie danych do listy tytułów
-        for(element in listData){
+        for(element in listData!!){
             titleList.add(element.getTitle())
         }
 
@@ -92,7 +104,7 @@ class ArticlesActivity : AppCompatActivity() {
     private fun addToolbar(){
         // Dodawanie toolbara
         toolbar = toolbar_articles as Toolbar
-        toolbar.title = intent.getStringExtra("title")
+        toolbar.title = choice
         setSupportActionBar(toolbar)
         //supportActionBar?.setDisplayHomeAsUpEnabled(true)
         //supportActionBar?.setDisplayShowHomeEnabled(true)

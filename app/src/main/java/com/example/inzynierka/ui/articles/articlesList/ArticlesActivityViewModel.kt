@@ -1,11 +1,7 @@
-package com.example.inzynierka.ui.article.articleList
+package com.example.inzynierka.ui.articles.articlesList
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import com.example.inzynierka.ui.article.articleList.room.Article
-import com.example.inzynierka.ui.article.articleList.room.ArticleRepository
-import kotlinx.coroutines.*
 
 class ArticlesActivityViewModel(application: Application): AndroidViewModel(application) {
 /*

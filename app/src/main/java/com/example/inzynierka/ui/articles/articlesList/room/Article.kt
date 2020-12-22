@@ -1,4 +1,4 @@
-package com.example.inzynierka.ui.article.articleList.room
+package com.example.inzynierka.ui.articles.articlesList.room
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

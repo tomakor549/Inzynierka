@@ -1,4 +1,4 @@
-package com.example.inzynierka.ui.article
+package com.example.inzynierka.ui.articles
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.inzynierka.R
-import com.example.inzynierka.ui.article.articleList.ArticlesActivity
-import kotlinx.android.synthetic.main.fragment_article.*
+import com.example.inzynierka.ui.articles.articlesList.ArticlesActivity
+import com.example.inzynierka.ui.articles.enum.ArticleNameEnum
 import kotlinx.android.synthetic.main.fragment_article.view.*
 
 class ArticleFragment : Fragment() {
@@ -24,10 +24,9 @@ class ArticleFragment : Fragment() {
         articleViewModel = ViewModelProvider(this).get(ArticleViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_article, container, false)
 
-
         root.article_city.setOnClickListener{
             val intent = Intent(activity, ArticlesActivity::class.java)
-            intent.putExtra("title", article_name_city.text)
+            intent.putExtra("title", ArticleNameEnum.CITY.toString())
             startActivity(intent)
         }
         //val textView: TextView = root.findViewById(R.id.txt_article)

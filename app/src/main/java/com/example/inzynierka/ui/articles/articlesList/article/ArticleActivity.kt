@@ -1,4 +1,4 @@
-package com.example.inzynierka.ui.article.articleList.article
+package com.example.inzynierka.ui.articles.articlesList.article
 
 import android.graphics.Paint
 import androidx.appcompat.app.AppCompatActivity
@@ -7,7 +7,6 @@ import android.view.Menu
 import androidx.appcompat.widget.Toolbar
 import com.example.inzynierka.R
 import kotlinx.android.synthetic.main.activity_article.*
-import kotlinx.android.synthetic.main.activity_articles.*
 
 class ArticleActivity : AppCompatActivity() {
     private lateinit var toolbar: Toolbar
@@ -15,8 +14,7 @@ class ArticleActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_article)
-
-        addToolbar()
+        val title: String
 
         val extras = intent.extras
         if (extras != null) {
@@ -27,6 +25,8 @@ class ArticleActivity : AppCompatActivity() {
 
             activity_article_phone.paintFlags = Paint.UNDERLINE_TEXT_FLAG
         }
+
+        addToolbar(activity_article_title.text.toString())
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -35,7 +35,7 @@ class ArticleActivity : AppCompatActivity() {
         return true
     }
 
-    private fun addToolbar(){
+    private fun addToolbar(name: String){
         // Dodawanie toolbara
         toolbar = toolbar_article as Toolbar
         toolbar.title = intent.getStringExtra("title")
