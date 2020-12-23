@@ -24,14 +24,33 @@ class ArticleFragment : Fragment() {
         articleViewModel = ViewModelProvider(this).get(ArticleViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_article, container, false)
 
-        root.article_city.setOnClickListener{
-            val intent = Intent(activity, ArticlesActivity::class.java)
-            intent.putExtra("title", ArticleNameEnum.CITY.toString())
-            startActivity(intent)
-        }
+        setOnClickSection(root)
         //val textView: TextView = root.findViewById(R.id.txt_article)
         //articleViewModel.text.observe(viewLifecycleOwner, Observer { textView.text = it })
         return root
+    }
+
+    private fun setOnClickSection(root:View){
+        val key = "title"
+
+        root.article_city.setOnClickListener{
+            val intent = Intent(activity, ArticlesActivity::class.java)
+            intent.putExtra(key, ArticleNameEnum.CITY.toString())
+            startActivity(intent)
+        }
+
+        root.article_sea.setOnClickListener{
+            val intent = Intent(activity, ArticlesActivity::class.java)
+            intent.putExtra(key, ArticleNameEnum.SEA.toString())
+            startActivity(intent)
+        }
+
+
+        root.article_mountain.setOnClickListener{
+            val intent = Intent(activity, ArticlesActivity::class.java)
+            intent.putExtra(key, ArticleNameEnum.MOUNTAIN.toString())
+            startActivity(intent)
+        }
     }
 
 }

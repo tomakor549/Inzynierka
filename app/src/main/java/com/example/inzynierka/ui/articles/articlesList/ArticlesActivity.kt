@@ -12,8 +12,6 @@ import androidx.appcompat.widget.Toolbar
 import com.example.inzynierka.R
 import com.example.inzynierka.ui.articles.Article
 import com.example.inzynierka.ui.articles.articlesList.article.ArticleActivity
-import com.example.inzynierka.ui.articles.articlesList.room.ArticleDao
-import com.example.inzynierka.ui.articles.articlesList.room.ArticleDatabase
 import com.example.inzynierka.ui.articles.enum.ArticleNameEnum
 import kotlinx.android.synthetic.main.activity_articles.*
 import java.io.*
@@ -21,16 +19,10 @@ import java.io.*
 
 class ArticlesActivity : AppCompatActivity() {
 
-    companion object {
-        private const val TAG = "ArticleActivity"
-    }
-
     private lateinit var toolbar: Toolbar
     private lateinit var choice: String
 
     //private lateinit var viewModel: ArticleActivityViewModel
-    private val dao: ArticleDao
-        get() = ArticleDatabase.getInstance(this)
 
     @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,21 +38,28 @@ class ArticlesActivity : AppCompatActivity() {
 
         addToolbar()
 
-        //adapter listy
-        val arrayAdapter: ArrayAdapter<*>
-        //wczytanie listy artykułów
-        @RawRes var section: Int
         when(choice){
             ArticleNameEnum.CITY.toString() ->
-                section = R.raw.miasto
+                loadList(R.raw.miasto)
             ArticleNameEnum.SEA.toString() ->
-                section = R.raw.morze
+                loadList(R.raw.akweny)
+            else->{
+                Toast.makeText(applicationContext, "Nie znaleziono danych dla tego działu", Toast.LENGTH_SHORT).show()
+            }
         }
-        val listData = loadList(R.raw.miasto)
+
+    }
+
+    private fun loadList(@RawRes section: Int){
+
+        //adapter listy
+        val arrayAdapter: ArrayAdapter<*>
+
+        val listData = getList(section)
         //lista tytułów artykułów
         val titleList = ArrayList<String>()
         //wczytanie danych do listy tytułów
-        for(element in listData!!){
+        for(element in listData){
             titleList.add(element.getTitle())
         }
 
@@ -114,7 +113,7 @@ class ArticlesActivity : AppCompatActivity() {
         }
     }
 
-    private fun loadList(@RawRes section: Int): List<Article>{
+    private fun getList(@RawRes section: Int): List<Article>{
         val string = readFromFile(section)
         val delim = "***\n"
 
@@ -131,7 +130,7 @@ class ArticlesActivity : AppCompatActivity() {
         var string: String? = ""
         val stringBuilder = StringBuilder()
 
-        var inputStream: InputStream = resources.openRawResource(section)
+        val inputStream: InputStream = resources.openRawResource(section)
         val buffreader: BufferedReader = BufferedReader(InputStreamReader(inputStream))
         while (true) {
             try {

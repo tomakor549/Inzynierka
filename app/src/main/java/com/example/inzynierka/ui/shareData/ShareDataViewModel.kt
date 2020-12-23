@@ -22,7 +22,7 @@ class ShareDataViewModel @Inject constructor(requireContext: Context) : ViewMode
         private val con: Context
     ) : ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return ProfileViewModel(con) as T
+            return ShareDataViewModel(con) as T
         }
     }
 
