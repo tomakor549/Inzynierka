@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "trip")
 data class Trip(val name: String,
-                val idName: String,
+                val idName: Int,
                 val data: String,
                 val time: String,
                 val description: String) {

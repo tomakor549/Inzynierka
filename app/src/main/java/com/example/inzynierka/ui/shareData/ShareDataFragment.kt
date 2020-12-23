@@ -30,7 +30,7 @@ class ShareDataFragment : Fragment() {
         //shareDataViewModel = ViewModelProvider(this, factory).get(ShareDataViewModel::class.java)
 
 
-        var rowTable = addShareData("Ola Korniluk", "10.12.2020")
+        var rowTable = addShareData("Ola", "10.12.2020")
         //var weight = ViewGroup.LayoutParams.WRAP_CONTENT
         //var height = ViewGroup.LayoutParams.WRAP_CONTENT
         //var layoutParams = ViewGroup.LayoutParams(weight, height)

@@ -37,4 +37,9 @@ class TripRepository(application: Application) {
         CoroutineScope(Dispatchers.IO).async {
             tripDao.getAllTrip()
         }
+    fun getIdNameTrip(value:Int): Deferred<LiveData<List<Trip>>> =
+        CoroutineScope(Dispatchers.IO).async {
+            tripDao.getAllTrip()
+        }
+
 }

@@ -13,7 +13,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.articles.articlesList.article.ArticleActivity"></activity>
+        <activity android:name=".ui.tripPlans.adapters.selectTripPlan.TripPlanSelect"></activity>
+        <activity android:name=".ui.tripPlans.addPlan.TripPlanAddActivity" />
+        <activity android:name=".ui.articles.articlesList.article.ArticleActivity" />
         <activity android:name=".ui.articles.articlesList.ArticlesActivity" />
         <activity android:name=".StartActivity">
             <intent-filter>

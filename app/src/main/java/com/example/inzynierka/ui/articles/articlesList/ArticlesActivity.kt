@@ -40,9 +40,9 @@ class ArticlesActivity : AppCompatActivity() {
 
         when(choice){
             ArticleNameEnum.CITY.toString() ->
-                loadList(R.raw.miasto)
+                click(R.raw.miasto)
             ArticleNameEnum.SEA.toString() ->
-                loadList(R.raw.akweny)
+                click(R.raw.akweny)
             else->{
                 Toast.makeText(applicationContext, "Nie znaleziono danych dla tego działu", Toast.LENGTH_SHORT).show()
             }
@@ -50,7 +50,7 @@ class ArticlesActivity : AppCompatActivity() {
 
     }
 
-    private fun loadList(@RawRes section: Int){
+    private fun click(@RawRes section: Int){
 
         //adapter listy
         val arrayAdapter: ArrayAdapter<*>
@@ -105,8 +105,6 @@ class ArticlesActivity : AppCompatActivity() {
         toolbar = toolbar_articles as Toolbar
         toolbar.title = choice
         setSupportActionBar(toolbar)
-        //supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        //supportActionBar?.setDisplayShowHomeEnabled(true)
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back)
         toolbar.setNavigationOnClickListener {
             onBackPressed()
