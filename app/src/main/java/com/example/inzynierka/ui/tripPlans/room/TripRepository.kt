@@ -15,31 +15,41 @@ class TripRepository(application: Application) {
 
     fun insertTrip(trip: Trip) =
         CoroutineScope(Dispatchers.IO).launch {
-            tripDao.insert(trip)
+            tripDao.insertTrip(trip)
+        }
+
+    fun insertPlan(plan: Plan) =
+        CoroutineScope(Dispatchers.IO).launch {
+            tripDao.insertPlan(plan)
         }
 
     fun updateTrip(trip: Trip) =
         CoroutineScope(Dispatchers.IO).launch {
-            tripDao.update(trip)
+            tripDao.updateTrip(trip)
+        }
+
+    fun updatePlan(plan: Plan) =
+        CoroutineScope(Dispatchers.IO).launch {
+            tripDao.updatePlan(plan)
         }
 
     fun deleteTrip(trip: Trip) =
         CoroutineScope(Dispatchers.IO).launch {
-            tripDao.delete(trip)
+            tripDao.deleteTrip(trip)
         }
 
-    fun deleteTripsList(trips: List<Trip>) =
+    fun deleteTrip(plan: Plan) =
         CoroutineScope(Dispatchers.IO).launch {
-            tripDao.delete(trips)
+            tripDao.deletePlan(plan)
         }
 
     fun getAllTripAsync():Deferred<LiveData<List<Trip>>> =
         CoroutineScope(Dispatchers.IO).async {
             tripDao.getAllTrip()
         }
-    fun getIdNameTrip(value:Int): Deferred<LiveData<List<Trip>>> =
+    fun getTripWithPlansAsync(tripName: String): Deferred<LiveData<TripWithPlans>> =
         CoroutineScope(Dispatchers.IO).async {
-            tripDao.getAllTrip()
+            tripDao.getTripWithPlans(tripName)
         }
 
 }

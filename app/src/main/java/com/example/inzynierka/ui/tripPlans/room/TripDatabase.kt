@@ -5,11 +5,12 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [Trip::class], version = 1, exportSchema = true)
+@Database(entities = [Trip::class, Plan::class], version = 1, exportSchema = true)
 abstract class TripDatabase: RoomDatabase(){
     abstract fun tripDao(): TripDao
 
     companion object{
+        @Volatile
         private var instance: TripDatabase? = null
 
         fun getInstance(context: Context): TripDatabase?{
@@ -17,7 +18,7 @@ abstract class TripDatabase: RoomDatabase(){
                 instance = Room.databaseBuilder(
                     context,
                     TripDatabase::class.java,
-                    "trip")
+                    "trip_db")
                     .fallbackToDestructiveMigration()
                     .build()
             }

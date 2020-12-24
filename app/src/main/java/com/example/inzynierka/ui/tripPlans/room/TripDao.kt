@@ -6,21 +6,42 @@ import androidx.room.*
 @Dao
 interface TripDao {
 
+    //Insert
     @Insert
-    fun insert(trip:Trip)
+    fun insertTrip(trip:Trip)
+
+    @Insert
+    fun insertPlan(plan: Plan)
+
+    @Insert
+    fun insertPlans(plans: List<Plan>)
+
+    //Update
+    @Update
+    fun updateTrip(trip:Trip)
 
     @Update
-    fun update(trip:Trip)
+    fun updatePlan(plan: Plan)
+
+    @Update
+    fun updatePlans(plans: List<Plan>)
+
+    //Delete
+    @Delete
+    fun deleteTrip(trip:Trip)
 
     @Delete
-    fun delete(trip:Trip)
+    fun deletePlan(plan: Plan)
 
     @Delete
-    fun delete(trips: List<Trip>)
+    fun deletePlans(plans: List<Plan>)
 
+    //Function
+    @Transaction
     @Query("SELECT * FROM trip")
     fun getAllTrip(): LiveData<List<Trip>>
 
-    @Query("SELECT * FROM trip WHERE idName=:value")
-    fun getIdNameTrip(value:Int): LiveData<List<Trip>>
+    @Transaction
+    @Query("SELECT * FROM trip WHERE tripName = :tripName")
+    fun getTripWithPlans(tripName: String): LiveData<TripWithPlans>
 }
