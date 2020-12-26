@@ -42,6 +42,10 @@ interface TripDao {
     fun getAllTrip(): LiveData<List<Trip>>
 
     @Transaction
-    @Query("SELECT * FROM trip WHERE tripName = :tripName")
-    fun getTripWithPlans(tripName: String): LiveData<TripWithPlans>
+    @Query("SELECT tripId FROM trip")
+    fun getAllTripId(): List<Long>
+
+    @Transaction
+    @Query("SELECT * FROM trip WHERE tripId = :tripId")
+    fun getTripWithPlans(tripId: Int): LiveData<TripWithPlans>
 }

@@ -1,5 +1,6 @@
 package com.example.inzynierka.ui.tripPlans
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.inzynierka.R
 import com.example.inzynierka.ui.profile.ProfileViewModel
 import com.example.inzynierka.ui.tripPlans.adapters.DaoAdapter
+import com.example.inzynierka.ui.tripPlans.addTrip.AddTripActivity
 import com.example.inzynierka.ui.tripPlans.room.Trip
 import kotlinx.android.synthetic.main.fragment_trip_plans.*
 import kotlinx.android.synthetic.main.fragment_trip_plans.view.*
@@ -36,6 +38,7 @@ class TripPlansFragment : Fragment() {
             .AndroidViewModelFactory
             .getInstance(requireActivity().application)
             .create(TripPlansViewModel::class.java)
+
         clickFab(root)
 
         root.trip_plans_recyclerView.layoutManager = LinearLayoutManager(context)
@@ -53,10 +56,8 @@ class TripPlansFragment : Fragment() {
 
     private fun clickFab(root:View){
         root.trip_plans_add.setOnClickListener {
-            //val intent = Intent(activity, TripPlanAddActivity::class.java)
-            //startActivity(intent)
-
-            tripPlansViewModel.insertTrip(Trip("Skok w bok",0,"10-12-2020", "10:30","skok z krawężnika"))
+            val intent = Intent(activity, AddTripActivity::class.java)
+            startActivity(intent)
         }
     }
 }

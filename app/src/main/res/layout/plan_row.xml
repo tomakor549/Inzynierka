@@ -6,8 +6,6 @@
 
     <androidx.cardview.widget.CardView
         android:elevation="20dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <LinearLayout
@@ -16,16 +14,18 @@
             android:layout_margin="10dp"
             android:orientation="vertical">
             <TextView
-                android:id="@+id/trip_row_date"
+                android:id="@+id/plan_row_day"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="15sp"/>
-            <TextView
-                android:id="@+id/trip_row_title"
+                android:textColor="@color/textColor"
+                android:textSize="15sp"
+                android:textStyle="bold"/>
+            <EditText
+                android:id="@+id/plan_row_desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:textSize="25sp"/>
+                android:textSize="15sp"
+                android:autofillHints="opis" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>

@@ -2,6 +2,7 @@ package com.example.inzynierka
 
 import android.content.ClipData
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -63,10 +64,16 @@ class MainActivity : AppCompatActivity() {
         val id = item.itemId
 
         if(id==R.id.action_emergency){
-            Toast.makeText(this, "Wciśnięto przycisk na toolbarze. Hurra!", Toast.LENGTH_SHORT).show()
+            callEmergency()
             return true
         }
 
         return false
+    }
+
+    private fun callEmergency(){
+        val intent = Intent(Intent.ACTION_DIAL)
+        intent.data = Uri.parse("tel:" + "112")
+        startActivity(intent)
     }
 }

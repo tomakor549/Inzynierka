@@ -1,8 +1,10 @@
 package com.example.inzynierka.ui.articles.articlesList
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import android.widget.Toast
@@ -85,12 +87,6 @@ class ArticlesActivity : AppCompatActivity() {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.toolbar_menu, menu)
-        return true
-    }
-
     private fun findArticle(title: String, articles:List<Article>): Article?{
         for(article in articles){
             if(article.getTitle()==title){
@@ -142,4 +138,29 @@ class ArticlesActivity : AppCompatActivity() {
 
         return stringBuilder.toString()
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        // dodanie menu
+        menuInflater.inflate(R.menu.toolbar_menu, menu)
+
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+
+        if(id==R.id.action_emergency){
+            callEmergency()
+            return true
+        }
+
+        return false
+    }
+
+    private fun callEmergency(){
+        val intent = Intent(Intent.ACTION_DIAL)
+        intent.data = Uri.parse("tel:" + "112")
+        startActivity(intent)
+    }
+
 }

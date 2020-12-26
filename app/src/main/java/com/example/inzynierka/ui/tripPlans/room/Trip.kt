@@ -5,5 +5,6 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "trip")
-data class Trip(@PrimaryKey val tripName: String,
-                val data: String,)
+data class Trip(val tripName: String,
+                @PrimaryKey val tripId: Long = 0,
+                val startData: String)

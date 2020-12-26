@@ -52,9 +52,4 @@ class TripPlansViewModel constructor(application: Application): AndroidViewModel
         tripRepository.getAllTripAsync().await()
     }
 
-    fun getTripWithPlans(tripName: String): LiveData<TripWithPlans> = runBlocking {
-        tripRepository.getTripWithPlansAsync(tripName).await()
-    }
-
-
 }

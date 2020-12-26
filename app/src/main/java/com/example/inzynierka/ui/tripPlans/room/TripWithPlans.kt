@@ -6,8 +6,8 @@ import androidx.room.Relation
 data class TripWithPlans (
     @Embedded val trip: Trip,
     @Relation(
-        parentColumn = "tripName",
-        entityColumn = "tripName"
+        parentColumn = "tripId",
+        entityColumn = "tripId"
     )
     val plans: List<Plan>
 )

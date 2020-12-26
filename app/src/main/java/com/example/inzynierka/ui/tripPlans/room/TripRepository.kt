@@ -47,9 +47,15 @@ class TripRepository(application: Application) {
         CoroutineScope(Dispatchers.IO).async {
             tripDao.getAllTrip()
         }
-    fun getTripWithPlansAsync(tripName: String): Deferred<LiveData<TripWithPlans>> =
+
+    fun getAllTripIdAsync():Deferred<List<Long>> =
         CoroutineScope(Dispatchers.IO).async {
-            tripDao.getTripWithPlans(tripName)
+            tripDao.getAllTripId()
+        }
+
+    fun getTripWithPlansAsync(tripId: Int): Deferred<LiveData<TripWithPlans>> =
+        CoroutineScope(Dispatchers.IO).async {
+            tripDao.getTripWithPlans(tripId)
         }
 
 }
