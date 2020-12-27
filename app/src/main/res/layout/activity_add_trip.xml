@@ -16,15 +16,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_add_trip">
+
         <LinearLayout
             android:id="@+id/linearLayout10"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent">
 
             <LinearLayout
                 android:id="@+id/linearLayout5"
@@ -59,103 +62,119 @@
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout5">
 
 
-                <LinearLayout
+                <GridLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Data Rozpoczęcia: "
-                        android:textColor="@color/textColor"
-                        android:textSize="15sp"
-                        android:textStyle="bold" />
-
-                    <Button
-                        android:id="@+id/add_trip_date_start_button"
-                        style="@style/Button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:text="DD/MM/RRRR"
-                        android:textAlignment="viewStart"
-                        android:textAllCaps="false"
-                        android:textSize="15sp"
-                        android:textStyle="italic" />
+                    android:layout_gravity="center">
 
                     <LinearLayout
-                        android:id="@+id/add_trip_date_start_layout"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:visibility="gone">
+                        android:orientation="vertical">
 
-                        <DatePicker
-                            android:id="@+id/add_trip_date_start_picker"
+                        <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:calendarViewShown="false"
-                            android:datePickerMode="spinner" />
+                            android:text="Data Rozpoczęcia: "
+                            android:textColor="@color/textColor"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
 
                         <Button
-                            android:id="@+id/add_trip_date_start_confirm_button"
-                            style="@style/Widget.AppCompat.Button.Colored"
+                            android:id="@+id/add_trip_date_start_button"
+                            style="@style/Button"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="potwierdź" />
-                    </LinearLayout>
-                </LinearLayout>
+                            android:layout_marginLeft="5dp"
+                            android:text="DD/MM/RRRR"
+                            android:textAlignment="viewStart"
+                            android:textAllCaps="false"
+                            android:textSize="15sp"
+                            android:textStyle="italic" />
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:id="@+id/add_trip_date_start_layout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:visibility="gone">
+
+                            <DatePicker
+                                android:id="@+id/add_trip_date_start_picker"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:calendarViewShown="false"
+                                android:datePickerMode="spinner" />
+
+                            <Button
+                                android:id="@+id/add_trip_date_start_confirm_button"
+                                style="@style/Widget.AppCompat.Button.Colored"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="potwierdź" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Data Zakończenia: "
+                            android:textColor="@color/textColor"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <Button
+                            android:id="@+id/add_trip_date_end_button"
+                            style="@style/Button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:text="DD/MM/RRRR"
+                            android:textAlignment="viewStart"
+                            android:textAllCaps="false"
+                            android:textSize="15sp"
+                            android:textStyle="italic" />
+
+                        <LinearLayout
+                            android:id="@+id/add_trip_date_end_layout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:visibility="gone">
+
+                            <DatePicker
+                                android:id="@+id/add_trip_date_end_picker"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:calendarViewShown="false"
+                                android:datePickerMode="spinner" />
+
+                            <Button
+                                android:id="@+id/add_trip_date_end_confirm_button"
+                                style="@style/Widget.AppCompat.Button.Colored"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="potwierdź" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </GridLayout>
+                <Button
+                    android:id="@+id/activity_add_trip_confirm_button"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Data Zakończenia: "
-                        android:textColor="@color/textColor"
-                        android:textSize="15sp"
-                        android:textStyle="bold" />
-                    <Button
-                        android:id="@+id/add_trip_date_end_button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        style="@style/Button"
-                        android:layout_marginLeft="5dp"
-                        android:text="DD/MM/RRRR"
-                        android:textAlignment="viewStart"
-                        android:textAllCaps="false"
-                        android:textSize="15sp"
-                        android:textStyle="italic" />
-
-                    <LinearLayout
-                        android:id="@+id/add_trip_date_end_layout"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:visibility="gone">
-
-                        <DatePicker
-                            android:id="@+id/add_trip_date_end_picker"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:calendarViewShown="false"
-                            android:datePickerMode="spinner" />
-
-                        <Button
-                            android:id="@+id/add_trip_date_end_confirm_button"
-                            style="@style/Widget.AppCompat.Button.Colored"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="potwierdź" />
-                    </LinearLayout>
-                </LinearLayout>
+                    android:layout_margin="5dp"
+                    android:visibility="gone"
+                    android:text="Potwierdź"
+                    android:textSize="15sp"
+                    style="@style/Button"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/trip_plans_day_recyclerView"

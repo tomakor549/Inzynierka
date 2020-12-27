@@ -21,7 +21,7 @@ class DaoAdapter(private val listOfTrips: List<Trip>):RecyclerView.Adapter<TripV
     }
 
     override fun onBindViewHolder(holder: TripViewHolder, position: Int) {
-        holder.dateTextView.text = listOfTrips[position].startData
+        holder.dateTextView.text = listOfTrips[position].startDate
         holder.titleTextView.text = listOfTrips[position].tripName
     }
 

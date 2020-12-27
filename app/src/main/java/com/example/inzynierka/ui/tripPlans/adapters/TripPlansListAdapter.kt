@@ -11,7 +11,8 @@ import com.example.inzynierka.ui.tripPlans.addTrip.TripPlansList
 import com.example.inzynierka.ui.tripPlans.room.Plan
 import kotlinx.android.synthetic.main.plan_row.view.*
 
-class TripPlansAddAdapter(private val listOfPlans: List<TripPlansList>):RecyclerView.Adapter<TripPlanViewHolder>(){
+class TripPlansListAdapter(private var listOfPlans: List<TripPlansList>):RecyclerView.Adapter<TripPlanViewHolder>(){
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TripPlanViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val row = layoutInflater.inflate(R.layout.plan_row, parent, false)
@@ -23,18 +24,26 @@ class TripPlansAddAdapter(private val listOfPlans: List<TripPlansList>):Recycler
     }
 
     override fun onBindViewHolder(holder: TripPlanViewHolder, position: Int) {
-        val str = "dzień " + listOfPlans[position].day.toString()
+        val str = "dzień ${position+1}"
         holder.dayTextView.text = str
+        listOfPlans[position].description = holder.descEditTextView.text.toString()
     }
 
-    fun getDesc(position: Int): String{
-        return listOfPlans[position].description.toString()
+    fun getList(): List<TripPlansList>{
+        return listOfPlans
     }
-
 }
 
 class TripPlanViewHolder(view: View): RecyclerView.ViewHolder(view){
     val dayTextView: TextView = view.plan_row_day
     val descEditTextView: EditText = view.plan_row_desc
+
+    fun getDay(): Int{
+        return dayTextView.text.toString().toInt()
+    }
+
+    fun getDesc(): String{
+        return descEditTextView.text.toString()
+    }
 }
 
