@@ -43,6 +43,16 @@ class TripRepository(application: Application) {
             tripDao.deletePlan(plan)
         }
 
+    fun deleteTripById(tripId: Long) =
+        CoroutineScope(Dispatchers.IO).launch {
+            tripDao.deleteTripByID(tripId)
+        }
+
+    fun deletePlansById(tripId: Long) =
+        CoroutineScope(Dispatchers.IO).launch {
+            tripDao.deletePlansByTripID(tripId)
+        }
+
     fun getAllTripAsync():Deferred<LiveData<List<Trip>>> =
         CoroutineScope(Dispatchers.IO).async {
             tripDao.getAllTrip()

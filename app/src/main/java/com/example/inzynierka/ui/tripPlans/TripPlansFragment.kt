@@ -9,22 +9,20 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.inzynierka.R
-import com.example.inzynierka.ui.profile.ProfileViewModel
-import com.example.inzynierka.ui.tripPlans.adapters.DaoAdapter
+import com.example.inzynierka.ui.tripPlans.adapters.TripsListAdapter
 import com.example.inzynierka.ui.tripPlans.addTrip.AddTripActivity
 import com.example.inzynierka.ui.tripPlans.room.Trip
-import kotlinx.android.synthetic.main.fragment_trip_plans.*
 import kotlinx.android.synthetic.main.fragment_trip_plans.view.*
 
 class TripPlansFragment : Fragment() {
 
     private lateinit var tripPlansViewModel: TripPlansViewModel
-    private lateinit var daoAdapter: DaoAdapter
+    private lateinit var tripsListAdapter: TripsListAdapter
     private lateinit var listOfTrip: LiveData<List<Trip>>
+    private lateinit var tripPlansRecyclerView: RecyclerView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,13 +39,15 @@ class TripPlansFragment : Fragment() {
 
         clickFab(root)
 
-        root.trip_plans_recyclerView.layoutManager = LinearLayoutManager(context)
+        tripPlansRecyclerView = root.trip_plans_recyclerView
+
+        tripPlansRecyclerView.layoutManager = LinearLayoutManager(context)
 
         listOfTrip = tripPlansViewModel.getAllTrip()
         listOfTrip.observe(requireActivity(), Observer {
             if(it.isNotEmpty()){
-                daoAdapter = DaoAdapter(it)
-                root.trip_plans_recyclerView.adapter = daoAdapter
+                tripsListAdapter = TripsListAdapter(requireActivity().application, it)
+                tripPlansRecyclerView.adapter = tripsListAdapter
             }
         })
 

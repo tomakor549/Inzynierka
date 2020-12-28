@@ -26,7 +26,6 @@ class TripPlansListAdapter(private var listOfPlans: List<TripPlansList>):Recycle
     override fun onBindViewHolder(holder: TripPlanViewHolder, position: Int) {
         val str = "dzień ${position+1}"
         holder.dayTextView.text = str
-        listOfPlans[position].description = holder.descEditTextView.text.toString()
     }
 
     fun getList(): List<TripPlansList>{

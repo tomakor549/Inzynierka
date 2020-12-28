@@ -12,7 +12,6 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.DatePicker
 import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -134,7 +133,7 @@ class AddTripActivity : AppCompatActivity() {
 
         recyclerView = trip_plans_day_recyclerView
         recyclerView.layoutManager = LinearLayoutManager(applicationContext)
-        var dayPlansList = ArrayList<TripPlansList>()
+        val dayPlansList = ArrayList<TripPlansList>()
 
         var i = 1
         while(i<=day){
@@ -147,10 +146,9 @@ class AddTripActivity : AppCompatActivity() {
 
     }
 
-    @SuppressLint("ShowToast")
     private fun saveTrip() : Boolean{
         if(add_trip_name.text.isEmpty() || add_trip_name.text.length < 2){
-            Toast.makeText(this,"Wpisz nazwę wycieczki zawierającą minimum 2 znaki",Toast.LENGTH_SHORT)
+            Toast.makeText(applicationContext,"Wpisz nazwę wycieczki zawierającą minimum 2 znaki",Toast.LENGTH_SHORT)
             Log.i(TAG, "Wpisz nazwę wycieczki zawierającą minimum 2 znaki")
             return false
         }
@@ -205,7 +203,6 @@ class AddTripActivity : AppCompatActivity() {
         return newTripId
     }
 
-    @SuppressLint("ShowToast")
     private fun checkDate(): Int{
         if (startDatePicker != null && endDatePicker != null) {
             val startYear = startDatePicker!!.year
@@ -232,12 +229,12 @@ class AddTripActivity : AppCompatActivity() {
                     return (differenceDates.toInt()+1)
                 }
                 else{
-                    Toast.makeText(this,"Wycieczka nie może przekroczyć ${maxTripDay} dni",Toast.LENGTH_SHORT)
+                    Toast.makeText(applicationContext,"Wycieczka nie może przekroczyć ${maxTripDay} dni",Toast.LENGTH_SHORT)
                     return 0
                 }
             }
             else{
-                Toast.makeText(this,"Wycieczka musi się zaczynać przed jej zakończeniem",Toast.LENGTH_SHORT)
+                Toast.makeText(applicationContext,"Wycieczka musi się zaczynać przed jej zakończeniem",Toast.LENGTH_SHORT)
             }
         }
         return 0
