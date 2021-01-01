@@ -33,8 +33,13 @@ class TripPlansListAdapter(private var listOfPlans: List<Plan>):RecyclerView.Ada
     }
 
     fun getPlanList(): List<Plan>{
+        var str: String
         for(holder in viewHolder){
-            listOfPlans[holder.dayPosition].description = holder.descEditTextView.text.toString()
+            str = holder.descEditTextView.text.toString()
+            if(str.isNotBlank())
+                listOfPlans[holder.dayPosition].description = str
+            else
+                listOfPlans[holder.dayPosition].description = "-"
         }
         return listOfPlans
     }

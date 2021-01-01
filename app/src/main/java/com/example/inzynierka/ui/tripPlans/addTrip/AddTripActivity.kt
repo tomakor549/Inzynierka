@@ -64,8 +64,10 @@ class AddTripActivity : AppCompatActivity() {
         setEndData()
         activity_add_trip_confirm_button.setOnClickListener {
             hideKeyboard()
-            if(saveTrip())
+            if(saveTrip()){
                 onBackPressed()
+            }
+
         }
     }
 

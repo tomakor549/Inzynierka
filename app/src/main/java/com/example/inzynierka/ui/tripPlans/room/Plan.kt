@@ -5,5 +5,8 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "plan")
 data class Plan(val tripId: Long,
-                @PrimaryKey val day: Int,
-                var description: String)
+                val day: Int,
+                var description: String){
+    @PrimaryKey(autoGenerate = true)
+    var planId: Long = 0
+}
