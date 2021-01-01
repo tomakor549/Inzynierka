@@ -23,6 +23,11 @@ class TripRepository(application: Application) {
             tripDao.insertPlan(plan)
         }
 
+    fun insertPlans(plans: List<Plan>) =
+        CoroutineScope(Dispatchers.IO).launch {
+            tripDao.insertPlans(plans)
+        }
+
     fun updateTrip(trip: Trip) =
         CoroutineScope(Dispatchers.IO).launch {
             tripDao.updateTrip(trip)
@@ -63,7 +68,7 @@ class TripRepository(application: Application) {
             tripDao.getAllTripId()
         }
 
-    fun getTripWithPlansAsync(tripId: Int): Deferred<LiveData<TripWithPlans>> =
+    fun getTripWithPlansAsync(tripId: Long): Deferred<TripWithPlans> =
         CoroutineScope(Dispatchers.IO).async {
             tripDao.getTripWithPlans(tripId)
         }

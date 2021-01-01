@@ -22,9 +22,10 @@ import com.example.inzynierka.R
 import com.example.inzynierka.ui.tripPlans.adapters.TripPlansListAdapter
 import com.example.inzynierka.ui.tripPlans.room.Plan
 import com.example.inzynierka.ui.tripPlans.room.Trip
-import kotlinx.android.synthetic.main.activity_add_trip.*
+import kotlinx.android.synthetic.main.activity_trip_add.*
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.properties.Delegates
 
 
 class AddTripActivity : AppCompatActivity() {
@@ -33,7 +34,9 @@ class AddTripActivity : AppCompatActivity() {
     private lateinit var stringDate: String
     private lateinit var recyclerView: RecyclerView
     private lateinit var tripPlansAdapter: TripPlansListAdapter
-    val TAG = "AddTripActivity"
+
+    private val TAG = "AddTripActivity"
+    private var tripId by Delegates.notNull<Long>()
 
     private var startDatePicker: DatePicker? = null
     private var endDatePicker: DatePicker? = null
@@ -42,13 +45,15 @@ class AddTripActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_trip)
+        setContentView(R.layout.activity_trip_add)
         addToolbar()
 
         addTripViewModel = ViewModelProvider
             .AndroidViewModelFactory
             .getInstance(application)
             .create(AddTripViewModel::class.java)
+
+        tripId = createTripId()
 
         setButton()
         hideKeyboardEmptyField()
@@ -67,6 +72,8 @@ class AddTripActivity : AppCompatActivity() {
     private fun setStartData(){
         add_trip_date_start_button.setOnClickListener {
             hideKeyboard()
+            if(add_trip_date_end_layout.visibility == View.VISIBLE)
+                add_trip_date_end_layout.visibility = View.GONE
             add_trip_date_start_layout.visibility = View.VISIBLE
         }
         add_trip_date_start_confirm_button.setOnClickListener {
@@ -86,6 +93,8 @@ class AddTripActivity : AppCompatActivity() {
     private fun setEndData(){
         add_trip_date_end_button.setOnClickListener {
             hideKeyboard()
+            if(add_trip_date_start_layout.visibility == View.VISIBLE)
+                add_trip_date_start_layout.visibility = View.GONE
             add_trip_date_end_layout.visibility = View.VISIBLE
         }
         add_trip_date_end_confirm_button.setOnClickListener {
@@ -108,7 +117,7 @@ class AddTripActivity : AppCompatActivity() {
                 getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
         } catch (e: Exception) {
-            Toast.makeText(this,"Hide Keyboard Error",Toast.LENGTH_SHORT)
+            Toast.makeText(this,"Hide Keyboard Error",Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -133,11 +142,11 @@ class AddTripActivity : AppCompatActivity() {
 
         recyclerView = trip_plans_day_recyclerView
         recyclerView.layoutManager = LinearLayoutManager(applicationContext)
-        val dayPlansList = ArrayList<TripPlansList>()
+        val dayPlansList = ArrayList<Plan>()
 
         var i = 1
         while(i<=day){
-            dayPlansList.add(TripPlansList(i))
+            dayPlansList.add(Plan(tripId,day,""))
             i++
         }
 
@@ -148,52 +157,40 @@ class AddTripActivity : AppCompatActivity() {
 
     private fun saveTrip() : Boolean{
         if(add_trip_name.text.isEmpty() || add_trip_name.text.length < 2){
-            Toast.makeText(applicationContext,"Wpisz nazwę wycieczki zawierającą minimum 2 znaki",Toast.LENGTH_SHORT)
+            Toast.makeText(this,"Wpisz nazwę wycieczki zawierającą minimum 2 znaki",Toast.LENGTH_SHORT).show()
             Log.i(TAG, "Wpisz nazwę wycieczki zawierającą minimum 2 znaki")
             return false
         }
         val tripName = add_trip_name.text.toString()
         val tripStartDate = add_trip_date_start_button.text.toString()
-        val tripId = createTripId()
 
-        val trip = Trip(tripName, tripId,tripStartDate)
+        val trip = Trip(tripName, tripId, tripStartDate)
 
-
-        val plansList: List<TripPlansList>
+        val plansList: List<Plan>
         try {
-            plansList = tripPlansAdapter.getList()
+            plansList = tripPlansAdapter.getPlanList()
         }catch (e: java.lang.Exception){
             Log.i(TAG, "Nie znaleziono listy Adaptera")
+            Toast.makeText(this,"Nie znaleziono listy Adaptera", Toast.LENGTH_SHORT).show()
             return false
         }
 
-        var editText: EditText
-        var i = 0
-        while(i<plansList.size){
-            try {
-                editText = recyclerView.findViewHolderForAdapterPosition(i)!!.itemView.findViewById(R.id.plan_row_desc)
-                plansList[i].description = editText.text.toString()
-            }
-            catch (ex: java.lang.Exception){
-                Log.i(TAG, "Nie znaleziono itemView")
-                return false
-            }
-            i++
-        }
         addTripViewModel.insertTrip(trip)
-        for(element in plansList){
-            addTripViewModel.insertPlan(Plan(tripId,element.day,element.description))
-        }
+        addTripViewModel.insertPlans(plansList)
         return true
     }
 
     private fun createTripId(): Long{
+        var newTripId: Long = 0
+
+        if(addTripViewModel.getAllTripId().isEmpty()){
+            return newTripId
+        }
         val tripListId = addTripViewModel.getAllTripId().sorted()
 
-        var newTripId: Long = 0
         for (element in tripListId){
             if(newTripId!=element){
-                break
+                return newTripId
             }
             newTripId++;
         }
@@ -229,12 +226,12 @@ class AddTripActivity : AppCompatActivity() {
                     return (differenceDates.toInt()+1)
                 }
                 else{
-                    Toast.makeText(applicationContext,"Wycieczka nie może przekroczyć ${maxTripDay} dni",Toast.LENGTH_SHORT)
+                    Toast.makeText(this,"Wycieczka nie może przekroczyć ${maxTripDay} dni",Toast.LENGTH_SHORT).show()
                     return 0
                 }
             }
             else{
-                Toast.makeText(applicationContext,"Wycieczka musi się zaczynać przed jej zakończeniem",Toast.LENGTH_SHORT)
+                Toast.makeText(this,"Wycieczka musi się zaczynać przed jej zakończeniem",Toast.LENGTH_SHORT).show()
             }
         }
         return 0

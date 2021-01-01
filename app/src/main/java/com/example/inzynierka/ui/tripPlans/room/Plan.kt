@@ -6,4 +6,4 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "plan")
 data class Plan(val tripId: Long,
                 @PrimaryKey val day: Int,
-                val description: String)
+                var description: String)

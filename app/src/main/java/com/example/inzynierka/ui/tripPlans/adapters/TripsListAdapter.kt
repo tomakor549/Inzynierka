@@ -1,6 +1,9 @@
 package com.example.inzynierka.ui.tripPlans.adapters
 
+import android.app.Activity
+import android.app.AlertDialog
 import android.app.Application
+import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -8,8 +11,6 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.RecyclerView
 import com.example.inzynierka.R
 import com.example.inzynierka.ui.tripPlans.adapters.selectTripPlan.TripPlanSelectActivity
@@ -17,7 +18,7 @@ import com.example.inzynierka.ui.tripPlans.room.Trip
 import com.example.inzynierka.ui.tripPlans.room.TripRepository
 import kotlinx.android.synthetic.main.trip_row.view.*
 
-class TripsListAdapter(private val application: Application, private val listOfTrips: List<Trip>):RecyclerView.Adapter<TripViewHolder>(){
+class TripsListAdapter(private val application: Application, private val activityContext: Context, private val listOfTrips: ArrayList<Trip>):RecyclerView.Adapter<TripViewHolder>(){
 
     private var tripRepository: TripRepository =
         TripRepository(application)
@@ -32,9 +33,30 @@ class TripsListAdapter(private val application: Application, private val listOfT
         return listOfTrips.size
     }
 
+    fun removeItem(position: Int) {
+        val id = listOfTrips[position].tripId
+        listOfTrips.removeAt(position)
+        notifyItemRemoved(position)
+        tripRepository.deleteTripById(id)
+        tripRepository.deletePlansById(id)
+    }
+
     override fun onBindViewHolder(holder: TripViewHolder, position: Int) {
         val dataLabel = "Początek: ${listOfTrips[position].startDate}"
         val id = listOfTrips[position].tripId
+
+        val builder = AlertDialog.Builder(activityContext)
+        builder.setTitle("Usuwanie planu wycieczki")
+        builder.setMessage("Na pewno chcesz usunąć \"${listOfTrips[position].tripName}\"?")
+        //builder.setPositiveButton("OK", DialogInterface.OnClickListener(function = x))
+
+        builder.setPositiveButton(android.R.string.yes) { dialog, which ->
+            removeItem(position)
+        }
+
+        builder.setNegativeButton(android.R.string.no) { dialog, which ->
+
+        }
 
         holder.tripId = id
         holder.dateTextView.text = dataLabel
@@ -42,15 +64,13 @@ class TripsListAdapter(private val application: Application, private val listOfT
 
 
         holder.textLayout.setOnClickListener {
-            val intent = Intent(application.applicationContext, TripPlanSelectActivity::class.java)
+            val intent = Intent(activityContext, TripPlanSelectActivity::class.java)
             intent.putExtra("tripId", listOfTrips[position].tripId)
             application.startActivity(intent)
         }
 
         holder.deleteButton.setOnClickListener {
-            tripRepository.deleteTripById(id)
-            tripRepository.deletePlansById(id)
-
+            builder.show()
         }
 
         holder.editButton.setOnClickListener {

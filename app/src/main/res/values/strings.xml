@@ -17,4 +17,7 @@
     <string name="article_name_option_city">Miasto</string>
     <string name="article_name_option_mountain">Góry</string>
     <string name="article_name_option_sea">Akweny</string>
+
+    <string name="yes">Tak</string>
+    <string name="no">Nie</string>
 </resources>

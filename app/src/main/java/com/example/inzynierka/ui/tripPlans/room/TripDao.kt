@@ -47,7 +47,7 @@ interface TripDao {
 
     @Transaction
     @Query("SELECT * FROM trip WHERE tripId = :tripId")
-    fun getTripWithPlans(tripId: Int): LiveData<TripWithPlans>
+    fun getTripWithPlans(tripId: Long): TripWithPlans
 
     @Transaction
     @Query("DELETE FROM trip WHERE tripId=:id")

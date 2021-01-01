@@ -46,7 +46,7 @@ class TripPlansFragment : Fragment() {
         listOfTrip = tripPlansViewModel.getAllTrip()
         listOfTrip.observe(requireActivity(), Observer {
             if(it.isNotEmpty()){
-                tripsListAdapter = TripsListAdapter(requireActivity().application, it)
+                tripsListAdapter = TripsListAdapter(requireActivity().application, requireContext(), ArrayList(it))
                 tripPlansRecyclerView.adapter = tripsListAdapter
             }
         })

@@ -12,7 +12,7 @@ class TripPlanSelectViewModel constructor(application: Application): AndroidView
     private var tripRepository: TripRepository =
         TripRepository(application)
 
-    fun getTripWithPlans(tripId: Int): LiveData<TripWithPlans> = runBlocking {
+    fun getTripWithPlans(tripId: Long): TripWithPlans = runBlocking {
         tripRepository.getTripWithPlansAsync(tripId).await()
     }
 }
