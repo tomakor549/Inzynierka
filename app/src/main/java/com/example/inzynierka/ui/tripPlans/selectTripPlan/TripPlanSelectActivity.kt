@@ -49,7 +49,7 @@ class TripPlanSelectActivity : AppCompatActivity() {
             Toast.makeText(this, "Nie znaleziono takiego planu", Toast.LENGTH_SHORT).show()
         }
         addToolbar(tripPlan.trip.tripName)
-        val date = "Dzień ${tripPlan.trip.startDate}"
+        val date = "${tripPlan.trip.startDate} – ${tripPlan.trip.endDate}"
         trip_select_date_text.text = date
         listPlans = tripPlan.plans
 

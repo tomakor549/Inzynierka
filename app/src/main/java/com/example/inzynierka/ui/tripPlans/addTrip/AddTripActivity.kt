@@ -31,7 +31,7 @@ import kotlin.properties.Delegates
 class AddTripActivity : AppCompatActivity() {
     private lateinit var toolbar: Toolbar
     private lateinit var addTripViewModel: AddTripViewModel
-    private lateinit var stringDate: String
+    //private lateinit var stringDate: String
     private lateinit var recyclerView: RecyclerView
     private lateinit var tripPlansAdapter: TripPlansListAdapter
 
@@ -62,6 +62,7 @@ class AddTripActivity : AppCompatActivity() {
     private fun setButton(){
         setStartData()
         setEndData()
+        addTripViewModel
         activity_add_trip_confirm_button.setOnClickListener {
             hideKeyboard()
             if(saveTrip()){
@@ -80,9 +81,8 @@ class AddTripActivity : AppCompatActivity() {
         }
         add_trip_date_start_confirm_button.setOnClickListener {
             startDatePicker = add_trip_date_start_picker
-            this.stringDate = startDatePicker!!.dayOfMonth.toString() + "/" +
-                    (startDatePicker!!.month + 1).toString() + "/" + startDatePicker!!.year.toString()
-            add_trip_date_start_button.text = stringDate
+
+            add_trip_date_start_button.text = getStringDate(startDatePicker!!)
             add_trip_date_start_layout.visibility = View.GONE
 
             hideKeyboard()
@@ -99,11 +99,11 @@ class AddTripActivity : AppCompatActivity() {
                 add_trip_date_start_layout.visibility = View.GONE
             add_trip_date_end_layout.visibility = View.VISIBLE
         }
+
         add_trip_date_end_confirm_button.setOnClickListener {
             endDatePicker = add_trip_date_end_picker
-            this.stringDate = endDatePicker!!.dayOfMonth.toString() + "/" +
-                    (endDatePicker!!.month + 1).toString() + "/" + endDatePicker!!.year.toString()
-            add_trip_date_end_button.text = stringDate
+
+            add_trip_date_end_button.text = getStringDate(endDatePicker!!)
             add_trip_date_end_layout.visibility = View.GONE
 
             hideKeyboard()
@@ -111,6 +111,22 @@ class AddTripActivity : AppCompatActivity() {
             if(startDatePicker!=null)
                 showAddingPlans()
         }
+    }
+
+    private fun getStringDate(datePicker: DatePicker): String{
+        //dni zaczynają się od 1
+        val day = if(datePicker.dayOfMonth<10)
+            "0" + datePicker.dayOfMonth.toString()
+        else
+            datePicker.dayOfMonth.toString()
+
+        //miesiące zaczynają się od 0
+        val month = if(datePicker.month<9)
+            "0" + (datePicker.month + 1).toString()
+        else
+            (datePicker.month + 1).toString()
+
+        return day + "/" + month + "/" + datePicker.year.toString()
     }
 
     private fun hideKeyboard(){
@@ -165,8 +181,9 @@ class AddTripActivity : AppCompatActivity() {
         }
         val tripName = add_trip_name.text.toString()
         val tripStartDate = add_trip_date_start_button.text.toString()
+        val tripEndDate = add_trip_date_end_button.text.toString()
 
-        val trip = Trip(tripName, tripId, tripStartDate)
+        val trip = Trip(tripName, tripId, tripStartDate, tripEndDate)
 
         val plansList: List<Plan>
         try {
@@ -194,7 +211,7 @@ class AddTripActivity : AppCompatActivity() {
             if(newTripId!=element){
                 return newTripId
             }
-            newTripId++;
+            newTripId++
         }
         if(newTripId>=tripListId.size-1)
             newTripId= tripListId.size.toLong()
@@ -202,6 +219,7 @@ class AddTripActivity : AppCompatActivity() {
         return newTripId
     }
 
+    @Suppress("DEPRECATION")
     private fun checkDate(): Int{
         if (startDatePicker != null && endDatePicker != null) {
             val startYear = startDatePicker!!.year
@@ -210,8 +228,6 @@ class AddTripActivity : AppCompatActivity() {
             val endYear = endDatePicker!!.year
             val endMonth = endDatePicker!!.month
             val endDay = endDatePicker!!.dayOfMonth
-
-            val calendar = Calendar.getInstance()
 
             val startDate = Date(startYear, startMonth, startDay)
             val endDate = Date(endYear, endMonth, endDay)

@@ -40,4 +40,6 @@ class AddTripViewModel constructor(application: Application): AndroidViewModel(a
     fun getAllTripId(): List<Long> = runBlocking {
         tripRepository.getAllTripIdAsync().await()
     }
+
+
 }

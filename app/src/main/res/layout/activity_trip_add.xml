@@ -20,6 +20,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_add_trip">
 
         <LinearLayout
@@ -37,13 +38,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Nazwa wycieczki:"
+                    android:text="@string/trip_name"
                     android:textColor="@color/textColor"
                     android:textSize="15sp"
                     android:textStyle="bold" />
@@ -52,7 +53,10 @@
                     android:id="@+id/add_trip_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="15sp" />
+                    android:textSize="15sp"
+                    android:inputType="text"
+                    android:importantForAutofill="no"
+                    tools:ignore="LabelFor" />
 
             </LinearLayout>
 
@@ -73,7 +77,7 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="left"
+                        android:layout_gravity="start"
                         android:orientation="vertical">
 
                         <TextView
@@ -89,8 +93,8 @@
                             style="@style/Button"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:text="DD/MM/RRRR"
+                            android:layout_marginStart="5dp"
+                            android:text="@string/date_template"
                             android:textAlignment="viewStart"
                             android:textAllCaps="false"
                             android:textSize="15sp"
@@ -100,7 +104,7 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="right"
+                        android:layout_gravity="end"
                         android:orientation="vertical">
 
 
@@ -117,8 +121,8 @@
                             style="@style/Button"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:text="DD/MM/RRRR"
+                            android:layout_marginStart="5dp"
+                            android:text="@string/date_template"
                             android:textAlignment="viewStart"
                             android:textAllCaps="false"
                             android:textSize="15sp"
@@ -149,7 +153,7 @@
                             style="@style/Widget.AppCompat.Button.Colored"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="potwierdź" />
+                            android:text="@string/confirm" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -174,7 +178,7 @@
                             style="@style/Widget.AppCompat.Button.Colored"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="potwierdź" />
+                            android:text="@string/confirm" />
                     </LinearLayout>
                 </GridLayout>
 
@@ -184,7 +188,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
-                    android:text="Potwierdź"
+                    android:text="@string/confirm"
                     android:textSize="15sp"
                     android:visibility="gone" />
 

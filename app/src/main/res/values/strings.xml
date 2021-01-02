@@ -20,4 +20,7 @@
 
     <string name="yes">Tak</string>
     <string name="no">Nie</string>
+    <string name="trip_name">Nazwa wycieczki:</string>
+    <string name="date_template">DD/MM/RRRR</string>
+    <string name="confirm">potwierdź</string>
 </resources>
