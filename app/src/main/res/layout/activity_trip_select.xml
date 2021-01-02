@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/back_layout"
-    tools:context=".ui.tripPlans.adapters.selectTripPlan.TripPlanSelectActivity">
+    tools:context=".ui.tripPlans.selectTripPlan.TripPlanSelectActivity">
 
     <include
         android:id="@+id/toolbar_select_trip"

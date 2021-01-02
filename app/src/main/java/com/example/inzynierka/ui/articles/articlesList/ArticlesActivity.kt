@@ -86,10 +86,14 @@ class ArticlesActivity : AppCompatActivity() {
         val arrayAdapter: ArrayAdapter<*>
 
         val listData = getList(section)
+        if(listData==null){
+            Toast.makeText(this,"Brak danych",Toast.LENGTH_SHORT).show()
+            return
+        }
         //lista tytułów artykułów
         val titleList = ArrayList<String>()
         //wczytanie danych do listy tytułów
-        for(element in listData){
+        for(element in listData!!){
             titleList.add(element.getTitle())
         }
 
@@ -102,7 +106,7 @@ class ArticlesActivity : AppCompatActivity() {
         //wybór tytułu
         listView.setOnItemClickListener { _, _, i, _ ->
             val intent = Intent(this, ArticleActivity::class.java)
-            val article = findArticle(titleList[i], listData)
+            val article = findArticle(titleList[i], listData!!)
             if (article != null) {
                 intent.putExtra("title", article.getTitle())
                 intent.putExtra("website", article.getWebsite())
@@ -135,10 +139,13 @@ class ArticlesActivity : AppCompatActivity() {
         }
     }
 
-    private fun getList(@RawRes section: Int): List<Article>{
+    private fun getList(@RawRes section: Int): List<Article>?{
         val string = readFromFile(section)
         val delim = "***\n"
 
+        if(string.isBlank() || string.length<5){
+            return null
+        }
         val dataList = string.split(delim)
         val articles = ArrayList<Article>()
         for(element in dataList){

@@ -1,6 +1,5 @@
 package com.example.inzynierka.ui.tripPlans.adapters
 
-import android.app.Activity
 import android.app.AlertDialog
 import android.app.Application
 import android.content.Context
@@ -13,7 +12,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.inzynierka.R
-import com.example.inzynierka.ui.tripPlans.adapters.selectTripPlan.TripPlanSelectActivity
+import com.example.inzynierka.ui.tripPlans.selectTripPlan.TripPlanSelectActivity
 import com.example.inzynierka.ui.tripPlans.editTrip.TripEditActivity
 import com.example.inzynierka.ui.tripPlans.room.Trip
 import com.example.inzynierka.ui.tripPlans.room.TripRepository

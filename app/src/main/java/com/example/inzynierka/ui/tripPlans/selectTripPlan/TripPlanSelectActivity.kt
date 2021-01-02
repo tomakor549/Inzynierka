@@ -1,4 +1,4 @@
-package com.example.inzynierka.ui.tripPlans.adapters.selectTripPlan
+package com.example.inzynierka.ui.tripPlans.selectTripPlan
 
 import android.content.Intent
 import android.net.Uri
@@ -8,19 +8,12 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.inzynierka.R
 import com.example.inzynierka.ui.tripPlans.adapters.PlanListAdapter
-import com.example.inzynierka.ui.tripPlans.adapters.TripsListAdapter
-import com.example.inzynierka.ui.tripPlans.addTrip.AddTripViewModel
 import com.example.inzynierka.ui.tripPlans.room.Plan
 import com.example.inzynierka.ui.tripPlans.room.TripWithPlans
-import com.example.inzynierka.ui.tripPlans.selectTripPlan.TripPlanSelectViewModel
-import kotlinx.android.synthetic.main.activity_trip_add.*
 import kotlinx.android.synthetic.main.activity_trip_select.*
 
 class TripPlanSelectActivity : AppCompatActivity() {
@@ -61,7 +54,7 @@ class TripPlanSelectActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         // dodanie menu
-        menuInflater.inflate(R.menu.toolbar_menu, menu)
+        menuInflater.inflate(R.menu.toolbar_sharing_menu, menu)
 
         return true
     }
@@ -73,6 +66,10 @@ class TripPlanSelectActivity : AppCompatActivity() {
             callEmergency()
             return true
         }
+        /*if(id==R.id.action_sharing){
+            shareTrip()
+            return true
+        }*/
 
         return false
     }
