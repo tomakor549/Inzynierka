@@ -11,7 +11,7 @@ import com.example.inzynierka.ui.tripPlans.addTrip.TripPlansList
 import com.example.inzynierka.ui.tripPlans.room.Plan
 import kotlinx.android.synthetic.main.plan_row.view.*
 
-class TripPlansListAdapter(private var listOfPlans: List<Plan>):RecyclerView.Adapter<TripPlanViewHolder>(){
+class TripPlansListAdapter(private var listOfPlans: ArrayList<Plan>):RecyclerView.Adapter<TripPlanViewHolder>(){
 
     var viewHolder = ArrayList<TripPlanViewHolder>()
 
@@ -29,6 +29,7 @@ class TripPlansListAdapter(private var listOfPlans: List<Plan>):RecyclerView.Ada
         val str = "dzień ${position+1}"
         holder.dayTextView.text = str
         holder.dayPosition = position
+        holder.descEditTextView.setText(listOfPlans[position].description)
         viewHolder.add(holder)
     }
 
@@ -41,7 +42,33 @@ class TripPlansListAdapter(private var listOfPlans: List<Plan>):RecyclerView.Ada
             else
                 listOfPlans[holder.dayPosition].description = "-"
         }
-        return listOfPlans
+        return listOfPlans.toList()
+    }
+
+    fun addPlan(tripId: Long){
+        listOfPlans.add(Plan(tripId,itemCount+1,""))
+        notifyDataSetChanged()
+    }
+
+    fun addPlans(howMany: Int){
+        val tripId = listOfPlans[0].tripId
+        var i = 0
+        while(i>=howMany){
+            listOfPlans.add(Plan(tripId,itemCount+1,""))
+            i++
+        }
+        notifyDataSetChanged()
+    }
+
+    fun removePlans(howMany: Int){
+        if(howMany>=itemCount)
+            return
+        var i = howMany
+        while(i>0){
+            listOfPlans.removeLast()
+            i--
+        }
+        notifyDataSetChanged()
     }
 }
 

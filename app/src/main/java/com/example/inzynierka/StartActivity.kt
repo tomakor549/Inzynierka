@@ -14,6 +14,7 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_article.*
 import kotlinx.android.synthetic.main.activity_start.*
 
 class StartActivity : AppCompatActivity() {
@@ -24,6 +25,15 @@ class StartActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        val edit: Boolean
+        val extras = intent.extras
+        if (extras != null) {
+            edit = intent.getBooleanExtra("edit", false)
+        }
+        else
+            edit = false
+
+
         if(applicationContext!=null){
             user = User(applicationContext)
             Log.d("ProfileFragment", "stworzenie usera")
@@ -31,16 +41,33 @@ class StartActivity : AppCompatActivity() {
         else
             Log.d("ProfileFragment", "nie ma context")
 
-        if(user.checkExistence())
-        {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-        }
 
         setContentView(R.layout.activity_start)
+
+        if(!edit){
+            if(user.checkExistence())
+            {
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+            }
+        }
+        else{
+            setFields()
+        }
+
         hideKeyboardEmptyField()
         onClickListeners()
         setButton()
+    }
+
+    private fun setFields(){
+
+        user_name.setText(user.getName())
+        user_ICE1.setText(user.getICE1())
+        user_ICE2.setText(user.getICE2())
+        user_ICE3.setText(user.getICE3())
+        user_ill.setText(user.getIllnesses())
+        user_medicines.setText(user.getMedicines())
     }
 
     @SuppressLint("ClickableViewAccessibility")

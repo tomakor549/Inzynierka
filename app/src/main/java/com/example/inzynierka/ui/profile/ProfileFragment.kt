@@ -16,6 +16,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.inzynierka.R
+import com.example.inzynierka.StartActivity
+import com.example.inzynierka.ui.articles.articlesList.ArticlesActivity
+import com.example.inzynierka.ui.articles.enum.ArticleNameEnum
 import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.fragment_profile.view.*
 
@@ -52,15 +55,9 @@ class ProfileFragment : Fragment() {
         root.profile_button.text = profileViewModel.buttonEditText
 
         root.profile_button.setOnClickListener{
-            if(root.profile_button.text == profileViewModel.buttonEditText){
-                editData()
-                root.profile_button.text = profileViewModel.buttonViewText
-            }
-            else
-            {
-                viewData()
-                root.profile_button.text = profileViewModel.buttonViewText
-            }
+            val intent = Intent(activity, StartActivity::class.java)
+            intent.putExtra("edit", true)
+            startActivity(intent)
         }
         return root
     }

@@ -51,6 +51,12 @@ class ArticleFragment : Fragment() {
             intent.putExtra(key, ArticleNameEnum.MOUNTAIN.toString())
             startActivity(intent)
         }
+
+        root.article_forest.setOnClickListener{
+            val intent = Intent(activity, ArticlesActivity::class.java)
+            intent.putExtra(key, ArticleNameEnum.FOREST.toString())
+            startActivity(intent)
+        }
     }
 
 }

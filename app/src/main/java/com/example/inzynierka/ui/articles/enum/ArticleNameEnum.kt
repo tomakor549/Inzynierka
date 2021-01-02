@@ -1,7 +1,8 @@
 package com.example.inzynierka.ui.articles.enum
 
 enum class ArticleNameEnum(section:String) {
-    CITY("Miasto"),
+    CITY("Tereny miejskie"),
     SEA("Akewny"),
-    MOUNTAIN("Góry")
+    MOUNTAIN("Tereny górskie"),
+    FOREST("Tereny zalesione")
 }

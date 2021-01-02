@@ -38,6 +38,11 @@ class TripRepository(application: Application) {
             tripDao.updatePlan(plan)
         }
 
+    fun updatePlans(plans: List<Plan>) =
+        CoroutineScope(Dispatchers.IO).launch {
+            tripDao.updatePlans(plans)
+        }
+
     fun deleteTrip(trip: Trip) =
         CoroutineScope(Dispatchers.IO).launch {
             tripDao.deleteTrip(trip)

@@ -17,6 +17,7 @@ import com.example.inzynierka.ui.articles.articlesList.article.ArticleActivity
 import com.example.inzynierka.ui.articles.enum.ArticleNameEnum
 import kotlinx.android.synthetic.main.activity_articles.*
 import java.io.*
+import java.lang.Exception
 
 
 class ArticlesActivity : AppCompatActivity() {
@@ -38,13 +39,40 @@ class ArticlesActivity : AppCompatActivity() {
 
         choice = intent.getStringExtra("title")
 
-        addToolbar()
 
         when(choice){
-            ArticleNameEnum.CITY.toString() ->
-                click(R.raw.miasto)
-            ArticleNameEnum.SEA.toString() ->
-                click(R.raw.akweny)
+            ArticleNameEnum.CITY.toString() ->{
+                addToolbar("Tereny miejsckie")
+                try {
+                    click(R.raw.city)
+                }catch (ex: FileNotFoundException){
+                    Toast.makeText(this,"Nie znaleziono pliku z danymi",Toast.LENGTH_SHORT).show()
+                }
+            }
+            ArticleNameEnum.MOUNTAIN.toString() ->{
+                addToolbar("Tereny górskie")
+                try {
+                    click(R.raw.mountain)
+                }catch (ex: FileNotFoundException){
+                    Toast.makeText(this,"Nie znaleziono pliku z danymi",Toast.LENGTH_SHORT).show()
+                }
+            }
+            ArticleNameEnum.SEA.toString() -> {
+                addToolbar("Akweny")
+                try {
+                    click(R.raw.water)
+                }catch (ex: FileNotFoundException){
+                    Toast.makeText(this,"Nie znaleziono pliku z danymi",Toast.LENGTH_SHORT).show()
+                }
+            }
+            ArticleNameEnum.FOREST.toString() ->{
+                addToolbar("Tereny leśne")
+                try {
+                    click(R.raw.forest)
+                }catch (ex: FileNotFoundException){
+                    Toast.makeText(this,"Nie znaleziono pliku z danymi",Toast.LENGTH_SHORT).show()
+                }
+            }
             else->{
                 Toast.makeText(applicationContext, "Nie znaleziono danych dla tego działu", Toast.LENGTH_SHORT).show()
             }
@@ -96,10 +124,10 @@ class ArticlesActivity : AppCompatActivity() {
         return null
     }
 
-    private fun addToolbar(){
+    private fun addToolbar(name:String){
         // Dodawanie toolbara
         toolbar = toolbar_articles as Toolbar
-        toolbar.title = choice
+        toolbar.title = name
         setSupportActionBar(toolbar)
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back)
         toolbar.setNavigationOnClickListener {

@@ -14,9 +14,9 @@
     <string name="bloodtype">Typ Krwi</string>
 
     <string name="article_city">Miasto</string>
-    <string name="article_name_option_city">Miasto</string>
-    <string name="article_name_option_mountain">Góry</string>
-    <string name="article_name_option_sea">Akweny</string>
+    <string name="article_name_option_city">Tereny Miejskie</string>
+    <string name="article_name_option_mountain">Tereny Górskie</string>
+    <string name="article_name_option_water">Akweny</string>
 
     <string name="yes">Tak</string>
     <string name="no">Nie</string>

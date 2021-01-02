@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/back_layout">
-        
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -48,9 +48,11 @@
                             android:layout_height="wrap_content"
                             android:foregroundGravity="bottom"
                             android:text="@string/article_name_option_city"
-
-                            android:textColor="#FFFFFF"
-                            android:textSize="35sp" />
+                            android:background="@color/textArticleBackground"
+                            android:textColor="@color/white"
+                            android:padding="5dp"
+                            android:textStyle="bold"
+                            android:textSize="35sp"  />
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
@@ -77,8 +79,10 @@
                             android:layout_height="wrap_content"
                             android:foregroundGravity="bottom"
                             android:text="@string/article_name_option_mountain"
-
-                            android:textColor="#FFFFFF"
+                            android:background="@color/textArticleBackground"
+                            android:textColor="@color/white"
+                            android:padding="5dp"
+                            android:textStyle="bold"
                             android:textSize="35sp" />
                     </LinearLayout>
 
@@ -103,9 +107,11 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:foregroundGravity="bottom"
-                            android:text="@string/article_name_option_sea"
-
-                            android:textColor="#FFFFFF"
+                            android:background="@color/textArticleBackground"
+                            android:textColor="@color/white"
+                            android:text="@string/article_name_option_water"
+                            android:textStyle="bold"
+                            android:padding="5dp"
                             android:textSize="35sp" />
 
                     </LinearLayout>
@@ -134,44 +140,16 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:foregroundGravity="bottom"
-                            android:text="Las"
-
-                            android:textColor="#FFFFFF"
+                            android:text="Tereny zalesione"
+                            android:background="@color/textArticleBackground"
+                            android:textColor="@color/white"
+                            android:padding="5dp"
+                            android:textStyle="bold"
                             android:textSize="35sp" />
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/article_road"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="12dp"
-                    android:clickable="true"
-                    android:focusable="true"
-                    app:cardCornerRadius="12dp"
-                    app:cardElevation="6dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="158dp"
-                        android:background="@drawable/city"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="16dp">
-
-                        <TextView
-                            android:id="@+id/article_name_road"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:foregroundGravity="bottom"
-                            android:text="Droga"
-
-                            android:textColor="#FFFFFF"
-                            android:textSize="35sp" />
-                    </LinearLayout>
-
-                </androidx.cardview.widget.CardView>
             </GridLayout>
 
         </LinearLayout>

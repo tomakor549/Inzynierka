@@ -14,6 +14,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.inzynierka.R
 import com.example.inzynierka.ui.tripPlans.adapters.selectTripPlan.TripPlanSelectActivity
+import com.example.inzynierka.ui.tripPlans.editTrip.TripEditActivity
 import com.example.inzynierka.ui.tripPlans.room.Trip
 import com.example.inzynierka.ui.tripPlans.room.TripRepository
 import kotlinx.android.synthetic.main.trip_row.view.*
@@ -42,7 +43,7 @@ class TripsListAdapter(private val application: Application, private val activit
     }
 
     override fun onBindViewHolder(holder: TripViewHolder, position: Int) {
-        val dataLabel = "Początek: ${listOfTrips[position].startDate}"
+        val dataLabel = "${listOfTrips[position].startDate} - ${listOfTrips[position].endDate}"
         val id = listOfTrips[position].tripId
 
         val builder = AlertDialog.Builder(activityContext)
@@ -50,11 +51,11 @@ class TripsListAdapter(private val application: Application, private val activit
         builder.setMessage("Na pewno chcesz usunąć \"${listOfTrips[position].tripName}\"?")
         //builder.setPositiveButton("OK", DialogInterface.OnClickListener(function = x))
 
-        builder.setPositiveButton(android.R.string.yes) { dialog, which ->
+        builder.setPositiveButton(android.R.string.yes) { _, _ ->
             removeItem(position)
         }
 
-        builder.setNegativeButton(android.R.string.no) { dialog, which ->
+        builder.setNegativeButton(android.R.string.no) { _, _ ->
 
         }
 
@@ -74,7 +75,9 @@ class TripsListAdapter(private val application: Application, private val activit
         }
 
         holder.editButton.setOnClickListener {
-            //Toast.makeText(application,"Edytuj ${id}", Toast.LENGTH_SHORT)
+            val intent = Intent(activityContext, TripEditActivity::class.java)
+            intent.putExtra("tripId", listOfTrips[position].tripId)
+            application.startActivity(intent)
         }
     }
 
