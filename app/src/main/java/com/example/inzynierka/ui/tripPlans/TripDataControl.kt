@@ -1,7 +1,6 @@
 package com.example.inzynierka.ui.tripPlans
 
 import android.widget.DatePicker
-import android.widget.Toast
 import java.util.*
 
 class TripDataControl {

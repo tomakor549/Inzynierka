@@ -7,13 +7,12 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.inzynierka.R
-import com.example.inzynierka.ui.tripPlans.addTrip.TripPlansList
 import com.example.inzynierka.room.Plan
 import kotlinx.android.synthetic.main.plan_row.view.*
 
 class TripPlansListAdapter(private var listOfPlans: ArrayList<Plan>):RecyclerView.Adapter<TripPlanViewHolder>(){
 
-    var viewHolder = ArrayList<TripPlanViewHolder>()
+    private var viewHolder = ArrayList<TripPlanViewHolder>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TripPlanViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -46,43 +45,6 @@ class TripPlansListAdapter(private var listOfPlans: ArrayList<Plan>):RecyclerVie
         return listOfPlans.toList()
     }
 
-    fun addPlan(tripId: Long){
-        listOfPlans.add(
-            Plan(
-                tripId,
-                itemCount + 1,
-                ""
-            )
-        )
-        notifyDataSetChanged()
-    }
-
-    fun addPlans(howMany: Int){
-        val tripId = listOfPlans[0].tripId
-        var i = 0
-        while(i>=howMany){
-            listOfPlans.add(
-                Plan(
-                    tripId,
-                    itemCount + 1,
-                    ""
-                )
-            )
-            i++
-        }
-        notifyDataSetChanged()
-    }
-
-    fun removePlans(howMany: Int){
-        if(howMany>=itemCount)
-            return
-        var i = howMany
-        while(i>0){
-            listOfPlans.removeLast()
-            i--
-        }
-        notifyDataSetChanged()
-    }
 }
 
 class TripPlanViewHolder(view: View): RecyclerView.ViewHolder(view){

@@ -38,6 +38,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/black"
                         android:text="Imię i nazwisko:"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -51,6 +52,7 @@
                         android:id="@+id/user_name"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:textColor="@color/black"
                         android:textSize="20sp" />
                 </LinearLayout>
             </LinearLayout>
@@ -77,6 +79,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/black"
                         android:text="Numer/numery ICE (wystarczy 1):"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -90,6 +93,7 @@
                         android:id="@+id/user_ICE1_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/black"
                         android:text="ICE1:"
                         android:textSize="17sp"
                         android:textStyle="bold" />
@@ -99,8 +103,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:drawableRight="@drawable/ic_contact"
+                        android:textColor="@color/black"
                         android:ems="10"
                         android:inputType="none"
+                        android:editable="false"
                         android:textSize="17sp" />
                 </LinearLayout>
 
@@ -112,6 +118,7 @@
                         android:id="@+id/user_ICE2_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/black"
                         android:text="ICE2:"
                         android:textSize="17sp"
                         android:textStyle="bold" />
@@ -120,6 +127,7 @@
                         android:id="@+id/user_ICE2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/black"
                         android:drawableRight="@drawable/ic_contact"
                         android:editable="false"
                         android:ems="10"
@@ -134,6 +142,7 @@
                         android:id="@+id/user_ICE3_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/black"
                         android:text="ICE3:"
                         android:textSize="17sp"
                         android:textStyle="bold" />
@@ -143,6 +152,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:drawableRight="@drawable/ic_contact"
+                        android:textColor="@color/black"
                         android:editable="false"
                         android:ems="10"
                         android:textSize="17sp" />
@@ -168,6 +178,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/black"
                     android:text="Typ krwi: "
                     android:textSize="17sp"
                     android:textStyle="bold" />
@@ -176,6 +187,7 @@
                     android:id="@+id/user_blood_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/black"
                     android:layout_weight="1"
                     android:entries="@array/bloodName" />
 
@@ -183,6 +195,7 @@
                     android:id="@+id/user_blood_Rh"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/black"
                     android:layout_weight="1"
                     android:entries="@array/bloodRh" />
 
@@ -210,6 +223,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/black"
                         android:text="@string/medicines"
                         android:textSize="17sp"
                         android:textStyle="bold" />
@@ -223,6 +237,7 @@
                         android:id="@+id/user_medicines"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/black"
                         android:textSize="17sp" />
                 </LinearLayout>
 
@@ -252,6 +267,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
+                        android:textColor="@color/black"
                         android:text="@string/ill"
                         android:textSize="17sp"
                         android:textStyle="bold" />
@@ -265,6 +281,7 @@
                         android:id="@+id/user_ill"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/black"
                         android:textSize="17sp" />
                 </LinearLayout>
 

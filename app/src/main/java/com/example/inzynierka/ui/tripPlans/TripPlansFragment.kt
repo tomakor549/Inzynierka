@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,14 +13,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.inzynierka.R
 import com.example.inzynierka.ui.tripPlans.adapters.TripsListAdapter
 import com.example.inzynierka.ui.tripPlans.addTrip.AddTripActivity
-import com.example.inzynierka.room.Trip
 import kotlinx.android.synthetic.main.fragment_trip_plans.view.*
 
 class TripPlansFragment : Fragment() {
 
     private lateinit var tripPlansViewModel: TripPlansViewModel
     private lateinit var tripsListAdapter: TripsListAdapter
-    private lateinit var listOfTrip: LiveData<List<Trip>>
     private lateinit var tripPlansRecyclerView: RecyclerView
 
     override fun onCreateView(
@@ -43,8 +40,8 @@ class TripPlansFragment : Fragment() {
 
         tripPlansRecyclerView.layoutManager = LinearLayoutManager(context)
 
-        listOfTrip = tripPlansViewModel.getAllTrip()
-        listOfTrip.observe(requireActivity(), Observer {
+        tripPlansViewModel.listOfTrip = tripPlansViewModel.getAllTrip()
+        tripPlansViewModel.listOfTrip.observe(requireActivity(), Observer {
             if(it.isNotEmpty()){
                 tripsListAdapter = TripsListAdapter(requireActivity().application, requireContext(), ArrayList(it))
                 tripPlansRecyclerView.adapter = tripsListAdapter

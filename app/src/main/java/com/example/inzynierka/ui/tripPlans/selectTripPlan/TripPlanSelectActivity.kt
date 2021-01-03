@@ -1,9 +1,6 @@
 package com.example.inzynierka.ui.tripPlans.selectTripPlan
 
-import android.Manifest
-import android.bluetooth.BluetoothAdapter
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -11,11 +8,9 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
-import androidx.core.app.ActivityCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.inzynierka.R
-import com.example.inzynierka.StartActivity
 import com.example.inzynierka.ui.tripPlans.adapters.PlanListAdapter
 import com.example.inzynierka.room.Plan
 import com.example.inzynierka.room.TripWithPlans

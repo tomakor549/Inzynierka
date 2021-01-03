@@ -3,14 +3,10 @@ package com.example.inzynierka.ui.tripPlans.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.inzynierka.R
-import com.example.inzynierka.ui.tripPlans.addTrip.TripPlansList
 import com.example.inzynierka.room.Plan
-import kotlinx.android.synthetic.main.activity_trip_select.view.*
-import kotlinx.android.synthetic.main.plan_row.view.*
 import kotlinx.android.synthetic.main.show_plan_row.view.*
 
 class PlanListAdapter(private var plansList: List<Plan>): RecyclerView.Adapter<PlansViewHolder>(){

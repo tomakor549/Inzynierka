@@ -21,32 +21,10 @@ class TripPlansViewModel constructor(application: Application): AndroidViewModel
         }
     }*/
 
+    lateinit var listOfTrip: LiveData<List<Trip>>
+
     private var tripRepository: TripRepository =
         TripRepository(application)
-
-    fun insertTrip(trip: Trip) {
-        tripRepository.insertTrip(trip)
-    }
-
-    fun insertPlan(plan: Plan){
-        tripRepository.insertPlan(plan)
-    }
-
-    fun updateTrip(trip: Trip) {
-        tripRepository.updateTrip(trip)
-    }
-
-    fun updatePlan(plan: Plan) {
-        tripRepository.updatePlan(plan)
-    }
-
-    fun deleteTrip(trip: Trip) {
-        tripRepository.deleteTrip(trip)
-    }
-
-    fun deletePlan(plan: Plan) {
-        tripRepository.deleteTrip(plan)
-    }
 
     fun getAllTrip(): LiveData<List<Trip>> = runBlocking {
         tripRepository.getAllTripAsync().await()

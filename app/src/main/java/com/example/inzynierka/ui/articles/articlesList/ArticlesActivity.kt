@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.annotation.RawRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.lifecycle.ViewModelProvider
 import com.example.inzynierka.R
 import com.example.inzynierka.ui.articles.Article
 import com.example.inzynierka.ui.articles.articlesList.article.ArticleActivity
@@ -24,6 +25,7 @@ import java.lang.Exception
 
 
 class ArticlesActivity : AppCompatActivity() {
+    private lateinit var articlesActivityViewModel: ArticlesActivityViewModel
 
     private lateinit var toolbar: Toolbar
     private lateinit var choice: String
@@ -36,10 +38,10 @@ class ArticlesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_articles)
 
-        /*viewModel = ViewModelProvider
+        articlesActivityViewModel = ViewModelProvider
             .AndroidViewModelFactory
             .getInstance(application)
-            .create(ArticleActivityViewModel::class.java)*/
+            .create(ArticlesActivityViewModel::class.java)
 
         searchBar = search_bar
         choice = intent.getStringExtra("title")
