@@ -23,4 +23,7 @@
     <string name="trip_name">Nazwa wycieczki:</string>
     <string name="date_template">DD/MM/RRRR</string>
     <string name="confirm">potwierdź</string>
+    <string name="more_and_colon">Więcej:</string>
+    <string name="phone_and_colon">Telefon:</string>
+    <string name="desc_and_colon">Opis:</string>
 </resources>
