@@ -19,7 +19,8 @@ class ProfileViewModel @Inject constructor(context: Context) : ViewModel() {
     }
 
     val buttonEditText = "edytuj dane"
-    val buttonViewText = "zapisz"
+
+    val a = ""
 
     //imie i nazwisko
     private val _userName = MutableLiveData<String>().apply {
@@ -59,4 +60,7 @@ class ProfileViewModel @Inject constructor(context: Context) : ViewModel() {
     }
     val userMedicines: LiveData<String> = _userMedicines
 
+    val sendUserData = user.getName() + "\nKrew: " + user.getBloodType() + "\nNumery ICE:\n" + user.getICE1() +
+            "\n" + user.getICE2() + "\n" + user.getICE3() + "\nOstatnie choroby: " +
+            user.getIllnesses() + "\nOstatnio zażywane leki: " + user.getMedicines()
 }

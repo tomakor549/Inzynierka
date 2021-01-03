@@ -1,6 +1,7 @@
 package com.example.inzynierka.ui.tripPlans.selectTripPlan
 
 import android.Manifest
+import android.bluetooth.BluetoothAdapter
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -18,7 +19,6 @@ import com.example.inzynierka.StartActivity
 import com.example.inzynierka.ui.tripPlans.adapters.PlanListAdapter
 import com.example.inzynierka.room.Plan
 import com.example.inzynierka.room.TripWithPlans
-import com.example.inzynierka.ui.tripPlans.selectTripPlan.shareTrip.TripShare
 import kotlinx.android.synthetic.main.activity_trip_select.*
 
 class TripPlanSelectActivity : AppCompatActivity() {
@@ -72,17 +72,33 @@ class TripPlanSelectActivity : AppCompatActivity() {
             return true
         }
         if(id==R.id.action_sharing){
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH) == PackageManager.PERMISSION_DENIED) {
-                // proszenie o uprawnienia
-                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.SEND_SMS), 1)
-                val intent = Intent(this,TripShare::class.java)
-                intent.putExtra("tripId", tripPlan.trip.tripId)
-                startActivity(intent)
+            val sendIntent: Intent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, convertTripToString())
+                putExtra(Intent.EXTRA_SUBJECT, tripPlan.trip.tripName)
+                type = "text/plain"
             }
+
+            val shareIntent = Intent.createChooser(sendIntent, null)
+            startActivity(shareIntent)
             return true
         }
 
         return false
+    }
+
+    private fun convertTripToString(): String{
+        val str = tripPlan.trip.tripName + "\n" +
+                "Data wycieczki" + tripPlan.trip.startDate + "-" + tripPlan.trip.endDate + ":\n\n" +
+                "Plan wycieczki:" + "\n"
+
+        var plans: String = ""
+        for (plan in tripPlan.plans){
+            plans += "Dzień " + plan.day.toString() + ":\n" +
+                    plan.description + "\n"
+        }
+        return str+plans
+
     }
 
     private fun callEmergency(){

@@ -7,4 +7,5 @@
     <color name="white">#FFFFFF</color>
     <color name="textColor">#202020</color>
     <color name="textArticleBackground">#752196F3</color>
+    <color name="black">#000000</color>
 </resources>

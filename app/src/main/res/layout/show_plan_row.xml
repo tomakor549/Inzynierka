@@ -7,8 +7,10 @@
     <androidx.cardview.widget.CardView
         android:elevation="20dp"
         android:layout_width="match_parent"
+        android:layout_marginBottom="2dp"
         android:layout_height="wrap_content">
         <LinearLayout
+            android:id="@+id/linlay"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="10dp"
@@ -25,10 +27,10 @@
                 android:id="@+id/show_plan_row_desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/textColor"
                 android:textSize="17sp"
                 android:autofillHints="opis" />
         </LinearLayout>
-
     </androidx.cardview.widget.CardView>
 
 </LinearLayout>

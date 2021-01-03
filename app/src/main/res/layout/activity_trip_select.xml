@@ -15,24 +15,48 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/trip_select_date_text"
+    <LinearLayout
+        android:id="@+id/trip_select_date_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="25sp"
-        android:gravity="center"
-        android:textColor="@color/textColor"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_select_trip" />
+        android:layout_margin="5dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_select_trip">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:gravity="center"
+            android:text="Data:"
+            android:textColor="@color/textColor"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/trip_select_date_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:gravity="center"
+            android:textColor="@color/textColor"
+            android:textSize="20sp"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar_select_trip" />
+    </LinearLayout>
+
+
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="vertical"
+        android:layout_margin="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/trip_select_date_text">
+        app:layout_constraintTop_toBottomOf="@+id/trip_select_date_layout">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/chosen_trip_plans_days_recyclerView"

@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.app.Application
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,7 +34,7 @@ class TripsListAdapter(private val application: Application, private val activit
         return listOfTrips.size
     }
 
-    fun removeItem(position: Int) {
+    private fun removeItem(position: Int) {
         val id = listOfTrips[position].tripId
         listOfTrips.removeAt(position)
         notifyItemRemoved(position)
@@ -51,7 +52,12 @@ class TripsListAdapter(private val application: Application, private val activit
         //builder.setPositiveButton("OK", DialogInterface.OnClickListener(function = x))
 
         builder.setPositiveButton(android.R.string.yes) { _, _ ->
-            removeItem(position)
+            try{
+                removeItem(position)
+            }
+            catch (e: Exception){
+                Log.i("TripsListAdapter", "Wyjątek w usuwaiu danych")
+            }
         }
 
         builder.setNegativeButton(android.R.string.no) { _, _ ->

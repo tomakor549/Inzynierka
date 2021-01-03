@@ -27,6 +27,7 @@ class TripPlansListAdapter(private var listOfPlans: ArrayList<Plan>):RecyclerVie
 
     override fun onBindViewHolder(holder: TripPlanViewHolder, position: Int) {
         val str = "dzień ${position+1}"
+        listOfPlans[position].day = position + 1
         holder.dayTextView.text = str
         holder.dayPosition = position
         holder.descEditTextView.setText(listOfPlans[position].description)

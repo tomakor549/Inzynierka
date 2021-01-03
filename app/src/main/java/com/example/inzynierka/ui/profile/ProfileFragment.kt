@@ -66,6 +66,17 @@ class ProfileFragment : Fragment() {
             startActivity(intent)
         }
 
+        root.profile_send_button.setOnClickListener {
+            val sendIntent: Intent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, profileViewModel.sendUserData)
+                type = "text/plain"
+            }
+
+            val shareIntent = Intent.createChooser(sendIntent, null)
+            startActivity(shareIntent)
+        }
+
         return root
     }
 
