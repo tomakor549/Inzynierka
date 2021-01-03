@@ -89,7 +89,7 @@ class TripPlanSelectActivity : AppCompatActivity() {
 
     private fun convertTripToString(): String{
         val str = tripPlan.trip.tripName + "\n" +
-                "Data wycieczki" + tripPlan.trip.startDate + "-" + tripPlan.trip.endDate + ":\n\n" +
+                "Data wycieczki: " + tripPlan.trip.startDate + "-" + tripPlan.trip.endDate + ":\n\n" +
                 "Plan wycieczki:" + "\n"
 
         var plans: String = ""

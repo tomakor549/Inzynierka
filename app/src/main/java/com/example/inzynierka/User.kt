@@ -112,6 +112,6 @@ class User {//context przez user
     }
 
     fun clear(){
-        sharedPref.edit().clear().apply();
+        sharedPref.edit().clear().apply()
     }
 }

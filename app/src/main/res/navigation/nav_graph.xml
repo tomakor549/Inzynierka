@@ -16,11 +16,6 @@
         android:label="@string/menu_profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
-        android:id="@+id/nav_share_data"
-        android:name="com.example.inzynierka.ui.shareData.ShareDataFragment"
-        android:label="@string/menu_share_data"
-        tools:layout="@layout/fragment_share_data" />
-    <fragment
         android:id="@+id/nav_trip_plans"
         android:name="com.example.inzynierka.ui.tripPlans.TripPlansFragment"
         android:label="@string/menu_trip_plans"

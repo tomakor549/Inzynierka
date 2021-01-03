@@ -98,7 +98,7 @@ class ArticlesActivity : AppCompatActivity() {
         //lista tytułów artykułów
         val titleList = ArrayList<String>()
         //wczytanie danych do listy tytułów
-        for(element in listData!!){
+        for(element in listData){
             titleList.add(element.getTitle())
         }
 
@@ -111,7 +111,7 @@ class ArticlesActivity : AppCompatActivity() {
         //wybór tytułu
         listView.setOnItemClickListener { _, _, i, _ ->
             val intent = Intent(this, ArticleActivity::class.java)
-            val article = findArticle(titleList[i], listData!!)
+            val article = findArticle(titleList[i], listData)
             if (article != null) {
                 intent.putExtra("title", article.getTitle())
                 intent.putExtra("website", article.getWebsite())
