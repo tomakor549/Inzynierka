@@ -21,7 +21,7 @@
                 android:layout_height="80dp"
                 android:layout_margin="20dp"
                 android:gravity="center"
-                android:background="@color/colorPrimary"
+                android:background="@drawable/background_square"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.489"
@@ -69,6 +69,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/textColor"
                         android:text="@string/bloodtype"
                         android:textSize="25sp"
                         android:textStyle="bold" />
@@ -112,6 +113,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
+                        android:textColor="@color/textColor"
                         android:gravity="center"
                         android:text="ICE1:"
                         android:textSize="17dp"
@@ -137,6 +139,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/textColor"
                         android:gravity="center"
                         android:text="ICE2:"
                         android:textSize="17dp"
@@ -161,6 +164,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/textColor"
                         android:gravity="center"
                         android:text="ICE3:"
                         android:textSize="17dp"
@@ -200,6 +204,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/textColor"
                         android:text="@string/medicines"
                         android:textSize="17sp"
                         android:textStyle="bold" />
@@ -213,7 +218,9 @@
                         android:id="@+id/profile_medicines"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="left"
+                        android:layout_margin="5dp"
+                        android:textColor="@color/textColor"
+                        android:gravity="start"
                         android:text="@string/medicines"
                         android:textSize="17sp" />
                 </LinearLayout>
@@ -241,6 +248,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/textColor"
                         android:gravity="center"
                         android:text="@string/ill"
                         android:textSize="17sp"
@@ -255,6 +263,8 @@
                         android:id="@+id/profile_illnesses"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:textColor="@color/textColor"
                         android:text="@string/ill"
                         android:textSize="17sp" />
                 </LinearLayout>
@@ -266,7 +276,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
-                android:background="@color/colorPrimary"
+                android:background="@drawable/background_square"
                 android:padding="10dp"
                 android:text="Edytuj Dane"
                 android:textColor="#FFFFFF"
@@ -280,7 +290,7 @@
                 android:id="@+id/profile_send_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/colorPrimary"
+                android:background="@drawable/background_square"
                 android:padding="10dp"
                 android:layout_margin="10dp"
                 android:text="Wyślij dane"

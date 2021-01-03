@@ -129,6 +129,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
                         android:drawableRight="@drawable/ic_contact"
+                        android:inputType="none"
                         android:editable="false"
                         android:ems="10"
                         android:textSize="17sp" />
@@ -153,6 +154,7 @@
                         android:layout_height="wrap_content"
                         android:drawableRight="@drawable/ic_contact"
                         android:textColor="@color/black"
+                        android:inputType="none"
                         android:editable="false"
                         android:ems="10"
                         android:textSize="17sp" />
