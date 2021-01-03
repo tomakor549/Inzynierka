@@ -2,26 +2,23 @@ package com.example.inzynierka
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
-import android.opengl.Visibility
 import android.os.Bundle
 import android.provider.ContactsContract
-import android.text.InputType
 import android.util.Log
+import android.view.MotionEvent
 import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_article.*
 import kotlinx.android.synthetic.main.activity_start.*
+
 
 class StartActivity : AppCompatActivity() {
     private lateinit var user: User
     private lateinit var phoneNumber: EditText
-    private lateinit var nameNumber: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,12 +53,29 @@ class StartActivity : AppCompatActivity() {
             setFields()
         }
 
-        hideKeyboardEmptyField()
-        onClickListeners()
+
+        setupUI(findViewById<View>(R.id.start_main_layout))
+        onClickTouchListeners()
         setButton()
     }
 
     private fun setFields(){
+        val bloodNameArray = resources.getStringArray(R.array.bloodName)
+        val bloodTypeArray = resources.getStringArray(R.array.bloodRh)
+        val bloodName = user.getBloodName()
+        val bloodRh = user.getBloodRh()
+        var i = 0
+        for (bloodNameArrayElement in bloodNameArray){
+            if(bloodName == bloodNameArrayElement)
+                user_blood_name.setSelection(i)
+            i++
+        }
+        i = 0
+        for (bloodNameArrayElement in bloodTypeArray){
+            if(bloodRh == bloodNameArrayElement)
+                user_blood_Rh.setSelection(i)
+            i++
+        }
 
         user_name.setText(user.getName())
         user_ICE1.setText(user.getICE1())
@@ -82,6 +96,36 @@ class StartActivity : AppCompatActivity() {
         }
     }
 
+    private fun hideSoftKeyboard(activity: Activity) {
+        val inputMethodManager =
+            activity.getSystemService(
+                Activity.INPUT_METHOD_SERVICE
+            ) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(
+            activity.currentFocus!!.windowToken, 0
+        )
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private fun setupUI(view: View) {
+        //Nasłuchiwanie kliknięcia dla widoków inne niż EditText
+        if (view !is EditText) {
+            view.setOnTouchListener { _, _ ->
+                hideSoftKeyboard(this)
+                false
+            }
+        }
+
+        //Jeśli jest to kontener układu, wykonaj iterację po elementach potomnych i rekurencji inicjatora.
+        if (view is ViewGroup) {
+            for (i in 0 until view.childCount) {
+                val innerView = view.getChildAt(i)
+                setupUI(innerView)
+            }
+        }
+    }
+
+
     private fun setButton(){
         val startApp = go_to_app
         startApp.setOnClickListener{
@@ -95,31 +139,38 @@ class StartActivity : AppCompatActivity() {
         }
     }
 
-    private fun onClickListeners(){
+    @SuppressLint("ClickableViewAccessibility")
+    private fun onClickTouchListeners(){
 
-        user_ICE1.setOnClickListener{
-            phoneNumber = user_ICE1
-            nameNumber = user_ICE1_name
-            val contactPickIntent = Intent(Intent.ACTION_PICK)
-            contactPickIntent.type = ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE
-            startActivityForResult(contactPickIntent, 111)
+        user_ICE1.setOnTouchListener { _, event ->
+            if (event.action == MotionEvent.ACTION_DOWN){
+                phoneNumber = user_ICE1
+                setPhoneNumber()
+            }
+            false
         }
 
-        user_ICE2.setOnClickListener{
-            phoneNumber = user_ICE2
-            nameNumber = user_ICE2_name
-            val contactPickIntent = Intent(Intent.ACTION_PICK)
-            contactPickIntent.type = ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE
-            startActivityForResult(contactPickIntent, 111)
+        user_ICE2.setOnTouchListener { _, event ->
+            if (event.action == MotionEvent.ACTION_DOWN){
+                phoneNumber = user_ICE2
+                setPhoneNumber()
+            }
+            false
         }
 
-        user_ICE3.setOnClickListener{
-            phoneNumber = user_ICE3
-            nameNumber = user_ICE3_name
-            val contactPickIntent = Intent(Intent.ACTION_PICK)
-            contactPickIntent.type = ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE
-            startActivityForResult(contactPickIntent, 111)
+        user_ICE3.setOnTouchListener { _, event ->
+            if (event.action == MotionEvent.ACTION_DOWN){
+                phoneNumber = user_ICE3
+                setPhoneNumber()
+            }
+            false
         }
+    }
+
+    private fun setPhoneNumber(){
+        val contactPickIntent = Intent(Intent.ACTION_PICK)
+        contactPickIntent.type = ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE
+        startActivityForResult(contactPickIntent, 111)
     }
 
     @SuppressLint("Recycle", "SetTextI18n")
@@ -135,7 +186,6 @@ class StartActivity : AppCompatActivity() {
             val rs = contentResolver.query(contacturi, cols, null, null, null)
             if(rs?.moveToFirst()!!){
                 phoneNumber.setText(rs.getString(0))
-                nameNumber.text = rs.getString(1) + ": "
             }
         }
     }

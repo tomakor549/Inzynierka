@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 
 //shared preferences
-class User {//context przez user
+class User(context: Context) {//context przez user
 
     private val PREFERENCES_KEY = "profile"
     private val KEY_USER_NAME = "userName"
@@ -19,7 +19,7 @@ class User {//context przez user
     private var sharedPref: SharedPreferences
     //private var context: Context
 
-    constructor (context: Context) {
+    init {
         sharedPref =  context.getSharedPreferences(PREFERENCES_KEY, Context.MODE_PRIVATE)
     }
 
@@ -34,6 +34,14 @@ class User {//context przez user
         val str = sharedPref.getString(KEY_BLOOD_NAME, "-") + " " + sharedPref.getString(KEY_BLOOD_RH, "-")
 
         return str
+    }
+
+    fun getBloodName(): String{
+        return sharedPref.getString(KEY_BLOOD_NAME, "-")!!
+    }
+
+    fun getBloodRh(): String{
+        return sharedPref.getString(KEY_BLOOD_RH, "-")!!
     }
 
     fun setIllnesses(data: String){
