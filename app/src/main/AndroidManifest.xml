@@ -4,6 +4,7 @@
     package="com.example.inzynierka">
 
     <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
 
     <application
         android:allowBackup="true"
@@ -13,6 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ui.tripPlans.selectTripPlan.shareTrip.TripShare"></activity>
         <activity android:name=".ui.tripPlans.editTrip.TripEditActivity" />
         <activity android:name=".ui.tripPlans.addTrip.AddTripActivity" />
         <activity android:name=".ui.tripPlans.selectTripPlan.TripPlanSelectActivity" />

@@ -1,4 +1,4 @@
-package com.example.inzynierka.ui.tripPlans.room
+package com.example.inzynierka.room
 
 import android.app.Application
 import androidx.lifecycle.LiveData
@@ -8,7 +8,10 @@ class TripRepository(application: Application) {
     private var tripDao: TripDao
 
     init {
-        val database = TripDatabase.getInstance(application.applicationContext)
+        val database =
+            TripDatabase.getInstance(
+                application.applicationContext
+            )
 
         tripDao = database!!.tripDao()
     }

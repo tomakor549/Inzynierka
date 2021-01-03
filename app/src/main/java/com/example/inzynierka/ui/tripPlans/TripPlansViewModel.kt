@@ -4,10 +4,10 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
-import com.example.inzynierka.ui.tripPlans.room.Plan
-import com.example.inzynierka.ui.tripPlans.room.Trip
-import com.example.inzynierka.ui.tripPlans.room.TripRepository
-import com.example.inzynierka.ui.tripPlans.room.TripWithPlans
+import com.example.inzynierka.room.Plan
+import com.example.inzynierka.room.Trip
+import com.example.inzynierka.room.TripRepository
+import com.example.inzynierka.room.TripWithPlans
 import kotlinx.coroutines.*
 
 @Suppress("UNCHECKED_CAST")
@@ -28,7 +28,7 @@ class TripPlansViewModel constructor(application: Application): AndroidViewModel
         tripRepository.insertTrip(trip)
     }
 
-    fun insertPlan(plan:Plan){
+    fun insertPlan(plan: Plan){
         tripRepository.insertPlan(plan)
     }
 

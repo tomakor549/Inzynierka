@@ -3,6 +3,8 @@ package com.example.inzynierka.ui.articles.articlesList
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ArrayAdapter
@@ -15,6 +17,7 @@ import com.example.inzynierka.R
 import com.example.inzynierka.ui.articles.Article
 import com.example.inzynierka.ui.articles.articlesList.article.ArticleActivity
 import com.example.inzynierka.ui.articles.enum.ArticleNameEnum
+import com.mancj.materialsearchbar.MaterialSearchBar
 import kotlinx.android.synthetic.main.activity_articles.*
 import java.io.*
 import java.lang.Exception
@@ -24,6 +27,7 @@ class ArticlesActivity : AppCompatActivity() {
 
     private lateinit var toolbar: Toolbar
     private lateinit var choice: String
+    private lateinit var searchBar: MaterialSearchBar
 
     //private lateinit var viewModel: ArticleActivityViewModel
 
@@ -37,6 +41,7 @@ class ArticlesActivity : AppCompatActivity() {
             .getInstance(application)
             .create(ArticleActivityViewModel::class.java)*/
 
+        searchBar = search_bar
         choice = intent.getStringExtra("title")
 
 
@@ -117,6 +122,16 @@ class ArticlesActivity : AppCompatActivity() {
                 Toast.makeText(this, "Brak informacji o artykule", Toast.LENGTH_LONG).show()
             }
         }
+
+        searchBar.addTextChangeListener(object : TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                arrayAdapter.filter.filter(p0)
+            }
+            override fun afterTextChanged(p0: Editable?) {
+            }
+        })
     }
 
     private fun findArticle(title: String, articles:List<Article>): Article?{

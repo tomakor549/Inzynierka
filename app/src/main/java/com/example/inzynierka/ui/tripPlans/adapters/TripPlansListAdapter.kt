@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.inzynierka.R
 import com.example.inzynierka.ui.tripPlans.addTrip.TripPlansList
-import com.example.inzynierka.ui.tripPlans.room.Plan
+import com.example.inzynierka.room.Plan
 import kotlinx.android.synthetic.main.plan_row.view.*
 
 class TripPlansListAdapter(private var listOfPlans: ArrayList<Plan>):RecyclerView.Adapter<TripPlanViewHolder>(){
@@ -46,7 +46,13 @@ class TripPlansListAdapter(private var listOfPlans: ArrayList<Plan>):RecyclerVie
     }
 
     fun addPlan(tripId: Long){
-        listOfPlans.add(Plan(tripId,itemCount+1,""))
+        listOfPlans.add(
+            Plan(
+                tripId,
+                itemCount + 1,
+                ""
+            )
+        )
         notifyDataSetChanged()
     }
 
@@ -54,7 +60,13 @@ class TripPlansListAdapter(private var listOfPlans: ArrayList<Plan>):RecyclerVie
         val tripId = listOfPlans[0].tripId
         var i = 0
         while(i>=howMany){
-            listOfPlans.add(Plan(tripId,itemCount+1,""))
+            listOfPlans.add(
+                Plan(
+                    tripId,
+                    itemCount + 1,
+                    ""
+                )
+            )
             i++
         }
         notifyDataSetChanged()

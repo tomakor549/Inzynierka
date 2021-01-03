@@ -1,6 +1,8 @@
 package com.example.inzynierka.ui.tripPlans.selectTripPlan
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,12 +10,15 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
+import androidx.core.app.ActivityCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.inzynierka.R
+import com.example.inzynierka.StartActivity
 import com.example.inzynierka.ui.tripPlans.adapters.PlanListAdapter
-import com.example.inzynierka.ui.tripPlans.room.Plan
-import com.example.inzynierka.ui.tripPlans.room.TripWithPlans
+import com.example.inzynierka.room.Plan
+import com.example.inzynierka.room.TripWithPlans
+import com.example.inzynierka.ui.tripPlans.selectTripPlan.shareTrip.TripShare
 import kotlinx.android.synthetic.main.activity_trip_select.*
 
 class TripPlanSelectActivity : AppCompatActivity() {
@@ -66,10 +71,16 @@ class TripPlanSelectActivity : AppCompatActivity() {
             callEmergency()
             return true
         }
-        /*if(id==R.id.action_sharing){
-            shareTrip()
+        if(id==R.id.action_sharing){
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH) == PackageManager.PERMISSION_DENIED) {
+                // proszenie o uprawnienia
+                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.SEND_SMS), 1)
+                val intent = Intent(this,TripShare::class.java)
+                intent.putExtra("tripId", tripPlan.trip.tripId)
+                startActivity(intent)
+            }
             return true
-        }*/
+        }
 
         return false
     }

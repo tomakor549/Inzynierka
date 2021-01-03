@@ -1,4 +1,4 @@
-package com.example.inzynierka.ui.tripPlans.room
+package com.example.inzynierka.room
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

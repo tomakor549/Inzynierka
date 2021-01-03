@@ -1,31 +1,35 @@
 package com.example.inzynierka.ui.profile
 
 
+import android.Manifest
+import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Paint
 import android.net.Uri
 import android.os.Bundle
+import android.provider.ContactsContract
+import android.telephony.SmsManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.Spinner
-import android.widget.TextView
+import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.inzynierka.R
 import com.example.inzynierka.StartActivity
-import com.example.inzynierka.ui.articles.articlesList.ArticlesActivity
-import com.example.inzynierka.ui.articles.enum.ArticleNameEnum
-import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.fragment_profile.view.*
+import kotlinx.coroutines.runBlocking
 
 
 class ProfileFragment : Fragment() {
 
     private lateinit var profileViewModel: ProfileViewModel
+    private var phoneNumber: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,6 +39,8 @@ class ProfileFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_profile, container, false)
         val factory = ProfileViewModel.Factory(requireContext())
         profileViewModel = ViewModelProvider(this, factory).get(ProfileViewModel::class.java)
+
+        phoneNumber = ""
 
         /*
         try {
@@ -59,6 +65,7 @@ class ProfileFragment : Fragment() {
             intent.putExtra("edit", true)
             startActivity(intent)
         }
+
         return root
     }
 
@@ -110,47 +117,4 @@ class ProfileFragment : Fragment() {
         intent.data = Uri.parse("tel:" + ice.value.toString())
         startActivity(intent)
     }
-
-    private fun editData(){
-        //Ukrycie TextView
-        profile_user_name.visibility = TextView.GONE
-        profile_ice1.visibility = TextView.GONE
-        profile_ice2.visibility = TextView.GONE
-        profile_ice3.visibility = TextView.GONE
-        profile_bloodType.visibility = TextView.GONE
-        profile_illnesses.visibility = TextView.GONE
-        profile_medicines.visibility = TextView.GONE
-
-        //pokazanie pól edycyjnych
-        profile_user_name_edit.visibility = EditText.VISIBLE
-        profile_ice1_edit.visibility = EditText.VISIBLE
-        profile_ice2_edit.visibility = EditText.VISIBLE
-        profile_ice3_edit.visibility = EditText.VISIBLE
-        profile_illnesses.visibility = EditText.VISIBLE
-        profile_medicines.visibility = EditText.VISIBLE
-        profile_blood_name.visibility = Spinner.VISIBLE
-        profile_blood_Rh.visibility = Spinner.VISIBLE
-    }
-
-    private fun viewData(){
-        //Ukrycie TextView
-        profile_user_name.visibility = TextView.VISIBLE
-        profile_ice1.visibility = TextView.VISIBLE
-        profile_ice2.visibility = TextView.VISIBLE
-        profile_ice3.visibility = TextView.VISIBLE
-        profile_bloodType.visibility = TextView.VISIBLE
-        profile_illnesses.visibility = TextView.VISIBLE
-        profile_medicines.visibility = TextView.VISIBLE
-
-        //pokazanie pól edycyjnych
-        profile_user_name_edit.visibility = EditText.GONE
-        profile_ice1_edit.visibility = EditText.GONE
-        profile_ice2_edit.visibility = EditText.GONE
-        profile_ice3_edit.visibility = EditText.GONE
-        profile_illnesses.visibility = EditText.GONE
-        profile_medicines.visibility = EditText.GONE
-        profile_blood_name.visibility = Spinner.GONE
-        profile_blood_Rh.visibility = Spinner.GONE
-    }
-
 }

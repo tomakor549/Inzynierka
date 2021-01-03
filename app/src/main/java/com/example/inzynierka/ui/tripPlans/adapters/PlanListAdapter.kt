@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.inzynierka.R
 import com.example.inzynierka.ui.tripPlans.addTrip.TripPlansList
-import com.example.inzynierka.ui.tripPlans.room.Plan
+import com.example.inzynierka.room.Plan
 import kotlinx.android.synthetic.main.activity_trip_select.view.*
 import kotlinx.android.synthetic.main.plan_row.view.*
 import kotlinx.android.synthetic.main.show_plan_row.view.*

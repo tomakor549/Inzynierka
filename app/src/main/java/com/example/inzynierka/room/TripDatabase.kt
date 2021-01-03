@@ -1,4 +1,4 @@
-package com.example.inzynierka.ui.tripPlans.room
+package com.example.inzynierka.room
 
 import android.content.Context
 import androidx.room.Database

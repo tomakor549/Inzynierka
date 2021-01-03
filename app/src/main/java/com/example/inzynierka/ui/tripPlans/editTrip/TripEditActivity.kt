@@ -21,9 +21,9 @@ import com.example.inzynierka.R
 import com.example.inzynierka.ui.tripPlans.TripDataControl
 import com.example.inzynierka.ui.tripPlans.adapters.TripPlansListAdapter
 import com.example.inzynierka.ui.tripPlans.addTrip.AddTripViewModel
-import com.example.inzynierka.ui.tripPlans.room.Plan
-import com.example.inzynierka.ui.tripPlans.room.Trip
-import com.example.inzynierka.ui.tripPlans.room.TripWithPlans
+import com.example.inzynierka.room.Plan
+import com.example.inzynierka.room.Trip
+import com.example.inzynierka.room.TripWithPlans
 import kotlinx.android.synthetic.main.activity_trip_add.*
 import kotlinx.android.synthetic.main.activity_trip_add.activity_add_trip_confirm_button
 import kotlinx.android.synthetic.main.activity_trip_add.add_trip_date_end_button
@@ -104,7 +104,12 @@ class TripEditActivity : AppCompatActivity() {
         }
         val tripName = add_trip_name.text.toString()
 
-        val trip = Trip(tripName, tripId, tripPlan.trip.startDate, tripPlan.trip.endDate)
+        val trip = Trip(
+            tripName,
+            tripId,
+            tripPlan.trip.startDate,
+            tripPlan.trip.endDate
+        )
 
         val plansList: List<Plan>
         try {

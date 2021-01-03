@@ -1,4 +1,4 @@
-package com.example.inzynierka.ui.tripPlans.room
+package com.example.inzynierka.room
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
@@ -8,7 +8,7 @@ interface TripDao {
 
     //Insert
     @Insert
-    fun insertTrip(trip:Trip)
+    fun insertTrip(trip: Trip)
 
     @Insert
     fun insertPlan(plan: Plan)
@@ -18,7 +18,7 @@ interface TripDao {
 
     //Update
     @Update
-    fun updateTrip(trip:Trip)
+    fun updateTrip(trip: Trip)
 
     @Update
     fun updatePlan(plan: Plan)
@@ -28,7 +28,7 @@ interface TripDao {
 
     //Delete
     @Delete
-    fun deleteTrip(trip:Trip)
+    fun deleteTrip(trip: Trip)
 
     @Delete
     fun deletePlan(plan: Plan)

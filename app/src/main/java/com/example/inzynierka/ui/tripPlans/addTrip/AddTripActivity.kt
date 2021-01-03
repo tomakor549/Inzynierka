@@ -20,8 +20,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.inzynierka.R
 import com.example.inzynierka.ui.tripPlans.adapters.TripPlansListAdapter
-import com.example.inzynierka.ui.tripPlans.room.Plan
-import com.example.inzynierka.ui.tripPlans.room.Trip
+import com.example.inzynierka.room.Plan
+import com.example.inzynierka.room.Trip
 import kotlinx.android.synthetic.main.activity_trip_add.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -164,7 +164,7 @@ class AddTripActivity : AppCompatActivity() {
 
         var i = 1
         while(i<=day){
-            dayPlansList.add(Plan(tripId,day,""))
+            dayPlansList.add(Plan(tripId, day, ""))
             i++
         }
 
@@ -183,7 +183,12 @@ class AddTripActivity : AppCompatActivity() {
         val tripStartDate = add_trip_date_start_button.text.toString()
         val tripEndDate = add_trip_date_end_button.text.toString()
 
-        val trip = Trip(tripName, tripId, tripStartDate, tripEndDate)
+        val trip = Trip(
+            tripName,
+            tripId,
+            tripStartDate,
+            tripEndDate
+        )
 
         val plansList: List<Plan>
         try {
@@ -194,8 +199,14 @@ class AddTripActivity : AppCompatActivity() {
             return false
         }
 
-        addTripViewModel.insertTrip(trip)
-        addTripViewModel.insertPlans(plansList)
+        try{
+            addTripViewModel.insertTrip(trip)
+            addTripViewModel.insertPlans(plansList)
+
+        }
+        catch (e: java.lang.Exception){
+            Log.i(TAG, "addError")
+        }
         return true
     }
 

@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.inzynierka.R
 import com.example.inzynierka.ui.tripPlans.adapters.TripsListAdapter
 import com.example.inzynierka.ui.tripPlans.addTrip.AddTripActivity
-import com.example.inzynierka.ui.tripPlans.room.Trip
+import com.example.inzynierka.room.Trip
 import kotlinx.android.synthetic.main.fragment_trip_plans.view.*
 
 class TripPlansFragment : Fragment() {

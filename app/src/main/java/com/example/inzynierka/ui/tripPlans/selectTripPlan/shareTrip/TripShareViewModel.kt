@@ -1,13 +1,12 @@
-package com.example.inzynierka.ui.tripPlans.selectTripPlan
+package com.example.inzynierka.ui.tripPlans.selectTripPlan.shareTrip
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
 import com.example.inzynierka.room.TripRepository
 import com.example.inzynierka.room.TripWithPlans
 import kotlinx.coroutines.runBlocking
 
-class TripPlanSelectViewModel constructor(application: Application): AndroidViewModel(application) {
+class TripShareViewModel(application: Application): AndroidViewModel(application) {
 
     private var tripRepository: TripRepository =
         TripRepository(application)
