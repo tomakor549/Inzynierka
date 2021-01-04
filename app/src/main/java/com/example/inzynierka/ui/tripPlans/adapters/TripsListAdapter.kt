@@ -15,8 +15,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.inzynierka.R
 import com.example.inzynierka.ui.tripPlans.selectTripPlan.TripPlanSelectActivity
 import com.example.inzynierka.ui.tripPlans.editTrip.TripEditActivity
-import com.example.inzynierka.room.Trip
-import com.example.inzynierka.room.TripRepository
+import com.example.inzynierka.room.trip.Trip
+import com.example.inzynierka.room.trip.TripRepository
 import kotlinx.android.synthetic.main.trip_row.view.*
 
 class TripsListAdapter(private val application: Application, private val activityContext: Context, private val listOfTrips: ArrayList<Trip>):RecyclerView.Adapter<TripViewHolder>(){

@@ -3,11 +3,8 @@ package com.example.inzynierka.ui.tripPlans
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModelProvider
-import com.example.inzynierka.room.Plan
-import com.example.inzynierka.room.Trip
-import com.example.inzynierka.room.TripRepository
-import com.example.inzynierka.room.TripWithPlans
+import com.example.inzynierka.room.trip.Trip
+import com.example.inzynierka.room.trip.TripRepository
 import kotlinx.coroutines.*
 
 @Suppress("UNCHECKED_CAST")

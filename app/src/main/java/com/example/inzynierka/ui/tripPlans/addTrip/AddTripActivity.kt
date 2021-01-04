@@ -11,7 +11,6 @@ import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.DatePicker
-import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -20,8 +19,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.inzynierka.R
 import com.example.inzynierka.ui.tripPlans.adapters.TripPlansListAdapter
-import com.example.inzynierka.room.Plan
-import com.example.inzynierka.room.Trip
+import com.example.inzynierka.room.trip.Plan
+import com.example.inzynierka.room.trip.Trip
 import kotlinx.android.synthetic.main.activity_trip_add.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -164,7 +163,13 @@ class AddTripActivity : AppCompatActivity() {
 
         var i = 1
         while(i<=day){
-            dayPlansList.add(Plan(tripId, day, ""))
+            dayPlansList.add(
+                Plan(
+                    tripId,
+                    day,
+                    ""
+                )
+            )
             i++
         }
 

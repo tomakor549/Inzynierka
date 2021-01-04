@@ -15,9 +15,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProvider
 import com.example.inzynierka.R
-import com.example.inzynierka.ui.articles.Article
 import com.example.inzynierka.ui.articles.articlesList.article.ArticleActivity
 import com.example.inzynierka.enum.ArticleNameEnum
+import com.example.inzynierka.room.article.Article
 import com.mancj.materialsearchbar.MaterialSearchBar
 import kotlinx.android.synthetic.main.activity_articles.*
 import java.io.*
@@ -29,6 +29,7 @@ class ArticlesActivity : AppCompatActivity() {
     private lateinit var toolbar: Toolbar
     private lateinit var searchBar: MaterialSearchBar
     private lateinit var choice: String
+    private var selectedSection: ArticleNameEnum? = null
 
     @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,14 +44,15 @@ class ArticlesActivity : AppCompatActivity() {
         searchBar = search_bar
         choice = intent.getStringExtra("title").toString()
 
-        choice()
+        userChoice()
 
     }
 
-    private fun choice(){
+    private fun userChoice(){
         when(choice){
             ArticleNameEnum.CITY.name ->{
-                addToolbar("Tereny miejsckie")
+                addToolbar(ArticleNameEnum.CITY.name)
+                selectedSection = ArticleNameEnum.CITY
                 try {
                     click(R.raw.city)
                 }catch (ex: FileNotFoundException){
@@ -58,27 +60,30 @@ class ArticlesActivity : AppCompatActivity() {
                 }
             }
             ArticleNameEnum.MOUNTAIN.name ->{
-                addToolbar("Tereny górskie")
+                addToolbar(ArticleNameEnum.MOUNTAIN.name)
+                selectedSection = ArticleNameEnum.MOUNTAIN
                 try {
                     click(R.raw.mountain)
                 }catch (ex: FileNotFoundException){
-                    Toast.makeText(this,"Nie znaleziono pliku z danymi",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this,"Nie znaleziono danych",Toast.LENGTH_SHORT).show()
                 }
             }
             ArticleNameEnum.SEA.name -> {
-                addToolbar("Akweny")
+                addToolbar(ArticleNameEnum.SEA.name)
+                selectedSection = ArticleNameEnum.SEA
                 try {
                     click(R.raw.water)
                 }catch (ex: FileNotFoundException){
-                    Toast.makeText(this,"Nie znaleziono pliku z danymi",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this,"Nie znaleziono danych",Toast.LENGTH_SHORT).show()
                 }
             }
             ArticleNameEnum.FOREST.name ->{
-                addToolbar("Tereny leśne")
+                addToolbar(ArticleNameEnum.FOREST.name)
+                selectedSection = ArticleNameEnum.FOREST
                 try {
                     click(R.raw.forest)
                 }catch (ex: FileNotFoundException){
-                    Toast.makeText(this,"Nie znaleziono pliku z danymi",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this,"Nie znaleziono danych",Toast.LENGTH_SHORT).show()
                 }
             }
             else->{
@@ -92,18 +97,22 @@ class ArticlesActivity : AppCompatActivity() {
         //adapter listy
         val arrayAdapter: ArrayAdapter<*>
 
-        //odczyt listy z pliku
-        val listData = getList(section)
+        var listData = selectedSection?.let { articlesActivityViewModel.getUserArticle(it) }
 
-        if(listData==null){
+        if (listData != null) {
+            if(listData.isEmpty())
+                listData = getList(section)
+        }
+        else{
             Toast.makeText(this,"Brak danych",Toast.LENGTH_SHORT).show()
             return
         }
+
         //lista tytułów artykułów
         val titleList = ArrayList<String>()
         //wczytanie danych do listy tytułów
-        for(element in listData){
-            titleList.add(element.getTitle())
+        for(element in listData!!){
+            titleList.add(element.title)
         }
 
         //uzupełnienie listy w xml o tytuły
@@ -117,10 +126,10 @@ class ArticlesActivity : AppCompatActivity() {
             val intent = Intent(this, ArticleActivity::class.java)
             val article = findArticle(titleList[i], listData)
             if (article != null) {
-                intent.putExtra("title", article.getTitle())
-                intent.putExtra("website", article.getWebsite())
-                intent.putExtra("phoneNumber", article.getPhoneNumber())
-                intent.putExtra("description", article.getDescription())
+                intent.putExtra("title", article.title)
+                intent.putExtra("website", article.website)
+                intent.putExtra("phoneNumber", article.phoneNumber)
+                intent.putExtra("description", article.description)
                 startActivity(intent)
             }else{
                 Toast.makeText(this, "Brak informacji o artykule", Toast.LENGTH_LONG).show()
@@ -140,25 +149,14 @@ class ArticlesActivity : AppCompatActivity() {
 
     private fun findArticle(title: String, articles:List<Article>): Article?{
         for(article in articles){
-            if(article.getTitle()==title){
+            if(article.title==title){
                 return article
             }
         }
         return null
     }
 
-    private fun addToolbar(name:String){
-        // Dodawanie toolbara
-        toolbar = toolbar_articles as Toolbar
-        toolbar.title = name
-        setSupportActionBar(toolbar)
-        toolbar.setNavigationIcon(R.drawable.ic_arrow_back)
-        toolbar.setNavigationOnClickListener {
-            onBackPressed()
-        }
-    }
-
-    private fun getList(@RawRes section: Int): List<Article>?{
+    private fun getList(@RawRes section: Int): List<Article>? {
         val string = readFromFile(section)
         val delim = "***\n"
 
@@ -166,12 +164,15 @@ class ArticlesActivity : AppCompatActivity() {
             return null
         }
         val dataList = string.split(delim)
+
         val articles = ArrayList<Article>()
         for(element in dataList){
             if(countLines(element)==5){
-                val article = Article(element)
-                if(article.getTitle().length < 60)
-                    articles.add(article)
+                val article = selectedSection?.let { articlesActivityViewModel.stringToArticle(element, it) }
+                if (article != null) {
+                    if(article.title.length < 60)
+                        articles.add(article)
+                }
             }
         }
         return articles
@@ -224,6 +225,17 @@ class ArticlesActivity : AppCompatActivity() {
         val intent = Intent(Intent.ACTION_DIAL)
         intent.data = Uri.parse("tel:" + "112")
         startActivity(intent)
+    }
+
+    private fun addToolbar(name:String){
+        // Dodawanie toolbara
+        toolbar = toolbar_articles as Toolbar
+        toolbar.title = name
+        setSupportActionBar(toolbar)
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back)
+        toolbar.setNavigationOnClickListener {
+            onBackPressed()
+        }
     }
 
 }

@@ -39,7 +39,7 @@ class ArticleActivity : AppCompatActivity() {
             }
         }
 
-        var tmp: String
+        val tmp: String
 
         //sprawdzenie odwrotności numeru telefonu i strony internetowej
         if(!setPhoneAndUrl(phoneNumber, url)){
@@ -56,10 +56,10 @@ class ArticleActivity : AppCompatActivity() {
 
         addToolbar()
 
-        activity_article_title.text = title
-        activity_article_website.text = url
-        activity_article_phone.text = phoneNumber
-        activity_article_description.text = desc
+        activity_article_title.setText(title)
+        activity_article_website.setText(url)
+        activity_article_phone.setText(phoneNumber)
+        activity_article_description.setText(desc)
     }
 
     private fun addToolbar(){
@@ -112,7 +112,7 @@ class ArticleActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         // dodanie menu
-        menuInflater.inflate(R.menu.toolbar_menu, menu)
+        menuInflater.inflate(R.menu.toolbar_sharing_menu, menu)
 
         return true
     }
@@ -122,6 +122,20 @@ class ArticleActivity : AppCompatActivity() {
 
         if(id==R.id.action_emergency){
             callEmergency()
+            return true
+        }
+
+        if(id==R.id.action_sharing){
+            val sendIntent: Intent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TITLE, title)
+                putExtra(Intent.EXTRA_SUBJECT, title)
+                putExtra(Intent.EXTRA_TEXT, desc)
+                type = "text/plain"
+            }
+
+            val shareIntent = Intent.createChooser(sendIntent, null)
+            startActivity(shareIntent)
             return true
         }
 

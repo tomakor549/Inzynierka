@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.inzynierka.R
-import com.example.inzynierka.room.Plan
+import com.example.inzynierka.room.trip.Plan
 import kotlinx.android.synthetic.main.show_plan_row.view.*
 
 class PlanListAdapter(private var plansList: List<Plan>): RecyclerView.Adapter<PlansViewHolder>(){

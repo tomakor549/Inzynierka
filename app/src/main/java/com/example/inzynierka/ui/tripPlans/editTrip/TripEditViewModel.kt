@@ -2,10 +2,10 @@ package com.example.inzynierka.ui.tripPlans.editTrip
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import com.example.inzynierka.room.Plan
-import com.example.inzynierka.room.Trip
-import com.example.inzynierka.room.TripRepository
-import com.example.inzynierka.room.TripWithPlans
+import com.example.inzynierka.room.trip.Plan
+import com.example.inzynierka.room.trip.Trip
+import com.example.inzynierka.room.trip.TripRepository
+import com.example.inzynierka.room.trip.TripWithPlans
 import kotlinx.coroutines.runBlocking
 
 class TripEditViewModel constructor(application: Application): AndroidViewModel(application) {

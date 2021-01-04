@@ -1,14 +1,10 @@
 package com.example.inzynierka.ui.tripPlans.addTrip
 
 import android.app.Application
-import android.view.View
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.inzynierka.ui.tripPlans.adapters.TripPlansListAdapter
-import com.example.inzynierka.room.Plan
-import com.example.inzynierka.room.Trip
-import com.example.inzynierka.room.TripRepository
+import com.example.inzynierka.room.trip.Plan
+import com.example.inzynierka.room.trip.Trip
+import com.example.inzynierka.room.trip.TripRepository
 import kotlinx.coroutines.runBlocking
 
 class AddTripViewModel constructor(application: Application): AndroidViewModel(application) {

@@ -6,7 +6,6 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -19,14 +18,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.inzynierka.R
 import com.example.inzynierka.ui.tripPlans.adapters.TripPlansListAdapter
-import com.example.inzynierka.room.Plan
-import com.example.inzynierka.room.Trip
-import com.example.inzynierka.room.TripWithPlans
+import com.example.inzynierka.room.trip.Plan
+import com.example.inzynierka.room.trip.Trip
+import com.example.inzynierka.room.trip.TripWithPlans
 import com.example.inzynierka.ui.tripPlans.TripDataControl
-import kotlinx.android.synthetic.main.activity_trip_add.*
 import kotlinx.android.synthetic.main.activity_trip_add.activity_add_trip_confirm_button
 import kotlinx.android.synthetic.main.activity_trip_add.add_trip_name
-import kotlinx.android.synthetic.main.activity_trip_add.trip_plans_day_recyclerView
 import kotlinx.android.synthetic.main.activity_trip_edit.*
 import kotlin.collections.ArrayList
 
@@ -133,7 +130,13 @@ class TripEditActivity : AppCompatActivity() {
                     i++
                 }
                 while(i<=day){
-                    newPlansList.add(Plan(tripId, i, ""))
+                    newPlansList.add(
+                        Plan(
+                            tripId,
+                            i,
+                            ""
+                        )
+                    )
                     i++
                 }
                 setAdapter(newPlansList)

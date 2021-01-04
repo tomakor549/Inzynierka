@@ -1,6 +1,5 @@
-package com.example.inzynierka.room
+package com.example.inzynierka.room.trip
 
-import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 

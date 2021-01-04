@@ -1,11 +1,7 @@
-package com.example.inzynierka.room.myArticle
+package com.example.inzynierka.room.article
 
 import android.app.Application
-import androidx.room.Query
-import androidx.room.Transaction
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 class ArticleRepository(application: Application) {
     private var articleSourceDao: ArticleDao
@@ -25,45 +21,57 @@ class ArticleRepository(application: Application) {
         articleUserDao = userDatabase!!.articleDao()
     }
 
+    //dodawanie elementów jak nie istnieją
+    fun insertArticle(articles: List<Article>) = CoroutineScope(Dispatchers.IO).launch {
+        articleUserDao.insertArticles(articles)
+        articleSourceDao.insertArticles(articles)
+    }
+
     //baza danych użytkownika
     fun insertUserArticle(articles: List<Article>) = CoroutineScope(Dispatchers.IO).launch {
-        articleUserDao.insertArticle(articles)
+        articleUserDao.insertArticles(articles)
     }
 
     fun updateUserArticle(article: Article) = CoroutineScope(Dispatchers.IO).launch {
         articleUserDao.updateArticle(article)
     }
 
-    fun getUserArticle(articleId: Article) = CoroutineScope(Dispatchers.IO).launch {
+    fun getUserArticleAsync(articleId: Int): Deferred<Article> =
+        CoroutineScope(Dispatchers.IO).async {
         articleUserDao.getArticleById(articleId)
     }
 
-    fun getAllUserArticle()= CoroutineScope(Dispatchers.IO).launch {
+    fun getAllUserArticleAsync() : Deferred<List<Article>> =
+    CoroutineScope(Dispatchers.IO).async {
         articleUserDao.getAllArticle()
     }
 
-    fun getAllUserSectionArticle(section: Int) = CoroutineScope(Dispatchers.IO).launch {
+    fun getAllUserSectionArticleAsync(section: String) : Deferred<List<Article>> =
+        CoroutineScope(Dispatchers.IO).async {
         articleUserDao.getAllSectionArticle(section)
     }
 
     //baza danych aplikacji
     fun insertSourceArticle(articles: List<Article>) = CoroutineScope(Dispatchers.IO).launch {
-        articleSourceDao.insertArticle(articles)
+        articleSourceDao.insertArticles(articles)
     }
 
     fun updateSourceArticle(article: Article) = CoroutineScope(Dispatchers.IO).launch {
         articleSourceDao.updateArticle(article)
     }
 
-    fun getSourceArticle(articleId: Article) = CoroutineScope(Dispatchers.IO).launch {
+    fun getSourceArticleAsync(articleId: Int) : Deferred<Article> =
+        CoroutineScope(Dispatchers.IO).async {
         articleSourceDao.getArticleById(articleId)
     }
 
-    fun getAllSourceArticle()= CoroutineScope(Dispatchers.IO).launch {
+    fun getAllSourceArticleAsync() : Deferred<List<Article>> =
+        CoroutineScope(Dispatchers.IO).async {
         articleSourceDao.getAllArticle()
     }
 
-    fun getAllSourceSectionArticle(section: Int) = CoroutineScope(Dispatchers.IO).launch {
+    fun getAllSourceSectionArticleAsync(section: String) : Deferred<List<Article>> =
+        CoroutineScope(Dispatchers.IO).async {
         articleSourceDao.getAllSectionArticle(section)
     }
 }

@@ -1,4 +1,4 @@
-package com.example.inzynierka.room
+package com.example.inzynierka.room.trip
 
 import androidx.room.Embedded
 import androidx.room.Relation

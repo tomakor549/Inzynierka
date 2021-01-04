@@ -12,8 +12,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.inzynierka.R
 import com.example.inzynierka.ui.tripPlans.adapters.PlanListAdapter
-import com.example.inzynierka.room.Plan
-import com.example.inzynierka.room.TripWithPlans
+import com.example.inzynierka.room.trip.Plan
+import com.example.inzynierka.room.trip.TripWithPlans
 import kotlinx.android.synthetic.main.activity_trip_select.*
 
 class TripPlanSelectActivity : AppCompatActivity() {
@@ -69,8 +69,9 @@ class TripPlanSelectActivity : AppCompatActivity() {
         if(id==R.id.action_sharing){
             val sendIntent: Intent = Intent().apply {
                 action = Intent.ACTION_SEND
-                putExtra(Intent.EXTRA_TEXT, convertTripToString())
+                putExtra(Intent.EXTRA_TEXT, tripPlanSelectViewModel.convertTripToString(tripPlan))
                 putExtra(Intent.EXTRA_SUBJECT, tripPlan.trip.tripName)
+                putExtra(Intent.EXTRA_TITLE, tripPlan.trip.tripName)
                 type = "text/plain"
             }
 
@@ -82,19 +83,7 @@ class TripPlanSelectActivity : AppCompatActivity() {
         return false
     }
 
-    private fun convertTripToString(): String{
-        val str = tripPlan.trip.tripName + "\n" +
-                "Data wycieczki: " + tripPlan.trip.startDate + "-" + tripPlan.trip.endDate + ":\n\n" +
-                "Plan wycieczki:" + "\n"
 
-        var plans: String = ""
-        for (plan in tripPlan.plans){
-            plans += "Dzień " + plan.day.toString() + ":\n" +
-                    plan.description + "\n"
-        }
-        return str+plans
-
-    }
 
     private fun callEmergency(){
         val intent = Intent(Intent.ACTION_DIAL)

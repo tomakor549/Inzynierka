@@ -1,24 +1,24 @@
-package com.example.inzynierka.room.myArticle
+package com.example.inzynierka.room.article
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [Article::class], version = 1, exportSchema = true)
-abstract class ArticleDatabaseUser: RoomDatabase() {
+@Database(entities = [Article::class], version = 2, exportSchema = true)
+abstract class ArticleDatabaseSource: RoomDatabase() {
     abstract fun articleDao(): ArticleDao
 
     companion object{
         @Volatile
-        private var instance: ArticleDatabaseUser? = null
+        private var instance: ArticleDatabaseSource? = null
 
-        fun getInstance(context: Context): ArticleDatabaseUser?{
+        fun getInstance(context: Context): ArticleDatabaseSource?{
             if (instance == null) {
                 instance = Room.databaseBuilder(
                     context,
-                    ArticleDatabaseUser::class.java,
-                    "articles_user_db")
+                    ArticleDatabaseSource::class.java,
+                    "articles_source_db")
                     .fallbackToDestructiveMigration()
                     .build()
             }

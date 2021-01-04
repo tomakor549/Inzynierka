@@ -1,4 +1,4 @@
-package com.example.inzynierka.room
+package com.example.inzynierka.room.trip
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
