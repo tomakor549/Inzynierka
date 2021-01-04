@@ -129,13 +129,14 @@ class StartActivity : AppCompatActivity() {
     private fun setButton(){
         val startApp = go_to_app
         startApp.setOnClickListener{
-            if(checkData()){
-                saveData()
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
-            }else{
-                Toast.makeText(this, "Imie i nazwisko są wymagane\nPotrzebny jest przynajmniej jeden numer ICE", Toast.LENGTH_SHORT).show()
-            }
+            saveData()
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
+        button_clear.setOnClickListener {
+            user_ICE1.text.clear()
+            user_ICE2.text.clear()
+            user_ICE3.text.clear()
         }
     }
 
@@ -191,7 +192,7 @@ class StartActivity : AppCompatActivity() {
     }
 
     private fun checkData(): Boolean {
-        if (user_name.text.length >= 5) {
+        if (user_name.text.length >= 2) {
             if (user_ICE1.text.isNotEmpty() || user_ICE2.text.isNotEmpty() || user_ICE3.text.isNotEmpty())
                 return true
         }

@@ -5,6 +5,7 @@ import android.graphics.Paint
 import android.net.Uri
 import android.os.Bundle
 import android.telephony.PhoneNumberUtils
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.webkit.URLUtil
@@ -15,6 +16,8 @@ import kotlinx.android.synthetic.main.activity_article.*
 
 class ArticleActivity : AppCompatActivity() {
     private lateinit var toolbar: Toolbar
+    private var title = ""
+    private var desc = ""
     private var url = ""
     private var phoneNumber = ""
 
@@ -24,37 +27,39 @@ class ArticleActivity : AppCompatActivity() {
 
         val extras = intent.extras
         if (extras != null) {
-            activity_article_title.text = intent.getStringExtra("title")
-            activity_article_website.text = intent.getStringExtra("website")
-            activity_article_phone.text = intent.getStringExtra("phoneNumber")
-            activity_article_description.text = intent.getStringExtra("description")
-        }
-
-        url = activity_article_website.text.toString()
-        //sprawdzanie czy to adres strony
-        if(URLUtil.isValidUrl(url)){
-            activity_article_phone.paintFlags = Paint.UNDERLINE_TEXT_FLAG
-
-            activity_article_website.setOnClickListener {
-                val browserIntent =
-                    Intent(Intent.ACTION_VIEW, Uri.parse(url))
-                startActivity(browserIntent)
+            try {
+                title = intent.getStringExtra("title")!!
+                url = intent.getStringExtra("website")!!
+                phoneNumber = intent.getStringExtra("phoneNumber")!!
+                desc = intent.getStringExtra("description")!!
+            }
+            catch (e: Exception){
+                Log.i("ArticleActivity", "dane sa nullami")
+                onBackPressed()
             }
         }
 
-        phoneNumber = activity_article_phone.text.toString()
-        //sprawdzanie czy to numer telefonu
-        if(PhoneNumberUtils.isGlobalPhoneNumber(phoneNumber)){
-            activity_article_phone.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+        var tmp: String
 
-            activity_article_phone.setOnClickListener{
-                val telephoneIntent = Intent(Intent.ACTION_DIAL)
-                telephoneIntent.data = Uri.parse("tel:" + activity_article_phone.text.toString())
-                startActivity(telephoneIntent)
+        //sprawdzenie odwrotności numeru telefonu i strony internetowej
+        if(!setPhoneAndUrl(phoneNumber, url)){
+            if (!setPhoneAndUrl(url, phoneNumber)){
+                phoneNumber = "-"
+                url = "-"
+            }
+            else{
+                tmp = phoneNumber
+                phoneNumber = url
+                url = tmp
             }
         }
 
         addToolbar()
+
+        activity_article_title.text = title
+        activity_article_website.text = url
+        activity_article_phone.text = phoneNumber
+        activity_article_description.text = desc
     }
 
     private fun addToolbar(){
@@ -68,6 +73,41 @@ class ArticleActivity : AppCompatActivity() {
         toolbar.setNavigationOnClickListener {
             onBackPressed()
         }
+    }
+
+    private fun setPhoneAndUrl(phone: String, website: String): Boolean{
+        var correct = false
+
+        //sprawdzanie czy to adres strony
+        if(URLUtil.isValidUrl(website)){
+            activity_article_phone.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+
+            activity_article_website.setOnClickListener {
+                val browserIntent =
+                    Intent(Intent.ACTION_VIEW, Uri.parse(website))
+                startActivity(browserIntent)
+            }
+            correct = true
+        }
+
+
+        if(phone.length<3)
+            return correct
+
+        //sprawdzanie czy to numer telefonu
+        if(PhoneNumberUtils.isGlobalPhoneNumber(phone)){
+            activity_article_phone.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+
+            activity_article_phone.setOnClickListener{
+                val telephoneIntent = Intent(Intent.ACTION_DIAL)
+                telephoneIntent.data = Uri.parse("tel:${phone}")
+                startActivity(telephoneIntent)
+            }
+            correct = true
+        }
+
+        return correct
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

@@ -22,6 +22,30 @@ class TripDataControl {
         return day + "/" + month + "/" + datePicker.year.toString()
     }
 
+    fun getDay(date: String): Int?{
+        val split = "/"
+        val day = date.split(split)
+        if (day.size!=3)
+            return null
+        return day[0].toInt()
+    }
+
+    fun getYear(date: String): Int?{
+        val split = "/"
+        val year = date.split(split)
+        if (year.size!=3)
+            return null
+        return year[2].toInt()
+    }
+
+    fun getMonth(date: String): Int?{
+        val split = "/"
+        val month = date.split(split)
+        if (month.size!=3)
+            return null
+        return month[1].toInt()-1
+    }
+
     @Suppress("DEPRECATION")
     fun getCheckDate(startDatePicker: DatePicker?, endDatePicker: DatePicker?): Int{
         if (startDatePicker != null && endDatePicker != null) {
@@ -40,7 +64,7 @@ class TripDataControl {
             val differenceDates = difference / (24 * 60 * 60 * 1000)
 
             if(startYear == endYear && startMonth == endMonth && startDay == endDay)
-                return 1
+                return 0
 
             return differenceDates.toInt()
         }

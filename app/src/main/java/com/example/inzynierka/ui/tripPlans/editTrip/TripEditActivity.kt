@@ -22,6 +22,8 @@ import com.example.inzynierka.ui.tripPlans.adapters.TripPlansListAdapter
 import com.example.inzynierka.room.Plan
 import com.example.inzynierka.room.Trip
 import com.example.inzynierka.room.TripWithPlans
+import com.example.inzynierka.ui.tripPlans.TripDataControl
+import kotlinx.android.synthetic.main.activity_trip_add.*
 import kotlinx.android.synthetic.main.activity_trip_add.activity_add_trip_confirm_button
 import kotlinx.android.synthetic.main.activity_trip_add.add_trip_name
 import kotlinx.android.synthetic.main.activity_trip_add.trip_plans_day_recyclerView
@@ -36,8 +38,9 @@ class TripEditActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
 
 
-    //private var startDatePicker: DatePicker? = null
-    //private var endDatePicker: DatePicker? = null
+    private val tripDateControl = TripDataControl()
+    private var startDatePicker: DatePicker? = null
+    private var endDatePicker: DatePicker? = null
     private var tripId: Long = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,7 +72,7 @@ class TripEditActivity : AppCompatActivity() {
         activity_edit_date.text = date
         
         tripPlansAdapter = TripPlansListAdapter(ArrayList(tripPlan.plans))
-        recyclerView = trip_plans_day_recyclerView
+        recyclerView = edit_trip_plans_day_recyclerView
         recyclerView.layoutManager = LinearLayoutManager(applicationContext)
         recyclerView.adapter = tripPlansAdapter
 
@@ -81,11 +84,123 @@ class TripEditActivity : AppCompatActivity() {
                 onBackPressed()
             }
         }
+
+        startDatePicker = edit_trip_date_start_picker
+        endDatePicker = edit_trip_date_end_picker
+
+        edit_trip_date_start_button.text = tripPlan.trip.startDate
+        edit_trip_date_end_button.text = tripPlan.trip.endDate
+        startDatePicker!!.init(tripDateControl.getYear(tripPlan.trip.startDate)!!,
+            tripDateControl.getMonth(tripPlan.trip.startDate)!!,
+            tripDateControl.getDay(tripPlan.trip.startDate)!!,
+            null)
+        endDatePicker!!.init(tripDateControl.getYear(tripPlan.trip.endDate)!!,
+            tripDateControl.getMonth(tripPlan.trip.endDate)!!,
+            tripDateControl.getDay(tripPlan.trip.endDate)!!,
+            null)
+
+        setStartData()
+        setEndData()
+    }
+
+    private fun updateDate(){
+        val day: Int
+        val differenceDate = tripDateControl.getCheckDate(startDatePicker, endDatePicker)
+
+        if(differenceDate>=0){
+            if(differenceDate<tripDateControl.maxTripDay){
+                day = differenceDate + 1
+            }
+            else{
+                Toast.makeText(this,"Wycieczka nie może przekroczyć ${tripDateControl.maxTripDay} dni",Toast.LENGTH_SHORT).show()
+                return
+            }
+        }
+        else{
+            Toast.makeText(this,"Wycieczka musi się zaczynać przed jej zakończeniem",Toast.LENGTH_SHORT).show()
+            return
+        }
+        val oldPlansList = ArrayList(tripPlansAdapter.getPlanList())
+        val oldPlanListSize = oldPlansList.size
+        val newPlansList = ArrayList<Plan>()
+        var i = 1
+        if(day==oldPlanListSize)
+            setAdapter(oldPlansList)
+        else{
+            if(day>oldPlanListSize){
+                for(plan in oldPlansList){
+                    newPlansList.add(plan)
+                    i++
+                }
+                while(i<=day){
+                    newPlansList.add(Plan(tripId, i, ""))
+                    i++
+                }
+                setAdapter(newPlansList)
+            }
+            if(day<oldPlanListSize){
+                for(plan in oldPlansList){
+                    if(i<=day){
+                        newPlansList.add(plan)
+                        i++
+                    }
+                }
+                setAdapter(newPlansList)
+            }
+        }
+
+    }
+
+    private fun setAdapter(arrayList: ArrayList<Plan>){
+        tripPlansAdapter.setPlansList(arrayList)
+        //recyclerView.layoutManager = LinearLayoutManager(applicationContext)
+        recyclerView.adapter = tripPlansAdapter
+    }
+
+    private fun setStartData(){
+        edit_trip_date_start_button.setOnClickListener {
+            hideKeyboard()
+            if(edit_trip_date_end_layout.visibility == View.VISIBLE)
+                edit_trip_date_end_layout.visibility = View.GONE
+            edit_trip_date_start_layout.visibility = View.VISIBLE
+        }
+        edit_trip_date_start_confirm_button.setOnClickListener {
+            startDatePicker = edit_trip_date_start_picker
+
+            edit_trip_date_start_button.text = tripDateControl.getStringDate(startDatePicker!!)
+            edit_trip_date_start_layout.visibility = View.GONE
+
+            hideKeyboard()
+
+            if(endDatePicker!=null)
+                updateDate()
+        }
+    }
+
+    private fun setEndData(){
+        edit_trip_date_end_button.setOnClickListener {
+            hideKeyboard()
+            if(edit_trip_date_start_layout.visibility == View.VISIBLE)
+                edit_trip_date_start_layout.visibility = View.GONE
+            edit_trip_date_end_layout.visibility = View.VISIBLE
+        }
+
+        edit_trip_date_end_confirm_button.setOnClickListener {
+            endDatePicker = edit_trip_date_end_picker
+
+            edit_trip_date_end_button.text = tripDateControl.getStringDate(endDatePicker!!)
+            edit_trip_date_end_layout.visibility = View.GONE
+
+            hideKeyboard()
+
+            if(startDatePicker!=null)
+                updateDate()
+        }
     }
 
     private fun updateTrip() : Boolean{
-        if(add_trip_name.text.isEmpty() || add_trip_name.text.length < 2){
-            Toast.makeText(this,"Wpisz nazwę wycieczki zawierającą minimum 2 znaki",Toast.LENGTH_SHORT).show()
+        if(add_trip_name.text.length > 60 || add_trip_name.text.length < 2){
+            Toast.makeText(this,"Wpisz nazwę wycieczki zawierającą minimum 2 znaki i maksimum 60",Toast.LENGTH_SHORT).show()
             return false
         }
         val tripName = add_trip_name.text.toString()

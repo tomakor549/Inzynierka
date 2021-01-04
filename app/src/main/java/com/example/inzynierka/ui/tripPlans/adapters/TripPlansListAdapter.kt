@@ -24,11 +24,17 @@ class TripPlansListAdapter(private var listOfPlans: ArrayList<Plan>):RecyclerVie
         return listOfPlans.size
     }
 
+    fun setPlansList(plans: ArrayList<Plan>){
+        listOfPlans = plans
+        viewHolder.removeAll(viewHolder)
+    }
+
     override fun onBindViewHolder(holder: TripPlanViewHolder, position: Int) {
         val str = "dzień ${position+1}"
         listOfPlans[position].day = position + 1
         holder.dayTextView.text = str
         holder.dayPosition = position
+        val a = listOfPlans[position].description
         holder.descEditTextView.setText(listOfPlans[position].description)
         viewHolder.add(holder)
     }
@@ -40,7 +46,7 @@ class TripPlansListAdapter(private var listOfPlans: ArrayList<Plan>):RecyclerVie
             if(str.isNotBlank())
                 listOfPlans[holder.dayPosition].description = str
             else
-                listOfPlans[holder.dayPosition].description = "-"
+                listOfPlans[holder.dayPosition].description = ""
         }
         return listOfPlans.toList()
     }

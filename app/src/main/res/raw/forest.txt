@@ -1,18 +1,24 @@
-Mandat za wstęp do lasu
+Wejście do zakazanego wstępem lasu
+-
 http://www.lasy.gov.pl/pl/informacje/zakazy-wstepu-do-lasow
 Wstęp do lasu, w którym jest wprowadzony zakaz, grozi mandatem w wysokości nawet 500 zł.
 ***
 Pożar w lesie
+998
 https://www.zielonagora.lasy.gov.pl/ochrona-przeciwpozarowa/-/asset_publisher/1M8a/content/widzisz-pozar-lasu-reaguj-podpowiadamy-jak-dzialac-
-998 lub 112
-Nie panikuj i niezwłocznie powiadom Straż Pożarną. Podaj w miarę możliwości dokładne miejsce oraz obiekt, który się pali, możesz również określić punkty charakterystyczne, bądź pozycję zlokalizowaną poprzez GPS. Jeżeli dostrzeżesz zagrożenie zdrowia bądź życia człowieka, poinformuj o tym. Podaj swoje imię i nazwisko, a także numer telefonu. Nie odkładaj słuchawki do momentu otrzymania potwierdzenia zgłoszenia od rozmówcy i wykonuj zalecone Ci przez niego działania.
+Nie panikuj i niezwłocznie powiadom Straż Pożarną. Podaj w miarę możliwości dokładne miejsce oraz obiekt, który się pali, możesz również określić punkty charakterystyczne, bądź pozycję zlokalizowaną poprzez GPS. Jeżeli dostrzeżesz zagrożenie zdrowia bądź życia człowieka, poinformuj o tym. Podaj swoje imię i nazwisko a także numer telefonu. Nie odkładaj słuchawki do momentu otrzymania potwierdzenia zgłoszenia od rozmówcy i wykonuj zalecone Ci przez niego działania.
 ***
 Spotkanie dzika w lesie
-https://www.ekologia.pl/srodowisko/przyroda/co-zrobic-gdy-spotkasz-dzika-czy-dziki-atakuja-ludzi,11439.html
 112
-Zachowaj spokój i nie wykonuj żadnych gwałtownych ruchów. Jeżeli dzik Cię nie spostrzegł, możesz powoli odejść, jeśli natomiast zostałeś zauważony/a przez zwierzę staraj się pozostać w bezruchu, gdyż każdy ruch może sprowokować dzika do ataku. Gdy napotkasz lochę (dorosła samica świni) z młodymi, zachowaj szczególną ostrożność, gdyż w efekcie obrony potomstwa, locha może być bardziej agresywna. Pod żadnym pozorem nie zbliżaj się do nich i nie dotykaj młodych. Jeśli zwierzę rzuci się do ataku, zejdź mu z drogi, a następnie postaraj się odejść stamtąd najdalej jak to możliwe, bądź też wdrapać się na pobliskie drzewo.
+https://www.crazynauka.pl/jak-sie-zachowac-kiedy-spotkasz-dzika-w-lesie-radzi-specjalistka/
+Zachowaj spokój i nie wykonuj żadnych gwałtownych ruchów. Jeżeli dzik Cię nie spostrzegł możesz powoli odejść, jeśli natomiast zostałeś zauważony/a przez zwierzę staraj się pozostać w bezruchu, gdyż każdy ruch może sprowokować dzika do ataku. Gdy napotkasz lochę z młodymi zachowaj szczególną ostrożność, gdyż w efekcie obrony potomstwa, locha może być bardziej agresywna. Pod żadnym pozorem nie zbliżaj się do nich i nie dotykaj młodych. Jeśli zwierzę rzuci się do ataku zejdź mu z drogi, a nastepnie postaraj się odejść stamtąd jak najdalej jest to możliwe, bądź też wdrapać się na pobliskie drzewo.
 ***
 Zgubienie się w lesie
-https://www.lasy.gov.pl/pl/informacje/faq/bezpieczenstwo
 112
-Nie panikuj, usiądź i weź głęboki oddech. Postaraj przypomnieć sobie teren, na jakim się znajdujesz, punkty charakterystyczne. Nasłuchuj dźwięków, gdyż może niedaleko znajdować się droga i usłyszysz szum samochodów. Spróbuj zorientować się w kierunkach świata. Drzewa zazwyczaj porastają mchem po północnej stronie. Postaraj się dostrzec położenie słońca i spójrz na zegarek, może to pomóc w rozeznaniu wschodu i zachodu. Jeżeli masz mapę lasu, kieruj się na zaznaczony na niej najbliższy oddział.
+https://www.lasy.gov.pl/pl/informacje/faq/bezpieczenstwo
+Nie panikuj, usiądź i weź głęboki oddech. Postaraj przypomnieć sobie teren na jakim się znajdujesz, punkty charakterystyczne. Nasłuchuj dżwięków, gdyż może niedaleko znajdować się droga i usłyszysz szum samochodów. Spróbuj zorientować się w kierunkach świata. Drzewa zazwyczaj porastają mchem po północnej stronie. Postaraj się dostrzec położenie słońca i spójrz na zegarek, może to pomóc w rozeznaniu wschodu i zachodu. Jeżeli masz mapę lasu kieruj się na zaznaczony na niej najbliższy oddział.
+***
+Burza w lesie
+-
+https://celestynow.warszawa.lasy.gov.pl/documents/18051/38736942/Burza.jpg/894a259a-c74e-e000-e978-ef2e15554960?t=1594110715171
+Nie panikuj. Jeżeli znajdujesz się w lesie na terenach górskich, spuść się jak najniżej i nie stój pod drzewami oraz nie zbliżaj się do rzek i innych wodnych terenów bądź obiektów. Przykucnij na plecaku i zwiń się w kłębek z dala od skał i metalowych obiektów. Poszukaj samochodu bądź budynku w którym mogłbyś/mogłabyś się schować.

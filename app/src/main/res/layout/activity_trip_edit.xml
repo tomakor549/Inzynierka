@@ -67,6 +67,118 @@
                     tools:ignore="LabelFor" />
 
             </LinearLayout>
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Data Rozpoczęcia: "
+                        android:textColor="@color/textColor"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <Button
+                        android:id="@+id/edit_trip_date_start_button"
+                        style="@style/Button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:text="@string/date_template"
+                        android:textAlignment="viewStart"
+                        android:textAllCaps="false"
+                        android:textSize="15sp"
+                        android:textStyle="italic" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Data Zakończenia: "
+                        android:textColor="@color/textColor"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <Button
+                        android:id="@+id/edit_trip_date_end_button"
+                        style="@style/Button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:text="@string/date_template"
+                        android:textAlignment="viewStart"
+                        android:textAllCaps="false"
+                        android:textSize="15sp"
+                        android:textStyle="italic" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/edit_trip_date_start_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_row="2"
+                    android:layout_column="0"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <DatePicker
+                        android:id="@+id/edit_trip_date_start_picker"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:calendarViewShown="false"
+                        android:datePickerMode="spinner" />
+
+                    <Button
+                        android:id="@+id/edit_trip_date_start_confirm_button"
+                        style="@style/Widget.AppCompat.Button.Colored"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/confirm" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/edit_trip_date_end_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_row="2"
+                    android:layout_column="0"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <DatePicker
+                        android:id="@+id/edit_trip_date_end_picker"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:calendarViewShown="false"
+                        android:datePickerMode="spinner" />
+
+                    <Button
+                        android:id="@+id/edit_trip_date_end_confirm_button"
+                        style="@style/Widget.AppCompat.Button.Colored"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/confirm" />
+                </LinearLayout>
+            </GridLayout>
 
             <LinearLayout
                 android:id="@+id/linearLayout6"
@@ -87,7 +199,7 @@
                     android:textSize="15sp"/>
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/trip_plans_day_recyclerView"
+                    android:id="@+id/edit_trip_plans_day_recyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:scrollbars="vertical"

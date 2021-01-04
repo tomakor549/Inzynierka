@@ -26,4 +26,6 @@
     <string name="more_and_colon">Więcej:</string>
     <string name="phone_and_colon">Telefon:</string>
     <string name="desc_and_colon">Opis:</string>
+    <string name="send_data">Wyślij dane</string>
+    <string name="edit_data">Edytuj Dane</string>
 </resources>

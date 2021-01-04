@@ -51,7 +51,7 @@ class TripsListAdapter(private val application: Application, private val activit
         builder.setMessage("Na pewno chcesz usunąć \"${listOfTrips[position].tripName}\"?")
         //builder.setPositiveButton("OK", DialogInterface.OnClickListener(function = x))
 
-        builder.setPositiveButton(android.R.string.yes) { _, _ ->
+        builder.setPositiveButton("Tak") { _, _ ->
             try{
                 removeItem(position)
             }
@@ -60,7 +60,7 @@ class TripsListAdapter(private val application: Application, private val activit
             }
         }
 
-        builder.setNegativeButton(android.R.string.no) { _, _ ->
+        builder.setNegativeButton("Nie") { _, _ ->
 
         }
 

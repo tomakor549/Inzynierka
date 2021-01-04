@@ -44,6 +44,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:orientation="vertical"
+                    android:background="@color/white"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
@@ -71,6 +72,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:orientation="vertical"
+                    android:background="@color/white"
                     app:layout_constraintTop_toBottomOf="@+id/linearLayout5">
 
 
@@ -195,7 +197,7 @@
                         android:layout_margin="5dp"
                         android:text="@string/confirm"
                         android:textSize="15sp"
-                        android:visibility="gone" />
+                        android:visibility="visible" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/trip_plans_day_recyclerView"

@@ -21,7 +21,6 @@ import com.example.inzynierka.ui.articles.enum.ArticleNameEnum
 import com.mancj.materialsearchbar.MaterialSearchBar
 import kotlinx.android.synthetic.main.activity_articles.*
 import java.io.*
-import java.lang.Exception
 
 
 class ArticlesActivity : AppCompatActivity() {
@@ -44,7 +43,7 @@ class ArticlesActivity : AppCompatActivity() {
             .create(ArticlesActivityViewModel::class.java)
 
         searchBar = search_bar
-        choice = intent.getStringExtra("title")
+        choice = intent.getStringExtra("title").toString()
 
 
         when(choice){
@@ -92,7 +91,9 @@ class ArticlesActivity : AppCompatActivity() {
         //adapter listy
         val arrayAdapter: ArrayAdapter<*>
 
+        //odczyt listy z pliku
         val listData = getList(section)
+
         if(listData==null){
             Toast.makeText(this,"Brak danych",Toast.LENGTH_SHORT).show()
             return
@@ -166,9 +167,18 @@ class ArticlesActivity : AppCompatActivity() {
         val dataList = string.split(delim)
         val articles = ArrayList<Article>()
         for(element in dataList){
-            articles.add(Article(element))
+            if(countLines(element)==5){
+                val article = Article(element)
+                if(article.getTitle().length < 60)
+                    articles.add(article)
+            }
         }
         return articles
+    }
+
+    private fun countLines(str: String): Int{
+        val lines: List<String> = str.split("\n")
+        return lines.size
     }
 
     private fun readFromFile(@RawRes section: Int): String{
