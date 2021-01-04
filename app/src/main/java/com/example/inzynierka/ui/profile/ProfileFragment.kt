@@ -70,6 +70,7 @@ class ProfileFragment : Fragment() {
             val sendIntent: Intent = Intent().apply {
                 action = Intent.ACTION_SEND
                 putExtra(Intent.EXTRA_TEXT, profileViewModel.sendUserData)
+                putExtra(Intent.EXTRA_TITLE, profileViewModel.sendTitle)
                 type = "text/plain"
             }
 

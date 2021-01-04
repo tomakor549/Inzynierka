@@ -63,4 +63,6 @@ class ProfileViewModel @Inject constructor(context: Context) : ViewModel() {
     val sendUserData = user.getName() + "\nKrew: " + user.getBloodType() + "\nNumery ICE:\n" + user.getICE1() +
             "\n" + user.getICE2() + "\n" + user.getICE3() + "\nOstatnie choroby: " +
             user.getIllnesses() + "\nOstatnio zażywane leki: " + user.getMedicines()
+
+    val sendTitle = "Dane osobiste"
 }

@@ -17,7 +17,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.inzynierka.R
 import com.example.inzynierka.ui.articles.Article
 import com.example.inzynierka.ui.articles.articlesList.article.ArticleActivity
-import com.example.inzynierka.ui.articles.enum.ArticleNameEnum
+import com.example.inzynierka.enum.ArticleNameEnum
 import com.mancj.materialsearchbar.MaterialSearchBar
 import kotlinx.android.synthetic.main.activity_articles.*
 import java.io.*
@@ -27,10 +27,8 @@ class ArticlesActivity : AppCompatActivity() {
     private lateinit var articlesActivityViewModel: ArticlesActivityViewModel
 
     private lateinit var toolbar: Toolbar
-    private lateinit var choice: String
     private lateinit var searchBar: MaterialSearchBar
-
-    //private lateinit var viewModel: ArticleActivityViewModel
+    private lateinit var choice: String
 
     @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,9 +43,13 @@ class ArticlesActivity : AppCompatActivity() {
         searchBar = search_bar
         choice = intent.getStringExtra("title").toString()
 
+        choice()
 
+    }
+
+    private fun choice(){
         when(choice){
-            ArticleNameEnum.CITY.toString() ->{
+            ArticleNameEnum.CITY.name ->{
                 addToolbar("Tereny miejsckie")
                 try {
                     click(R.raw.city)
@@ -55,7 +57,7 @@ class ArticlesActivity : AppCompatActivity() {
                     Toast.makeText(this,"Nie znaleziono pliku z danymi",Toast.LENGTH_SHORT).show()
                 }
             }
-            ArticleNameEnum.MOUNTAIN.toString() ->{
+            ArticleNameEnum.MOUNTAIN.name ->{
                 addToolbar("Tereny górskie")
                 try {
                     click(R.raw.mountain)
@@ -63,7 +65,7 @@ class ArticlesActivity : AppCompatActivity() {
                     Toast.makeText(this,"Nie znaleziono pliku z danymi",Toast.LENGTH_SHORT).show()
                 }
             }
-            ArticleNameEnum.SEA.toString() -> {
+            ArticleNameEnum.SEA.name -> {
                 addToolbar("Akweny")
                 try {
                     click(R.raw.water)
@@ -71,7 +73,7 @@ class ArticlesActivity : AppCompatActivity() {
                     Toast.makeText(this,"Nie znaleziono pliku z danymi",Toast.LENGTH_SHORT).show()
                 }
             }
-            ArticleNameEnum.FOREST.toString() ->{
+            ArticleNameEnum.FOREST.name ->{
                 addToolbar("Tereny leśne")
                 try {
                     click(R.raw.forest)
@@ -83,7 +85,6 @@ class ArticlesActivity : AppCompatActivity() {
                 Toast.makeText(applicationContext, "Nie znaleziono danych dla tego działu", Toast.LENGTH_SHORT).show()
             }
         }
-
     }
 
     private fun click(@RawRes section: Int){

@@ -6,7 +6,6 @@ import androidx.room.*
 @Dao
 interface TripDao {
 
-    //Insert
     @Insert
     fun insertTrip(trip: Trip)
 
@@ -16,7 +15,6 @@ interface TripDao {
     @Insert
     fun insertPlans(plans: List<Plan>)
 
-    //Update
     @Update
     fun updateTrip(trip: Trip)
 
@@ -26,7 +24,6 @@ interface TripDao {
     @Update
     fun updatePlans(plans: List<Plan>)
 
-    //Delete
     @Delete
     fun deleteTrip(trip: Trip)
 
@@ -36,7 +33,7 @@ interface TripDao {
     @Delete
     fun deletePlans(plans: List<Plan>)
 
-    //Function
+
     @Transaction
     @Query("SELECT * FROM trip")
     fun getAllTrip(): LiveData<List<Trip>>

@@ -85,17 +85,6 @@ class StartActivity : AppCompatActivity() {
         user_medicines.setText(user.getMedicines())
     }
 
-    @SuppressLint("ClickableViewAccessibility")
-    private fun hideKeyboardEmptyField() {
-        //ukrywanie klawiatury po kliknieciu na puste pole
-        findViewById<View>(R.id.start_main_layout).setOnTouchListener { _, _ ->
-            val imm: InputMethodManager =
-                getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
-            return@setOnTouchListener true
-        }
-    }
-
     private fun hideSoftKeyboard(activity: Activity) {
         val inputMethodManager =
             activity.getSystemService(
@@ -169,7 +158,9 @@ class StartActivity : AppCompatActivity() {
     }
 
     private fun setPhoneNumber(){
+        //aktywność wyboru
         val contactPickIntent = Intent(Intent.ACTION_PICK)
+        //ustawienie jej typu na numery telefonu
         contactPickIntent.type = ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE
         startActivityForResult(contactPickIntent, 111)
     }
@@ -180,13 +171,12 @@ class StartActivity : AppCompatActivity() {
 
         if(resultCode == Activity.RESULT_OK){
             val contacturi = data?.data ?: return
-            val cols = arrayOf(
-                ContactsContract.CommonDataKinds.Phone.NUMBER,
-                ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME
+            val contact = arrayOf(
+                ContactsContract.CommonDataKinds.Phone.NUMBER
             )
-            val rs = contentResolver.query(contacturi, cols, null, null, null)
-            if(rs?.moveToFirst()!!){
-                phoneNumber.setText(rs.getString(0))
+            val cursor = contentResolver.query(contacturi, contact, null, null, null)
+            if(cursor?.moveToFirst()!!){
+                phoneNumber.setText(cursor.getString(0))
             }
         }
     }

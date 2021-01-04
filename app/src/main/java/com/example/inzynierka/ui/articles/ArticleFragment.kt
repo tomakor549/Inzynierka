@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.inzynierka.R
 import com.example.inzynierka.ui.articles.articlesList.ArticlesActivity
-import com.example.inzynierka.ui.articles.enum.ArticleNameEnum
+import com.example.inzynierka.enum.ArticleNameEnum
 import kotlinx.android.synthetic.main.fragment_article.view.*
 
 class ArticleFragment : Fragment() {
@@ -35,26 +35,26 @@ class ArticleFragment : Fragment() {
 
         root.article_city.setOnClickListener{
             val intent = Intent(activity, ArticlesActivity::class.java)
-            intent.putExtra(key, ArticleNameEnum.CITY.toString())
+            intent.putExtra(key, ArticleNameEnum.CITY.name)
             startActivity(intent)
         }
 
         root.article_sea.setOnClickListener{
             val intent = Intent(activity, ArticlesActivity::class.java)
-            intent.putExtra(key, ArticleNameEnum.SEA.toString())
+            intent.putExtra(key, ArticleNameEnum.SEA.name)
             startActivity(intent)
         }
 
 
         root.article_mountain.setOnClickListener{
             val intent = Intent(activity, ArticlesActivity::class.java)
-            intent.putExtra(key, ArticleNameEnum.MOUNTAIN.toString())
+            intent.putExtra(key, ArticleNameEnum.MOUNTAIN.name)
             startActivity(intent)
         }
 
         root.article_forest.setOnClickListener{
             val intent = Intent(activity, ArticlesActivity::class.java)
-            intent.putExtra(key, ArticleNameEnum.FOREST.toString())
+            intent.putExtra(key, ArticleNameEnum.FOREST.name)
             startActivity(intent)
         }
     }
