@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@drawable/back_layout"
     tools:context=".ui.articles.articlesList.article.ArticleActivity">
 
@@ -12,7 +13,7 @@
         layout="@layout/toolbar" />
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/toolbar_article"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_article">
@@ -69,12 +70,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="15dp"
+                        android:layout_gravity="top"
                         android:background="@color/transparent"
                         android:orientation="horizontal">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center"
                             android:textColor="@color/textColor"
                             android:text="@string/more_and_colon"
                             android:textSize="17sp"
@@ -85,6 +88,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textColor="@color/colorPrimary"
+                            android:layout_gravity="center"
                             android:layout_marginStart="10sp"
                             android:textSize="15sp"
                             android:textStyle="italic"
@@ -114,6 +118,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/phone_and_colon"
+                            android:layout_gravity="center"
                             android:textColor="@color/textColor"
                             android:textSize="17sp"
                             android:textStyle="bold" />
@@ -123,6 +128,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
+                            android:layout_gravity="center"
                             android:textColor="@color/colorPrimary"
                             android:textSize="17sp"
                             android:textStyle="italic"
@@ -230,6 +236,4 @@
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
