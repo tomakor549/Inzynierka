@@ -91,7 +91,7 @@ class ArticleActivity : AppCompatActivity() {
             editableEditText(R.color.transparent, !focusable, !isFocusableInTouchMode)
             article.title = titleEditText.text.toString()
             article.phoneNumber = phoneNumberEditText.text.toString()
-            article.website = titleEditText.text.toString()
+            article.website = websiteEditText.text.toString()
             article.description = descEditText.text.toString()
             articleActivityViewModel.updateArticle(article)
             confirmDialogBuilder("zmiany wprowadzono pomyślnie")
@@ -105,6 +105,7 @@ class ArticleActivity : AppCompatActivity() {
                 val newArticle: Article? = articleActivityViewModel.getSourceArticle(articleId)
                 if (newArticle != null) {
                     article = newArticle
+                    articleActivityViewModel.updateArticle(article)
                     updateEditText()
                 } else
                     Toast.makeText(this, "Nie znaleziono danych źródłowych", Toast.LENGTH_SHORT).show()
@@ -126,6 +127,7 @@ class ArticleActivity : AppCompatActivity() {
                 activity_article_default_button.visibility = View.VISIBLE
                 viewingData()
                 updateEditText()
+                editableEditText(R.color.transparent, !focusable, !isFocusableInTouchMode)
             }
 
             changeArticle("Anulowanie zmian",
