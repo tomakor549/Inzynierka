@@ -28,4 +28,6 @@
     <string name="desc_and_colon">Opis:</string>
     <string name="send_data">Wyślij dane</string>
     <string name="edit_data">Edytuj Dane</string>
+    <string name="confirm_changes">potwierdź zmiany</string>
+    <string name="discard_changes">anuluj zmiany</string>
 </resources>

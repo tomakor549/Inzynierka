@@ -1,17 +1,15 @@
 package com.example.inzynierka.ui.articles.articlesList.article
 
+import android.app.AlertDialog
 import android.content.Intent
-import android.content.res.ColorStateList
 import android.net.Uri
 import android.os.Bundle
-import android.telephony.PhoneNumberUtils
-import android.text.InputType
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.webkit.URLUtil
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
@@ -58,7 +56,16 @@ class ArticleActivity : AppCompatActivity() {
             onBackPressed()
         }
 
-        article = articleActivityViewModel.getArticle(articleId)
+        val loadArticle: Article? = articleActivityViewModel.getUserArticle(articleId)
+
+        if(loadArticle==null){
+            Log.i("ArticleActivity", "nie znaleziono artykułu")
+            Toast.makeText(this, "Nie znaleziono danych", Toast.LENGTH_SHORT).show()
+            onBackPressed()
+            return
+        }
+        article = loadArticle
+
 
         phoneNumberEditText.setText(article.phoneNumber)
         titleEditText.setText(article.title)
@@ -73,33 +80,115 @@ class ArticleActivity : AppCompatActivity() {
         val focusable = false
         val isFocusableInTouchMode = true
 
+        //Edycja artykułu
         activity_article_edit_button.setOnClickListener {
-            activity_article_confirm_button.visibility = View.VISIBLE
-            activity_article_edit_button.visibility = View.GONE
-            activity_article_default_button.visibility = View.GONE
-
-            titleEditText.isEnabled = true
-            websiteEditText.isEnabled = true
-            descEditText.isEnabled = true
-            phoneNumberEditText.isEnabled = true
-
+            editData()
             editableEditText(android.R.drawable.edit_text, focusable, isFocusableInTouchMode)
         }
 
+        //zapisanine zmian
         activity_article_confirm_button.setOnClickListener {
-            activity_article_confirm_button.visibility = View.GONE
-            activity_article_edit_button.visibility = View.VISIBLE
-            activity_article_default_button.visibility = View.VISIBLE
-
-            titleEditText.isEnabled = false
-            websiteEditText.isEnabled = false
-            descEditText.isEnabled = false
-            phoneNumberEditText.isEnabled = false
-
             editableEditText(R.color.transparent, !focusable, !isFocusableInTouchMode)
+            article.title = titleEditText.text.toString()
+            article.phoneNumber = phoneNumberEditText.text.toString()
+            article.website = titleEditText.text.toString()
+            article.description = descEditText.text.toString()
+            articleActivityViewModel.updateArticle(article)
+            confirmDialogBuilder("zmiany wprowadzono pomyślnie")
+
+            viewingData()
         }
 
+        //przywrócenie artykułu domyślnego
+        activity_article_default_button.setOnClickListener {
+            val positiveClick = {
+                val newArticle: Article? = articleActivityViewModel.getSourceArticle(articleId)
+                if (newArticle != null) {
+                    article = newArticle
+                    updateEditText()
+                } else
+                    Toast.makeText(this, "Nie znaleziono danych źródłowych", Toast.LENGTH_SHORT).show()
 
+                viewingData()
+            }
+
+            changeArticle("Przywrócenie danych",
+                "Na pewno chcesz przywrócić stare dane? Po potwierdzeniu aktualne dane zostaną zastąpione.",
+                positiveClick)
+        }
+
+        //odrzucenie zmian edycji
+        activity_article_discard_button.setOnClickListener {
+            val positiveClick = {
+                activity_article_confirm_button.visibility = View.GONE
+                activity_article_discard_button.visibility = View.GONE
+                activity_article_edit_button.visibility = View.VISIBLE
+                activity_article_default_button.visibility = View.VISIBLE
+                viewingData()
+                updateEditText()
+            }
+
+            changeArticle("Anulowanie zmian",
+                "Na pewno chcesz anulować wprowadzone zmiany?",
+                positiveClick)
+        }
+    }
+
+    private fun editData(){
+        activity_article_confirm_button.visibility = View.VISIBLE
+        activity_article_discard_button.visibility = View.VISIBLE
+        activity_article_edit_button.visibility = View.GONE
+        activity_article_default_button.visibility = View.GONE
+        enabledEditText(true)
+    }
+
+    private fun viewingData(){
+        activity_article_confirm_button.visibility = View.GONE
+        activity_article_discard_button.visibility = View.GONE
+        activity_article_edit_button.visibility = View.VISIBLE
+        activity_article_default_button.visibility = View.VISIBLE
+        enabledEditText(false)
+    }
+
+    private fun changeArticle(titleMessage: String, message: String, positiveClick: () -> Unit){
+        val builder = AlertDialog.Builder(this)
+
+        builder.setTitle(titleMessage)
+        builder.setMessage(message)
+
+        builder.setPositiveButton("Tak") { _, _ ->
+            positiveClick()
+        }
+        builder.setNegativeButton("Nie") { _, _ ->
+
+        }
+        builder.show()
+    }
+
+    private fun confirmDialogBuilder(message: String){
+        val builder = AlertDialog.Builder(this)
+
+        builder.setTitle("Potwierdzanie zmian")
+        builder.setMessage(message)
+
+        builder.setPositiveButton("Ok") { _, _ ->
+
+        }
+        builder.show()
+    }
+
+    private fun updateEditText(){
+        phoneNumberEditText.setText(article.phoneNumber)
+        titleEditText.setText(article.title)
+        websiteEditText.setText(article.website)
+        descEditText.setText(article.description)
+    }
+
+    private fun enabledEditText(enabled: Boolean){
+        titleEditText.isEnabled = enabled
+        websiteEditText.isEnabled = enabled
+        descEditText.isEnabled = enabled
+        phoneNumberEditText.isEnabled = enabled
     }
 
     private fun editableEditText(backgroundEditText: Int, focusable: Boolean, isFocusableInTouchMode: Boolean){

@@ -14,8 +14,12 @@ class ArticleActivityViewModel(application: Application): AndroidViewModel(appli
     private var articleRepository: ArticleRepository =
         ArticleRepository(application)
 
-    fun getArticle(articleId: Long): Article = runBlocking {
+    fun getUserArticle(articleId: Long): Article = runBlocking {
         articleRepository.getUserArticleAsync(articleId).await()
+    }
+
+    fun getSourceArticle(articleId: Long): Article = runBlocking {
+        articleRepository.getSourceArticleAsync(articleId).await()
     }
 
     fun updateArticle(article: Article){
