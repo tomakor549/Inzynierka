@@ -8,5 +8,6 @@
     <color name="textColor">#202020</color>
     <color name="textArticleBackground">#752196F3</color>
     <color name="black">#000000</color>
+    <color name="lightBlue">#31E8D9</color>
     <color name="transparent">#00000000</color>
 </resources>

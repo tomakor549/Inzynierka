@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ArrayAdapter
@@ -13,25 +14,32 @@ import android.widget.Toast
 import androidx.annotation.RawRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModelProvider
 import com.example.inzynierka.R
-import com.example.inzynierka.ui.articles.articlesList.article.ArticleActivity
+import com.example.inzynierka.User
 import com.example.inzynierka.enum.ArticleNameEnum
 import com.example.inzynierka.room.article.Article
+import com.example.inzynierka.ui.articles.articlesList.article.ArticleActivity
 import com.mancj.materialsearchbar.MaterialSearchBar
 import kotlinx.android.synthetic.main.activity_articles.*
 import java.io.*
+import java.lang.NullPointerException
 
 
 class ArticlesActivity : AppCompatActivity() {
     private lateinit var articlesActivityViewModel: ArticlesActivityViewModel
-
+    private lateinit var listOfArticle: LiveData<List<Article>>
+    private lateinit var articleTitleList: List<String>
     private lateinit var toolbar: Toolbar
     private lateinit var searchBar: MaterialSearchBar
     private lateinit var choice: String
     private var selectedSection: ArticleNameEnum? = null
+    private lateinit var arrayAdapter: ArrayAdapter<*>
 
-    @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_articles)
@@ -50,8 +58,8 @@ class ArticlesActivity : AppCompatActivity() {
 
     private fun userChoice(){
         when(choice){
-            ArticleNameEnum.CITY.name ->{
-                addToolbar(ArticleNameEnum.CITY.name)
+            ArticleNameEnum.CITY.section ->{
+                addToolbar(ArticleNameEnum.CITY.section)
                 selectedSection = ArticleNameEnum.CITY
                 try {
                     click(R.raw.city)
@@ -59,8 +67,8 @@ class ArticlesActivity : AppCompatActivity() {
                     Toast.makeText(this,"Nie znaleziono pliku z danymi",Toast.LENGTH_SHORT).show()
                 }
             }
-            ArticleNameEnum.MOUNTAIN.name ->{
-                addToolbar(ArticleNameEnum.MOUNTAIN.name)
+            ArticleNameEnum.MOUNTAIN.section ->{
+                addToolbar(ArticleNameEnum.MOUNTAIN.section)
                 selectedSection = ArticleNameEnum.MOUNTAIN
                 try {
                     click(R.raw.mountain)
@@ -68,17 +76,17 @@ class ArticlesActivity : AppCompatActivity() {
                     Toast.makeText(this,"Nie znaleziono danych",Toast.LENGTH_SHORT).show()
                 }
             }
-            ArticleNameEnum.SEA.name -> {
-                addToolbar(ArticleNameEnum.SEA.name)
-                selectedSection = ArticleNameEnum.SEA
+            ArticleNameEnum.WATER.section -> {
+                addToolbar(ArticleNameEnum.WATER.section)
+                selectedSection = ArticleNameEnum.WATER
                 try {
                     click(R.raw.water)
                 }catch (ex: FileNotFoundException){
                     Toast.makeText(this,"Nie znaleziono danych",Toast.LENGTH_SHORT).show()
                 }
             }
-            ArticleNameEnum.FOREST.name ->{
-                addToolbar(ArticleNameEnum.FOREST.name)
+            ArticleNameEnum.FOREST.section ->{
+                addToolbar(ArticleNameEnum.FOREST.section)
                 selectedSection = ArticleNameEnum.FOREST
                 try {
                     click(R.raw.forest)
@@ -92,44 +100,44 @@ class ArticlesActivity : AppCompatActivity() {
         }
     }
 
+
     private fun click(@RawRes section: Int){
 
-        //adapter listy
-        val arrayAdapter: ArrayAdapter<*>
-
-        var listData = selectedSection?.let { articlesActivityViewModel.getUserArticle(it) }
-
-        if (listData != null) {
-            if(listData.isEmpty())
-                listData = getList(section)
+        if (selectedSection != null) {
+            listOfArticle = articlesActivityViewModel.getUserArticle(selectedSection!!)
         }
         else{
-            Toast.makeText(this,"Brak danych",Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "nie ma takich artykułów", Toast.LENGTH_LONG).show()
             return
         }
 
-        //lista tytułów artykułów
-        val titleList = ArrayList<String>()
-        //wczytanie danych do listy tytułów
-        for(element in listData!!){
-            titleList.add(element.title)
+        val titleList = Transformations.map(listOfArticle) { list ->
+            list.map { item -> item.title
+            }
         }
 
-        //uzupełnienie listy w xml o tytuły
+        //adapter listy
         val listView: ListView = listView_article
-        arrayAdapter = ArrayAdapter(this,
-            android.R.layout.simple_list_item_1, titleList)
-        listView.adapter = arrayAdapter
+        //uzupełnienie listy w xml o tytuły
+        titleList.observe(this, Observer {
+            if(it.isNotEmpty()){
+                arrayAdapter = ArrayAdapter(this,android.R.layout.simple_list_item_1, it)
+                listView.adapter = arrayAdapter
+            }
+        })
 
         //wybór tytułu
         listView.setOnItemClickListener { _, _, i, _ ->
             val intent = Intent(this, ArticleActivity::class.java)
-            val article = findArticle(titleList[i], listData)
+            var article: Article? = null
+            try {
+                article = titleList.value?.get(i)?.let { findArticle(it, listOfArticle.value!!) }
+            }
+            catch (e: NullPointerException){
+                Log.i("ArticleActivity", "błąd z wczytaniem listy artykułów z LiveData")
+            }
             if (article != null) {
-                intent.putExtra("title", article.title)
-                intent.putExtra("website", article.website)
-                intent.putExtra("phoneNumber", article.phoneNumber)
-                intent.putExtra("description", article.description)
+                intent.putExtra("articleId", article.articleId)
                 startActivity(intent)
             }else{
                 Toast.makeText(this, "Brak informacji o artykule", Toast.LENGTH_LONG).show()
@@ -147,7 +155,7 @@ class ArticlesActivity : AppCompatActivity() {
         })
     }
 
-    private fun findArticle(title: String, articles:List<Article>): Article?{
+    private fun findArticle(title: String, articles: List<Article>): Article?{
         for(article in articles){
             if(article.title==title){
                 return article
@@ -156,52 +164,6 @@ class ArticlesActivity : AppCompatActivity() {
         return null
     }
 
-    private fun getList(@RawRes section: Int): List<Article>? {
-        val string = readFromFile(section)
-        val delim = "***\n"
-
-        if(string.isBlank() || string.length<5){
-            return null
-        }
-        val dataList = string.split(delim)
-
-        val articles = ArrayList<Article>()
-        for(element in dataList){
-            if(countLines(element)==5){
-                val article = selectedSection?.let { articlesActivityViewModel.stringToArticle(element, it) }
-                if (article != null) {
-                    if(article.title.length < 60)
-                        articles.add(article)
-                }
-            }
-        }
-        return articles
-    }
-
-    private fun countLines(str: String): Int{
-        val lines: List<String> = str.split("\n")
-        return lines.size
-    }
-
-    private fun readFromFile(@RawRes section: Int): String{
-
-        var string: String? = ""
-        val stringBuilder = StringBuilder()
-
-        val inputStream: InputStream = resources.openRawResource(section)
-        val buffreader: BufferedReader = BufferedReader(InputStreamReader(inputStream))
-        while (true) {
-            try {
-                if (buffreader.readLine().also { string = it } == null) break
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
-            stringBuilder.append(string).append("\n")
-        }
-        inputStream.close()
-
-        return stringBuilder.toString()
-    }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         // dodanie menu
@@ -237,5 +199,4 @@ class ArticlesActivity : AppCompatActivity() {
             onBackPressed()
         }
     }
-
 }

@@ -1,8 +1,8 @@
 package com.example.inzynierka.enum
 
-enum class ArticleNameEnum(name: String) {
+enum class ArticleNameEnum(val section: String) {
     CITY("Obszary miejskie"),
-    SEA("Akweny"),
+    WATER("Akweny"),
     MOUNTAIN("Obszary górskie"),
     FOREST("Obszary leśne")
 }

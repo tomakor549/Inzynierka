@@ -1,6 +1,7 @@
 package com.example.inzynierka.room.article
 
 import android.app.Application
+import androidx.lifecycle.LiveData
 import kotlinx.coroutines.*
 
 class ArticleRepository(application: Application) {
@@ -21,6 +22,10 @@ class ArticleRepository(application: Application) {
         articleUserDao = userDatabase!!.articleDao()
     }
 
+    fun getAllArticleNumberAsync(): Deferred<Long> = CoroutineScope(Dispatchers.IO).async{
+        articleSourceDao.getAllArticleNumber()
+    }
+
     //dodawanie elementów jak nie istnieją
     fun insertArticle(articles: List<Article>) = CoroutineScope(Dispatchers.IO).launch {
         articleUserDao.insertArticles(articles)
@@ -36,17 +41,17 @@ class ArticleRepository(application: Application) {
         articleUserDao.updateArticle(article)
     }
 
-    fun getUserArticleAsync(articleId: Int): Deferred<Article> =
+    fun getUserArticleAsync(articleId: Long): Deferred<Article> =
         CoroutineScope(Dispatchers.IO).async {
         articleUserDao.getArticleById(articleId)
     }
 
-    fun getAllUserArticleAsync() : Deferred<List<Article>> =
+    /*fun getAllUserArticleAsync() : Deferred<List<Article>> =
     CoroutineScope(Dispatchers.IO).async {
         articleUserDao.getAllArticle()
-    }
+    }*/
 
-    fun getAllUserSectionArticleAsync(section: String) : Deferred<List<Article>> =
+    fun getAllUserSectionArticleAsync(section: String) : Deferred<LiveData<List<Article>>> =
         CoroutineScope(Dispatchers.IO).async {
         articleUserDao.getAllSectionArticle(section)
     }
@@ -60,17 +65,17 @@ class ArticleRepository(application: Application) {
         articleSourceDao.updateArticle(article)
     }
 
-    fun getSourceArticleAsync(articleId: Int) : Deferred<Article> =
+    fun getSourceArticleAsync(articleId: Long) : Deferred<Article> =
         CoroutineScope(Dispatchers.IO).async {
         articleSourceDao.getArticleById(articleId)
     }
 
-    fun getAllSourceArticleAsync() : Deferred<List<Article>> =
+    /*fun getAllSourceArticleAsync() : Deferred<List<Article>> =
         CoroutineScope(Dispatchers.IO).async {
         articleSourceDao.getAllArticle()
-    }
+    }*/
 
-    fun getAllSourceSectionArticleAsync(section: String) : Deferred<List<Article>> =
+    fun getAllSourceSectionArticleAsync(section: String) : Deferred<LiveData<List<Article>>> =
         CoroutineScope(Dispatchers.IO).async {
         articleSourceDao.getAllSectionArticle(section)
     }

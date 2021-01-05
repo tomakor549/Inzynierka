@@ -18,9 +18,10 @@ class ProfileViewModel @Inject constructor(context: Context) : ViewModel() {
         }
     }
 
-    val buttonEditText = "edytuj dane"
-
-    val a = ""
+    private val _editTextButton = MutableLiveData<String>().apply {
+        value = "edytuj dane"
+    }
+    val editTextButton: LiveData<String> = _editTextButton
 
     //imie i nazwisko
     private val _userName = MutableLiveData<String>().apply {

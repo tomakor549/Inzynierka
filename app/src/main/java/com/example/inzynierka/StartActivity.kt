@@ -12,11 +12,21 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
+import androidx.annotation.RawRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModelProvider
+import com.example.inzynierka.room.article.Article
+import com.example.inzynierka.ui.articles.articlesList.ArticlesActivityViewModel
 import kotlinx.android.synthetic.main.activity_start.*
+import java.io.BufferedReader
+import java.io.IOException
+import java.io.InputStream
+import java.io.InputStreamReader
 
 
 class StartActivity : AppCompatActivity() {
+    private lateinit var startActivityViewModel: StartActivityViewModel
     private lateinit var user: User
     private lateinit var phoneNumber: EditText
 
@@ -39,14 +49,22 @@ class StartActivity : AppCompatActivity() {
         else
             Log.d("ProfileFragment", "nie ma context")
 
-
         setContentView(R.layout.activity_start)
+
+        startActivityViewModel = ViewModelProvider
+            .AndroidViewModelFactory
+            .getInstance(application)
+            .create(StartActivityViewModel::class.java)
 
         if(!edit){
             if(user.checkExistence())
             {
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
+                return
+            }
+            if (startActivityViewModel.getArticleNumber() == 0.toLong()) {
+                fillDatabase()
             }
         }
         else{
@@ -57,6 +75,11 @@ class StartActivity : AppCompatActivity() {
         setupUI(findViewById<View>(R.id.start_main_layout))
         onClickTouchListeners()
         setButton()
+    }
+
+    private fun fillDatabase(){
+        val articlesList = ReadArticleFromFile(resources).articlesList.toList()
+        startActivityViewModel.insertArticle(articlesList)
     }
 
     private fun setFields(){
@@ -113,7 +136,6 @@ class StartActivity : AppCompatActivity() {
             }
         }
     }
-
 
     private fun setButton(){
         val startApp = go_to_app
@@ -181,6 +203,7 @@ class StartActivity : AppCompatActivity() {
         }
     }
 
+    /*
     private fun checkData(): Boolean {
         if (user_name.text.length >= 2) {
             if (user_ICE1.text.isNotEmpty() || user_ICE2.text.isNotEmpty() || user_ICE3.text.isNotEmpty())
@@ -188,6 +211,7 @@ class StartActivity : AppCompatActivity() {
         }
         return false
     }
+    */
 
     private fun saveData() {
         user.setName(user_name.text.toString())
