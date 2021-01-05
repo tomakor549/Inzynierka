@@ -1,6 +1,7 @@
 package com.example.inzynierka.ui.articles.articlesList.article
 
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.net.Uri
 import android.os.Bundle
 import android.telephony.PhoneNumberUtils
@@ -13,6 +14,7 @@ import android.webkit.URLUtil
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.example.inzynierka.R
 import com.example.inzynierka.room.article.Article
@@ -76,6 +78,11 @@ class ArticleActivity : AppCompatActivity() {
             activity_article_edit_button.visibility = View.GONE
             activity_article_default_button.visibility = View.GONE
 
+            titleEditText.isEnabled = true
+            websiteEditText.isEnabled = true
+            descEditText.isEnabled = true
+            phoneNumberEditText.isEnabled = true
+
             editableEditText(android.R.drawable.edit_text, focusable, isFocusableInTouchMode)
         }
 
@@ -84,7 +91,10 @@ class ArticleActivity : AppCompatActivity() {
             activity_article_edit_button.visibility = View.VISIBLE
             activity_article_default_button.visibility = View.VISIBLE
 
-            titleEditText.inputType = InputType.TYPE_NULL
+            titleEditText.isEnabled = false
+            websiteEditText.isEnabled = false
+            descEditText.isEnabled = false
+            phoneNumberEditText.isEnabled = false
 
             editableEditText(R.color.transparent, !focusable, !isFocusableInTouchMode)
         }
@@ -93,6 +103,10 @@ class ArticleActivity : AppCompatActivity() {
     }
 
     private fun editableEditText(backgroundEditText: Int, focusable: Boolean, isFocusableInTouchMode: Boolean){
+        if(android.R.drawable.edit_text == backgroundEditText)
+            titleEditText.setTextColor(ContextCompat.getColor(applicationContext, R.color.black))
+        else
+            titleEditText.setTextColor(ContextCompat.getColor(applicationContext, R.color.white))
         titleEditText.setBackgroundResource(backgroundEditText)
         titleEditText.isFocusable = focusable
         titleEditText.isFocusableInTouchMode = isFocusableInTouchMode
