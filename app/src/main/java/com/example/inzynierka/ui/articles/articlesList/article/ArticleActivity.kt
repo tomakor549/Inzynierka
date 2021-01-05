@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.telephony.PhoneNumberUtils
+import android.text.InputType
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -82,6 +83,8 @@ class ArticleActivity : AppCompatActivity() {
             activity_article_confirm_button.visibility = View.GONE
             activity_article_edit_button.visibility = View.VISIBLE
             activity_article_default_button.visibility = View.VISIBLE
+
+            titleEditText.inputType = InputType.TYPE_NULL
 
             editableEditText(R.color.transparent, !focusable, !isFocusableInTouchMode)
         }

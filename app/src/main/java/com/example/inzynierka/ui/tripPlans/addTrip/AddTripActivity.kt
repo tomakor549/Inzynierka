@@ -31,7 +31,7 @@ class AddTripActivity : AppCompatActivity() {
     private lateinit var toolbar: Toolbar
     private lateinit var addTripViewModel: AddTripViewModel
     //private lateinit var stringDate: String
-    private lateinit var recyclerView: RecyclerView
+    private var recyclerView: RecyclerView? = null
     private lateinit var tripPlansAdapter: TripPlansListAdapter
 
     private val TAG = "AddTripActivity"
@@ -40,6 +40,7 @@ class AddTripActivity : AppCompatActivity() {
     private var startDatePicker: DatePicker? = null
     private var endDatePicker: DatePicker? = null
     private val maxTripDay = 30
+    private var listExist = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -155,27 +156,72 @@ class AddTripActivity : AppCompatActivity() {
         if(day <= 0)
             return
 
-        activity_add_trip_confirm_button.visibility = View.VISIBLE
+        if(activity_add_trip_confirm_button.visibility != View.VISIBLE)
+            activity_add_trip_confirm_button.visibility = View.VISIBLE
 
-        recyclerView = trip_plans_day_recyclerView
-        recyclerView.layoutManager = LinearLayoutManager(applicationContext)
-        val dayPlansList = ArrayList<Plan>()
+        if(recyclerView == null){
+            recyclerView = trip_plans_day_recyclerView
+            recyclerView!!.layoutManager = LinearLayoutManager(applicationContext)
+            val dayPlansList = ArrayList<Plan>()
 
-        var i = 1
-        while(i<=day){
-            dayPlansList.add(
-                Plan(
-                    tripId,
-                    day,
-                    ""
+            var i = 1
+            while(i<=day){
+                dayPlansList.add(
+                    Plan(
+                        tripId,
+                        day,
+                        ""
+                    )
                 )
-            )
-            i++
+                i++
+            }
+
+            tripPlansAdapter = TripPlansListAdapter(dayPlansList)
+            recyclerView!!.adapter = tripPlansAdapter
+
+            listExist = true
         }
+        else{
+            val oldPlansList = ArrayList(tripPlansAdapter.getPlanList())
+            val oldPlanListSize = oldPlansList.size
+            val newPlansList = ArrayList<Plan>()
+            var i = 1
+            if(day==oldPlanListSize)
+                setExistAdapter(oldPlansList)
+            else{
+                if(day>oldPlanListSize){
+                    for(plan in oldPlansList){
+                        newPlansList.add(plan)
+                        i++
+                    }
+                    while(i<=day){
+                        newPlansList.add(
+                            Plan(
+                                tripId,
+                                i,
+                                ""
+                            )
+                        )
+                        i++
+                    }
+                    setExistAdapter(newPlansList)
+                }
+                if(day<oldPlanListSize){
+                    for(plan in oldPlansList){
+                        if(i<=day){
+                            newPlansList.add(plan)
+                            i++
+                        }
+                    }
+                    setExistAdapter(newPlansList)
+                }
+            }
+        }
+    }
 
-        tripPlansAdapter = TripPlansListAdapter(dayPlansList)
-        recyclerView.adapter = tripPlansAdapter
-
+    private fun setExistAdapter(arrayList: ArrayList<Plan>){
+        tripPlansAdapter.setPlansList(arrayList)
+        recyclerView!!.adapter = tripPlansAdapter
     }
 
     private fun saveTrip() : Boolean{
