@@ -154,8 +154,11 @@ class ArticleActivity : AppCompatActivity() {
             }
 
             val website = websiteEditText.text.toString()
-            if(website.isEmpty())
+
+            if(website.isBlank()){
                 websiteEditText.setOnClickListener(null)
+                return
+            }
 
             if(URLUtil.isValidUrl(website)){
                 websiteEditText.setOnClickListener {

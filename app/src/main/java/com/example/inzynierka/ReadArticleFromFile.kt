@@ -68,16 +68,22 @@ class ReadArticleFromFile(private val resources: Resources) {
 
         //sprawdzenie odwrotności numeru telefonu i strony internetowej
         if(!checkPhoneAndUrl(article.phoneNumber, article.website)){
-            if (!checkPhoneAndUrl(article.website, article.phoneNumber)){
-                article.phoneNumber = ""
-                article.website = ""
-            }
-            else{
+            if (checkPhoneAndUrl(article.website, article.phoneNumber)){
                 tmp = article.phoneNumber
                 article.phoneNumber = article.website
                 article.website = tmp
             }
         }
+
+        if(article.phoneNumber=="-")
+            article.phoneNumber = ""
+        if(article.title=="-")
+            article.title = ""
+        if(article.description=="-")
+            article.description = ""
+        if(article.website=="-")
+            article.website = ""
+
         return article
     }
 
