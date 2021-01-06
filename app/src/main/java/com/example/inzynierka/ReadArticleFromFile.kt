@@ -1,8 +1,6 @@
 package com.example.inzynierka
 
-import android.content.Intent
 import android.content.res.Resources
-import android.net.Uri
 import android.telephony.PhoneNumberUtils
 import android.webkit.URLUtil
 import androidx.annotation.RawRes
@@ -57,21 +55,22 @@ class ReadArticleFromFile(private val resources: Resources) {
             if(countLines(articleString)==5){
                 val article = stringToArticle(articleString, articleNameEnum)
                 if (article != null) {
-                    if(article.title.length < 60)
-                        articlesList.add(checkTheReverse(article))
+                    if(article.title.length < 60){
+                        articlesList.add(checkArticle(article))
+                    }
                 }
             }
         }
     }
 
-    private fun checkTheReverse(article: Article): Article{
+    private fun checkArticle(article: Article): Article{
         val tmp: String
 
         //sprawdzenie odwrotności numeru telefonu i strony internetowej
-        if(!setPhoneAndUrl(article.phoneNumber, article.website)){
-            if (!setPhoneAndUrl(article.website, article.phoneNumber)){
-                article.phoneNumber = "-"
-                article.website = "-"
+        if(!checkPhoneAndUrl(article.phoneNumber, article.website)){
+            if (!checkPhoneAndUrl(article.website, article.phoneNumber)){
+                article.phoneNumber = ""
+                article.website = ""
             }
             else{
                 tmp = article.phoneNumber
@@ -79,11 +78,10 @@ class ReadArticleFromFile(private val resources: Resources) {
                 article.website = tmp
             }
         }
-
         return article
     }
 
-    private fun setPhoneAndUrl(phone: String, website: String): Boolean{
+    private fun checkPhoneAndUrl(phone: String, website: String): Boolean{
 
         //sprawdzanie czy to adres strony
         if(URLUtil.isValidUrl(website))

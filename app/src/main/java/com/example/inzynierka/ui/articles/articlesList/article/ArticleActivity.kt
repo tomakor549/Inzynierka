@@ -4,10 +4,12 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.telephony.PhoneNumberUtils
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.webkit.URLUtil
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -66,37 +68,26 @@ class ArticleActivity : AppCompatActivity() {
         }
         article = loadArticle
 
-
-        phoneNumberEditText.setText(article.phoneNumber)
-        titleEditText.setText(article.title)
-        websiteEditText.setText(article.website)
-        descEditText.setText(article.description)
+        updateEditText()
+        activePhoneAndWebsiteClick(true)
 
         addToolbar()
         setButtons()
     }
 
     private fun setButtons(){
-        val focusable = false
-        val isFocusableInTouchMode = true
-
         //Edycja artykułu
         activity_article_edit_button.setOnClickListener {
-            editData()
-            editableEditText(android.R.drawable.edit_text, focusable, isFocusableInTouchMode)
+            editDataEditing(true)
+            editableEditText(true)
         }
 
         //zapisanine zmian
         activity_article_confirm_button.setOnClickListener {
-            editableEditText(R.color.transparent, !focusable, !isFocusableInTouchMode)
-            article.title = titleEditText.text.toString()
-            article.phoneNumber = phoneNumberEditText.text.toString()
-            article.website = websiteEditText.text.toString()
-            article.description = descEditText.text.toString()
-            articleActivityViewModel.updateArticle(article)
-            confirmDialogBuilder("zmiany wprowadzono pomyślnie")
-
-            viewingData()
+            editDataEditing(false)
+            editableEditText(false)
+            updateUserArticle()
+            Toast.makeText(this, "Zmiany wprowadzono pomyślnie", Toast.LENGTH_SHORT).show()
         }
 
         //przywrócenie artykułu domyślnego
@@ -110,7 +101,7 @@ class ArticleActivity : AppCompatActivity() {
                 } else
                     Toast.makeText(this, "Nie znaleziono danych źródłowych", Toast.LENGTH_SHORT).show()
 
-                viewingData()
+                editDataEditing(false)
             }
 
             changeArticle("Przywrócenie danych",
@@ -125,9 +116,9 @@ class ArticleActivity : AppCompatActivity() {
                 activity_article_discard_button.visibility = View.GONE
                 activity_article_edit_button.visibility = View.VISIBLE
                 activity_article_default_button.visibility = View.VISIBLE
-                viewingData()
+                editDataEditing(false)
+                editableEditText(false)
                 updateEditText()
-                editableEditText(R.color.transparent, !focusable, !isFocusableInTouchMode)
             }
 
             changeArticle("Anulowanie zmian",
@@ -136,20 +127,73 @@ class ArticleActivity : AppCompatActivity() {
         }
     }
 
-    private fun editData(){
-        activity_article_confirm_button.visibility = View.VISIBLE
-        activity_article_discard_button.visibility = View.VISIBLE
-        activity_article_edit_button.visibility = View.GONE
-        activity_article_default_button.visibility = View.GONE
-        enabledEditText(true)
+    private fun activePhoneAndWebsiteClick(active: Boolean){
+
+        if(!active){
+            phoneNumberEditText.setOnClickListener(null)
+            websiteEditText.setOnClickListener(null)
+        }else{
+            phoneNumberEditText.isFocusable = false
+            phoneNumberEditText.isFocusableInTouchMode = false
+            websiteEditText.isFocusable = false
+            websiteEditText.isFocusableInTouchMode = false
+
+            val phoneNumber = phoneNumberEditText.text.toString()
+            if(phoneNumber.length>=3){
+                if(PhoneNumberUtils.isGlobalPhoneNumber(phoneNumber)){
+                    phoneNumberEditText.setOnClickListener{
+                        val intent = Intent(Intent.ACTION_DIAL)
+                        intent.data = Uri.parse("tel:$phoneNumber")
+                        startActivity(intent)
+                    }
+                }else{
+                    phoneNumberEditText.setOnClickListener(null)
+                }
+            }else{
+                phoneNumberEditText.setOnClickListener(null)
+            }
+
+            val website = websiteEditText.text.toString()
+            if(website.isEmpty())
+                websiteEditText.setOnClickListener(null)
+
+            if(URLUtil.isValidUrl(website)){
+                websiteEditText.setOnClickListener {
+                    val intent = Intent(Intent.ACTION_VIEW)
+                    intent.data = Uri.parse(website)
+                    startActivity(intent)
+                }
+            }else{
+                websiteEditText.setOnClickListener{
+                    val sendIntent: Intent = Intent().apply {
+                        action = Intent.ACTION_SEND
+                        putExtra(Intent.EXTRA_TEXT, website)
+                        type = "text/plain"
+                    }
+                    val shareIntent = Intent.createChooser(sendIntent, null)
+                    startActivity(shareIntent)
+                }
+            }
+        }
     }
 
-    private fun viewingData(){
-        activity_article_confirm_button.visibility = View.GONE
-        activity_article_discard_button.visibility = View.GONE
-        activity_article_edit_button.visibility = View.VISIBLE
-        activity_article_default_button.visibility = View.VISIBLE
-        enabledEditText(false)
+    private fun editDataEditing(editing: Boolean){
+
+        if(editing){
+            activePhoneAndWebsiteClick(false)
+            activity_article_confirm_button.visibility = View.VISIBLE
+            activity_article_discard_button.visibility = View.VISIBLE
+            activity_article_edit_button.visibility = View.GONE
+            activity_article_default_button.visibility = View.GONE
+        }
+        else{
+            activePhoneAndWebsiteClick(true)
+            activity_article_confirm_button.visibility = View.GONE
+            activity_article_discard_button.visibility = View.GONE
+            activity_article_edit_button.visibility = View.VISIBLE
+            activity_article_default_button.visibility = View.VISIBLE
+        }
+        enabledEditText(editing)
     }
 
     private fun changeArticle(titleMessage: String, message: String, positiveClick: () -> Unit){
@@ -167,18 +211,6 @@ class ArticleActivity : AppCompatActivity() {
         builder.show()
     }
 
-    private fun confirmDialogBuilder(message: String){
-        val builder = AlertDialog.Builder(this)
-
-        builder.setTitle("Potwierdzanie zmian")
-        builder.setMessage(message)
-
-        builder.setPositiveButton("Ok") { _, _ ->
-
-        }
-        builder.show()
-    }
-
     private fun updateEditText(){
         phoneNumberEditText.setText(article.phoneNumber)
         titleEditText.setText(article.title)
@@ -186,30 +218,47 @@ class ArticleActivity : AppCompatActivity() {
         descEditText.setText(article.description)
     }
 
-    private fun enabledEditText(enabled: Boolean){
-        titleEditText.isEnabled = enabled
-        websiteEditText.isEnabled = enabled
-        descEditText.isEnabled = enabled
-        phoneNumberEditText.isEnabled = enabled
+    private fun updateUserArticle(){
+        article.title = titleEditText.text.toString()
+        article.phoneNumber = phoneNumberEditText.text.toString()
+        article.website = websiteEditText.text.toString()
+        article.description = descEditText.text.toString()
+        articleActivityViewModel.updateArticle(article)
     }
 
-    private fun editableEditText(backgroundEditText: Int, focusable: Boolean, isFocusableInTouchMode: Boolean){
-        if(android.R.drawable.edit_text == backgroundEditText)
+    private fun enabledEditText(enabled: Boolean){
+        titleEditText.isEnabled = enabled
+        websiteEditText.isEnabled = true
+        descEditText.isEnabled = enabled
+        phoneNumberEditText.isEnabled = true
+
+    }
+
+    private fun editableEditText(editable: Boolean){
+
+        val backgroundEditText: Int
+        if(editable){
+            backgroundEditText = android.R.drawable.edit_text
             titleEditText.setTextColor(ContextCompat.getColor(applicationContext, R.color.black))
-        else
+        } else{
+            backgroundEditText = android.R.color.transparent
             titleEditText.setTextColor(ContextCompat.getColor(applicationContext, R.color.white))
+        }
+
         titleEditText.setBackgroundResource(backgroundEditText)
-        titleEditText.isFocusable = focusable
-        titleEditText.isFocusableInTouchMode = isFocusableInTouchMode
+        titleEditText.isFocusable = !editable
+        titleEditText.isFocusableInTouchMode = editable
         websiteEditText.setBackgroundResource(backgroundEditText)
-        websiteEditText.isFocusable = focusable
-        websiteEditText.isFocusableInTouchMode = isFocusableInTouchMode
+        websiteEditText.isFocusable = !editable
+        websiteEditText.isFocusableInTouchMode = editable
         descEditText.setBackgroundResource(backgroundEditText)
-        descEditText.isFocusable = focusable
-        descEditText.isFocusableInTouchMode = isFocusableInTouchMode
+        descEditText.isFocusable = !editable
+        descEditText.isFocusableInTouchMode = editable
         phoneNumberEditText.setBackgroundResource(backgroundEditText)
-        phoneNumberEditText.isFocusable = focusable
-        phoneNumberEditText.isFocusableInTouchMode = isFocusableInTouchMode
+        phoneNumberEditText.isFocusable = !editable
+        phoneNumberEditText.isFocusableInTouchMode = editable
+
+        enabledEditText(editable)
     }
 
     private fun addToolbar(){
@@ -236,18 +285,19 @@ class ArticleActivity : AppCompatActivity() {
         val id = item.itemId
 
         if(id==R.id.action_emergency){
-            callEmergency()
+            val intent = Intent(Intent.ACTION_DIAL)
+            intent.data = Uri.parse("tel:" + "112")
+            startActivity(intent)
             return true
         }
 
         if(id==R.id.action_sharing){
-            val articleTitle = titleEditText.text.toString()
-            val desc = descEditText.text.toString()
+            val message = "${article.title}\n${article.phoneNumber}\n${article.website}\n\nOpis:\n${article.description}"
             val sendIntent: Intent = Intent().apply {
                 action = Intent.ACTION_SEND
-                putExtra(Intent.EXTRA_TITLE, articleTitle)
-                putExtra(Intent.EXTRA_SUBJECT, articleTitle)
-                putExtra(Intent.EXTRA_TEXT, desc)
+                putExtra(Intent.EXTRA_TITLE, article.title)
+                putExtra(Intent.EXTRA_SUBJECT, message)
+                putExtra(Intent.EXTRA_TEXT, message)
                 type = "text/plain"
             }
 
@@ -257,11 +307,5 @@ class ArticleActivity : AppCompatActivity() {
         }
 
         return false
-    }
-
-    private fun callEmergency(){
-        val intent = Intent(Intent.ACTION_DIAL)
-        intent.data = Uri.parse("tel:" + "112")
-        startActivity(intent)
     }
 }
