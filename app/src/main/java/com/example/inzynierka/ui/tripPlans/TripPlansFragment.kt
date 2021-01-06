@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.fragment_trip_plans.view.*
 class TripPlansFragment : Fragment() {
 
     private lateinit var tripPlansViewModel: TripPlansViewModel
-    private lateinit var tripsListAdapter: TripsListAdapter
+    private var tripsListAdapter: TripsListAdapter? = null
     private lateinit var tripPlansRecyclerView: RecyclerView
 
     override fun onCreateView(
@@ -44,9 +44,11 @@ class TripPlansFragment : Fragment() {
         tripPlansViewModel.listOfTrip.observe(requireActivity(), Observer {
             if(it.isNotEmpty()){
                 tripsListAdapter = activity?.application?.let { it1 -> TripsListAdapter(it1, requireContext(), ArrayList(it)) }!!
-                tripPlansRecyclerView.adapter = tripsListAdapter
             }
         })
+        if(tripsListAdapter!=null){
+             tripPlansRecyclerView.adapter = tripsListAdapter
+        }
 
         return root
     }

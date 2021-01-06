@@ -156,8 +156,8 @@ class AddTripActivity : AppCompatActivity() {
         if(day <= 0)
             return
 
-        if(activity_add_trip_confirm_button.visibility != View.VISIBLE)
-            activity_add_trip_confirm_button.visibility = View.VISIBLE
+        if(trip_plans_add_layout.visibility != View.VISIBLE)
+            trip_plans_add_layout.visibility = View.VISIBLE
 
         if(recyclerView == null){
             recyclerView = trip_plans_day_recyclerView
@@ -295,11 +295,12 @@ class AddTripActivity : AppCompatActivity() {
             val endDate = Date(endYear, endMonth, endDay)
 
 
-            val difference: Long = endDate.time - startDate.time
-            val differenceDates = difference / (24 * 60 * 60 * 1000)
 
             if(startYear == endYear && startMonth == endMonth && startDay == endDay)
                 return 1
+
+            val difference: Long = endDate.time - startDate.time
+            val differenceDates = difference / (24 * 60 * 60 * 1000)
 
             if(differenceDates>0){
                 if(differenceDates<maxTripDay){

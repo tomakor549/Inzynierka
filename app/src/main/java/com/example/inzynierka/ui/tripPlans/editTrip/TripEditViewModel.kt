@@ -17,8 +17,12 @@ class TripEditViewModel constructor(application: Application): AndroidViewModel(
         tripRepository.updateTrip(trip)
     }
 
-    fun updatePlans(plans: List<Plan>){
-        tripRepository.updatePlans(plans)
+    fun deletePlansById(tripId: Long){
+        tripRepository.deletePlansById(tripId)
+    }
+
+    fun insertPlans(plans: List<Plan>){
+        tripRepository.insertPlans(plans)
     }
 
     fun getTripWithPlans(id: Long): TripWithPlans = runBlocking {

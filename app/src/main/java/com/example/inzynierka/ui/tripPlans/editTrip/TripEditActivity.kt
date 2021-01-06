@@ -96,8 +96,8 @@ class TripEditActivity : AppCompatActivity() {
             tripDateControl.getDay(tripPlan.trip.endDate)!!,
             null)
 
-        setStartData()
-        setEndData()
+        setStartDate()
+        setEndDate()
     }
 
     private fun updateDate(){
@@ -164,7 +164,7 @@ class TripEditActivity : AppCompatActivity() {
         recyclerView.adapter = tripPlansAdapter
     }
 
-    private fun setStartData(){
+    private fun setStartDate(){
         edit_trip_date_start_button.setOnClickListener {
             hideKeyboard()
             if(edit_trip_date_end_layout.visibility == View.VISIBLE)
@@ -184,7 +184,7 @@ class TripEditActivity : AppCompatActivity() {
         }
     }
 
-    private fun setEndData(){
+    private fun setEndDate(){
         edit_trip_date_end_button.setOnClickListener {
             hideKeyboard()
             if(edit_trip_date_start_layout.visibility == View.VISIBLE)
@@ -215,8 +215,8 @@ class TripEditActivity : AppCompatActivity() {
         val trip = Trip(
             tripName,
             tripId,
-            tripPlan.trip.startDate,
-            tripPlan.trip.endDate
+            edit_trip_date_start_button.text.toString(),
+            edit_trip_date_end_button.text.toString()
         )
 
         val plansList: List<Plan>
@@ -228,7 +228,8 @@ class TripEditActivity : AppCompatActivity() {
         }
 
         editTripViewModel.updateTrip(trip)
-        editTripViewModel.updatePlans(plansList)
+        editTripViewModel.deletePlansById(tripId)
+        editTripViewModel.insertPlans(plansList)
         return true
     }
 

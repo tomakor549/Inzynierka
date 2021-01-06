@@ -18,8 +18,6 @@ class TripPlansViewModel constructor(application: Application): AndroidViewModel
         }
     }*/
 
-    lateinit var listOfTrip: LiveData<List<Trip>>
-
     private var tripRepository: TripRepository =
         TripRepository(application)
 
