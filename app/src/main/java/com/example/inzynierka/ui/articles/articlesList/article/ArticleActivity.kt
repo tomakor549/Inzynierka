@@ -1,6 +1,10 @@
 package com.example.inzynierka.ui.articles.articlesList.article
 
+import android.R.attr.label
 import android.app.AlertDialog
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -19,6 +23,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.inzynierka.R
 import com.example.inzynierka.room.article.Article
 import kotlinx.android.synthetic.main.activity_article.*
+
 
 class ArticleActivity : AppCompatActivity() {
     private lateinit var toolbar: Toolbar
@@ -68,11 +73,50 @@ class ArticleActivity : AppCompatActivity() {
         }
         article = loadArticle
 
+        setOnLongClickListeners()
+
         updateEditText()
         activePhoneAndWebsiteClick(true)
 
         addToolbar()
         setButtons()
+    }
+
+    private fun setOnLongClickListeners(){
+        val clipboard: ClipboardManager = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+
+        phoneNumberEditText.setOnLongClickListener {
+            if(phoneNumberEditText.isFocusable && phoneNumberEditText.text.toString().isNotBlank()){
+                val clip = ClipData.newPlainText("copy", phoneNumberEditText.text.toString())
+                clipboard.setPrimaryClip(clip)
+                Toast.makeText(this,"Tekst skopiowany",Toast.LENGTH_SHORT).show()
+            }
+            true
+        }
+        websiteEditText.setOnLongClickListener {
+            if(!websiteEditText.isFocusable && websiteEditText.text.toString().isNotBlank()){
+                val clip = ClipData.newPlainText("copy", websiteEditText.text.toString())
+                clipboard.setPrimaryClip(clip)
+                Toast.makeText(this,"Tekst skopiowany",Toast.LENGTH_SHORT).show()
+            }
+            true
+        }
+        titleEditText.setOnLongClickListener {
+            if(!titleEditText.isFocusable && titleEditText.text.toString().isNotBlank()){
+                val clip = ClipData.newPlainText("copy", titleEditText.text.toString())
+                clipboard.setPrimaryClip(clip)
+                Toast.makeText(this,"Tekst skopiowany",Toast.LENGTH_SHORT).show()
+            }
+            true
+        }
+        descEditText.setOnLongClickListener {
+            if(descEditText.isFocusable && descEditText.text.toString().isNotBlank()){
+                val clip = ClipData.newPlainText("copy", descEditText.text.toString())
+                clipboard.setPrimaryClip(clip)
+                Toast.makeText(this,"Tekst skopiowany",Toast.LENGTH_SHORT).show()
+            }
+            true
+        }
     }
 
     private fun setButtons(){
@@ -166,16 +210,6 @@ class ArticleActivity : AppCompatActivity() {
                     intent.data = Uri.parse(website)
                     startActivity(intent)
                 }
-            }else{
-                websiteEditText.setOnClickListener{
-                    val sendIntent: Intent = Intent().apply {
-                        action = Intent.ACTION_SEND
-                        putExtra(Intent.EXTRA_TEXT, website)
-                        type = "text/plain"
-                    }
-                    val shareIntent = Intent.createChooser(sendIntent, null)
-                    startActivity(shareIntent)
-                }
             }
         }
     }
@@ -196,7 +230,6 @@ class ArticleActivity : AppCompatActivity() {
             activity_article_edit_button.visibility = View.VISIBLE
             activity_article_default_button.visibility = View.VISIBLE
         }
-        enabledEditText(editing)
     }
 
     private fun changeArticle(titleMessage: String, message: String, positiveClick: () -> Unit){
@@ -222,19 +255,11 @@ class ArticleActivity : AppCompatActivity() {
     }
 
     private fun updateUserArticle(){
-        article.title = titleEditText.text.toString()
+        article.title = titleEditText.text.toString().replace("\n","")
         article.phoneNumber = phoneNumberEditText.text.toString()
-        article.website = websiteEditText.text.toString()
+        article.website = websiteEditText.text.toString().replace("\n","")
         article.description = descEditText.text.toString()
         articleActivityViewModel.updateArticle(article)
-    }
-
-    private fun enabledEditText(enabled: Boolean){
-        titleEditText.isEnabled = enabled
-        websiteEditText.isEnabled = true
-        descEditText.isEnabled = enabled
-        phoneNumberEditText.isEnabled = true
-
     }
 
     private fun editableEditText(editable: Boolean){
@@ -249,19 +274,17 @@ class ArticleActivity : AppCompatActivity() {
         }
 
         titleEditText.setBackgroundResource(backgroundEditText)
-        titleEditText.isFocusable = !editable
-        titleEditText.isFocusableInTouchMode = editable
+        titleEditText.isFocusable = false //jeśli jest wybrany, anuluj wybór przy ponownym wywołaniu funkcji
+        titleEditText.isFocusableInTouchMode = editable //możliwość wyboru do edycji
         websiteEditText.setBackgroundResource(backgroundEditText)
-        websiteEditText.isFocusable = !editable
+        websiteEditText.isFocusable = false
         websiteEditText.isFocusableInTouchMode = editable
         descEditText.setBackgroundResource(backgroundEditText)
-        descEditText.isFocusable = !editable
+        descEditText.isFocusable = false
         descEditText.isFocusableInTouchMode = editable
         phoneNumberEditText.setBackgroundResource(backgroundEditText)
-        phoneNumberEditText.isFocusable = !editable
+        phoneNumberEditText.isFocusable = false
         phoneNumberEditText.isFocusableInTouchMode = editable
-
-        enabledEditText(editable)
     }
 
     private fun addToolbar(){
@@ -299,7 +322,7 @@ class ArticleActivity : AppCompatActivity() {
             val sendIntent: Intent = Intent().apply {
                 action = Intent.ACTION_SEND
                 putExtra(Intent.EXTRA_TITLE, article.title)
-                putExtra(Intent.EXTRA_SUBJECT, message)
+                //putExtra(Intent.EXTRA_SUBJECT, message)
                 putExtra(Intent.EXTRA_TEXT, message)
                 type = "text/plain"
             }

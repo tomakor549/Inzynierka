@@ -303,6 +303,8 @@ class AddTripActivity : AppCompatActivity() {
 
             if(differenceDates>0){
                 if(differenceDates<maxTripDay){
+                    if(trip_plans_add_layout.visibility != View.VISIBLE)
+                        trip_plans_add_layout.visibility = View.VISIBLE
                     return (differenceDates.toInt()+1)
                 }
                 else{
@@ -312,6 +314,8 @@ class AddTripActivity : AppCompatActivity() {
             }
             else{
                 Toast.makeText(this,"Wycieczka musi się zaczynać przed jej zakończeniem",Toast.LENGTH_SHORT).show()
+                if(trip_plans_add_layout.visibility != View.GONE)
+                    trip_plans_add_layout.visibility = View.GONE
             }
         }
         return 0

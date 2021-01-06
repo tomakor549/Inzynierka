@@ -181,7 +181,7 @@
             </GridLayout>
 
             <LinearLayout
-                android:id="@+id/linearLayout6"
+                android:id="@+id/trip_plans_edit_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"

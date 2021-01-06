@@ -106,6 +106,8 @@ class TripEditActivity : AppCompatActivity() {
 
         if(differenceDate>=0){
             if(differenceDate<tripDateControl.maxTripDay){
+                if(trip_plans_edit_layout.visibility != View.VISIBLE)
+                    trip_plans_edit_layout.visibility = View.VISIBLE
                 day = differenceDate + 1
             }
             else{
@@ -115,6 +117,8 @@ class TripEditActivity : AppCompatActivity() {
         }
         else{
             Toast.makeText(this,"Wycieczka musi się zaczynać przed jej zakończeniem",Toast.LENGTH_SHORT).show()
+            if(trip_plans_edit_layout.visibility != View.GONE)
+                trip_plans_edit_layout.visibility = View.GONE
             return
         }
         val oldPlansList = ArrayList(tripPlansAdapter.getPlanList())

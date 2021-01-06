@@ -43,7 +43,7 @@ class TripPlansFragment : Fragment() {
         tripPlansViewModel.listOfTrip = tripPlansViewModel.getAllTrip()
         tripPlansViewModel.listOfTrip.observe(requireActivity(), Observer {
             if(it.isNotEmpty()){
-                tripsListAdapter = TripsListAdapter(requireActivity().application, requireContext(), ArrayList(it))
+                tripsListAdapter = activity?.application?.let { it1 -> TripsListAdapter(it1, requireContext(), ArrayList(it)) }!!
                 tripPlansRecyclerView.adapter = tripsListAdapter
             }
         })
