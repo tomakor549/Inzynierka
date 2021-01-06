@@ -134,7 +134,7 @@ class ArticlesActivity : AppCompatActivity() {
                 article = titleList.value?.get(i)?.let { findArticle(it, listOfArticle.value!!) }
             }
             catch (e: NullPointerException){
-                Log.i("ArticleActivity", "błąd z wczytaniem listy artykułów z LiveData")
+                Log.i("ArticleActivity", "błąd z wczytaniem artykułu z listOfArticle")
             }
             if (article != null) {
                 intent.putExtra("articleId", article.articleId)

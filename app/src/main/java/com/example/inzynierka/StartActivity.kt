@@ -11,18 +11,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
-import android.widget.Toast
-import androidx.annotation.RawRes
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.LiveData
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
-import com.example.inzynierka.room.article.Article
-import com.example.inzynierka.ui.articles.articlesList.ArticlesActivityViewModel
 import kotlinx.android.synthetic.main.activity_start.*
-import java.io.BufferedReader
-import java.io.IOException
-import java.io.InputStream
-import java.io.InputStreamReader
+import kotlinx.android.synthetic.main.activity_start.view.*
 
 
 class StartActivity : AppCompatActivity() {
@@ -71,7 +64,6 @@ class StartActivity : AppCompatActivity() {
             setFields()
         }
 
-
         setupUI(findViewById<View>(R.id.start_main_layout))
         onClickTouchListeners()
         setButton()
@@ -109,13 +101,10 @@ class StartActivity : AppCompatActivity() {
     }
 
     private fun hideSoftKeyboard(activity: Activity) {
-        val inputMethodManager =
-            activity.getSystemService(
-                Activity.INPUT_METHOD_SERVICE
-            ) as InputMethodManager
-        inputMethodManager.hideSoftInputFromWindow(
-            activity.currentFocus!!.windowToken, 0
-        )
+        currentFocus?.let {
+            val inputMethodManager = ContextCompat.getSystemService(this, InputMethodManager::class.java)!!
+            inputMethodManager.hideSoftInputFromWindow(it.windowToken, 0)
+        }
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -138,6 +127,7 @@ class StartActivity : AppCompatActivity() {
     }
 
     private fun setButton(){
+        val a: String? = user_name.text.toString()
         val startApp = go_to_app
         startApp.setOnClickListener{
             saveData()
