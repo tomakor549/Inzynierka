@@ -30,4 +30,7 @@
     <string name="edit_data">Edytuj Dane</string>
     <string name="confirm_changes">potwierdź zmiany</string>
     <string name="discard_changes">anuluj zmiany</string>
+    <string name="date">Data:</string>
+    <string name="date_start">Data Rozpoczęcia:</string>
+    <string name="date_end">Data Zakończenia:</string>
 </resources>

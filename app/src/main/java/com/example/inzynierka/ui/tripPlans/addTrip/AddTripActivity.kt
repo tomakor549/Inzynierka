@@ -1,6 +1,6 @@
 package com.example.inzynierka.ui.tripPlans.addTrip
 
-import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -14,6 +14,7 @@ import android.widget.DatePicker
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -56,7 +57,6 @@ class AddTripActivity : AppCompatActivity() {
         tripId = createTripId()
 
         setButton()
-        hideKeyboardEmptyField()
     }
 
     private fun setButton(){
@@ -64,7 +64,7 @@ class AddTripActivity : AppCompatActivity() {
         setEndData()
 
         activity_add_trip_confirm_button.setOnClickListener {
-            //hideKeyboard()
+
             if(saveTrip()){
                 onBackPressed()
             }
@@ -74,7 +74,7 @@ class AddTripActivity : AppCompatActivity() {
 
     private fun setStartData(){
         add_trip_date_start_button.setOnClickListener {
-            hideKeyboard()
+            hideSoftKeyboard()
             if(add_trip_date_end_layout.visibility == View.VISIBLE)
                 add_trip_date_end_layout.visibility = View.GONE
             add_trip_date_start_layout.visibility = View.VISIBLE
@@ -85,7 +85,7 @@ class AddTripActivity : AppCompatActivity() {
             add_trip_date_start_button.text = getStringDate(startDatePicker!!)
             add_trip_date_start_layout.visibility = View.GONE
 
-            hideKeyboard()
+            hideSoftKeyboard()
 
             if(endDatePicker!=null)
                 showAddingPlans()
@@ -94,7 +94,7 @@ class AddTripActivity : AppCompatActivity() {
 
     private fun setEndData(){
         add_trip_date_end_button.setOnClickListener {
-            hideKeyboard()
+            hideSoftKeyboard()
             if(add_trip_date_start_layout.visibility == View.VISIBLE)
                 add_trip_date_start_layout.visibility = View.GONE
             add_trip_date_end_layout.visibility = View.VISIBLE
@@ -106,7 +106,7 @@ class AddTripActivity : AppCompatActivity() {
             add_trip_date_end_button.text = getStringDate(endDatePicker!!)
             add_trip_date_end_layout.visibility = View.GONE
 
-            hideKeyboard()
+            hideSoftKeyboard()
 
             if(startDatePicker!=null)
                 showAddingPlans()
@@ -129,24 +129,10 @@ class AddTripActivity : AppCompatActivity() {
         return day + "/" + month + "/" + datePicker.year.toString()
     }
 
-    private fun hideKeyboard(){
-        try {
-            val imm: InputMethodManager =
-                getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
-        } catch (e: Exception) {
-            Toast.makeText(this,"Hide Keyboard Error",Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    @SuppressLint("ClickableViewAccessibility")
-    private fun hideKeyboardEmptyField() {
-        //ukrywanie klawiatury po kliknieciu na puste pole
-        findViewById<View>(R.id.activity_add_trip).setOnTouchListener { _, _ ->
-            val imm: InputMethodManager =
-                getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
-            return@setOnTouchListener true
+    private fun hideSoftKeyboard() {
+        currentFocus?.let {
+            val inputMethodManager = ContextCompat.getSystemService(this, InputMethodManager::class.java)!!
+            inputMethodManager.hideSoftInputFromWindow(it.windowToken, 0)
         }
     }
 

@@ -100,7 +100,7 @@ class StartActivity : AppCompatActivity() {
         user_medicines.setText(user.getMedicines())
     }
 
-    private fun hideSoftKeyboard(activity: Activity) {
+    private fun hideSoftKeyboard() {
         currentFocus?.let {
             val inputMethodManager = ContextCompat.getSystemService(this, InputMethodManager::class.java)!!
             inputMethodManager.hideSoftInputFromWindow(it.windowToken, 0)
@@ -112,7 +112,7 @@ class StartActivity : AppCompatActivity() {
         //Nasłuchiwanie kliknięcia dla widoków inne niż EditText
         if (view !is EditText) {
             view.setOnTouchListener { _, _ ->
-                hideSoftKeyboard(this)
+                hideSoftKeyboard()
                 false
             }
         }
@@ -127,7 +127,6 @@ class StartActivity : AppCompatActivity() {
     }
 
     private fun setButton(){
-        val a: String? = user_name.text.toString()
         val startApp = go_to_app
         startApp.setOnClickListener{
             saveData()

@@ -25,4 +25,9 @@ class TripPlansViewModel constructor(application: Application): AndroidViewModel
         tripRepository.getAllTripAsync().await()
     }
 
+    fun deleteTripAndPlansById(tripId: Long) {
+        tripRepository.deletePlansById(tripId)
+        tripRepository.deleteTripById(tripId)
+    }
+
 }

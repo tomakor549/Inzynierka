@@ -6,11 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.inzynierka.R
+import com.example.inzynierka.room.trip.Plan
+import com.example.inzynierka.room.trip.Trip
 import com.example.inzynierka.ui.tripPlans.adapters.TripsListAdapter
 import com.example.inzynierka.ui.tripPlans.addTrip.AddTripActivity
 import kotlinx.android.synthetic.main.fragment_trip_plans.view.*
@@ -20,6 +23,7 @@ class TripPlansFragment : Fragment() {
     private lateinit var tripPlansViewModel: TripPlansViewModel
     private var tripsListAdapter: TripsListAdapter? = null
     private lateinit var tripPlansRecyclerView: RecyclerView
+    private lateinit var listOfTrip: LiveData<List<Trip>>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,15 +44,13 @@ class TripPlansFragment : Fragment() {
 
         tripPlansRecyclerView.layoutManager = LinearLayoutManager(context)
 
-        tripPlansViewModel.listOfTrip = tripPlansViewModel.getAllTrip()
-        tripPlansViewModel.listOfTrip.observe(requireActivity(), Observer {
+        listOfTrip = tripPlansViewModel.getAllTrip()
+        listOfTrip.observe(requireActivity(), {
             if(it.isNotEmpty()){
-                tripsListAdapter = activity?.application?.let { it1 -> TripsListAdapter(it1, requireContext(), ArrayList(it)) }!!
+                tripsListAdapter = TripsListAdapter(ArrayList(it))
+                tripPlansRecyclerView.adapter = tripsListAdapter
             }
         })
-        if(tripsListAdapter!=null){
-             tripPlansRecyclerView.adapter = tripsListAdapter
-        }
 
         return root
     }
@@ -57,6 +59,15 @@ class TripPlansFragment : Fragment() {
         root.trip_plans_add.setOnClickListener {
             val intent = Intent(activity, AddTripActivity::class.java)
             startActivity(intent)
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        val deleteTrips: List<Long>? = tripsListAdapter?.getTripDeleteList()
+        if(deleteTrips != null){
+            for(tripId in deleteTrips)
+                tripPlansViewModel.deleteTripAndPlansById(tripId)
         }
     }
 }

@@ -19,10 +19,9 @@ import com.example.inzynierka.room.trip.Trip
 import com.example.inzynierka.room.trip.TripRepository
 import kotlinx.android.synthetic.main.trip_row.view.*
 
-class TripsListAdapter(private val application: Application, private val activityContext: Context, private val listOfTrips: ArrayList<Trip>):RecyclerView.Adapter<TripViewHolder>(){
+class TripsListAdapter(private val listOfTrips: ArrayList<Trip>):RecyclerView.Adapter<TripViewHolder>(){
+    private var deleteTripsListId = ArrayList<Long>()
 
-    private var tripRepository: TripRepository =
-        TripRepository(application)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TripViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -35,18 +34,24 @@ class TripsListAdapter(private val application: Application, private val activit
     }
 
     private fun removeItem(position: Int) {
-        val id = listOfTrips[position].tripId
+        //val id = listOfTrips[position].tripId
+        deleteTripsListId.add(listOfTrips[position].tripId)
         listOfTrips.removeAt(position)
         notifyItemRemoved(position)
-        tripRepository.deleteTripById(id)
-        tripRepository.deletePlansById(id)
+    }
+
+    fun getTripDeleteList(): List<Long>?{
+        if (deleteTripsListId.isNotEmpty())
+            return deleteTripsListId.toList()
+
+        return null
     }
 
     override fun onBindViewHolder(holder: TripViewHolder, position: Int) {
         val dataLabel = "${listOfTrips[position].startDate} - ${listOfTrips[position].endDate}"
         val id = listOfTrips[position].tripId
 
-        val builder = AlertDialog.Builder(activityContext)
+        val builder = AlertDialog.Builder(holder.deleteButton.context)
         builder.setTitle("Usuwanie planu wycieczki")
         builder.setMessage("Na pewno chcesz usunąć \"${listOfTrips[position].tripName}\"?")
         //builder.setPositiveButton("OK", DialogInterface.OnClickListener(function = x))
@@ -70,9 +75,9 @@ class TripsListAdapter(private val application: Application, private val activit
 
 
         holder.textLayout.setOnClickListener {
-            val intent = Intent(activityContext, TripPlanSelectActivity::class.java)
+            val intent = Intent(holder.textLayout.context, TripPlanSelectActivity::class.java)
             intent.putExtra("tripId", listOfTrips[position].tripId)
-            application.startActivity(intent)
+            holder.textLayout.context.startActivity(intent)
         }
 
         holder.deleteButton.setOnClickListener {
@@ -80,9 +85,9 @@ class TripsListAdapter(private val application: Application, private val activit
         }
 
         holder.editButton.setOnClickListener {
-            val intent = Intent(activityContext, TripEditActivity::class.java)
+            val intent = Intent(holder.editButton.context, TripEditActivity::class.java)
             intent.putExtra("tripId", listOfTrips[position].tripId)
-            application.startActivity(intent)
+            holder.editButton.context.startActivity(intent)
         }
     }
 

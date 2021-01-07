@@ -1,6 +1,8 @@
 package com.example.inzynierka.room.trip
 
 import android.app.Application
+import android.content.Context
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.LiveData
 import kotlinx.coroutines.*
 

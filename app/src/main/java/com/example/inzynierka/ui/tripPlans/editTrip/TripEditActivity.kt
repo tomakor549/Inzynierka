@@ -1,6 +1,7 @@
 package com.example.inzynierka.ui.tripPlans.editTrip
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -13,6 +14,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.DatePicker
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -64,10 +66,6 @@ class TripEditActivity : AppCompatActivity() {
 
         addToolbar("Edycja Planu")
 
-        hideKeyboardEmptyField()
-        val date = "${tripPlan.trip.startDate} - ${tripPlan.trip.endDate}"
-        activity_edit_date.text = date
-        
         tripPlansAdapter = TripPlansListAdapter(ArrayList(tripPlan.plans))
         recyclerView = edit_trip_plans_day_recyclerView
         recyclerView.layoutManager = LinearLayoutManager(applicationContext)
@@ -241,17 +239,6 @@ class TripEditActivity : AppCompatActivity() {
             imm.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
         } catch (e: Exception) {
             Toast.makeText(this,"Hide Keyboard Error",Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    @SuppressLint("ClickableViewAccessibility")
-    private fun hideKeyboardEmptyField() {
-        //ukrywanie klawiatury po kliknieciu na puste pole
-        findViewById<View>(R.id.activity_edit_trip).setOnTouchListener { _, _ ->
-            val imm: InputMethodManager =
-                getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
-            return@setOnTouchListener true
         }
     }
 
