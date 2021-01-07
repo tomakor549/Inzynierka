@@ -13,8 +13,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.tripPlans.editTrip.TripEditActivity" />
-        <activity android:name=".ui.tripPlans.addTrip.AddTripActivity" />
+        <activity android:name=".ui.tripPlans.editTrip.TripEditActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.tripPlans.addTrip.AddTripActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".ui.tripPlans.selectTripPlan.TripPlanSelectActivity" />
         <activity android:name=".ui.articles.articlesList.article.ArticleActivity" />
         <activity android:name=".ui.articles.articlesList.ArticlesActivity" />

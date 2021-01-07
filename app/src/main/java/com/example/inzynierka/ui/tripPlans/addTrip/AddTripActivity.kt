@@ -23,6 +23,9 @@ import com.example.inzynierka.ui.tripPlans.adapters.TripPlansListAdapter
 import com.example.inzynierka.room.trip.Plan
 import com.example.inzynierka.room.trip.Trip
 import kotlinx.android.synthetic.main.activity_trip_add.*
+import kotlinx.android.synthetic.main.activity_trip_add.activity_add_trip_confirm_button
+import kotlinx.android.synthetic.main.activity_trip_add.add_trip_name
+import kotlinx.android.synthetic.main.activity_trip_edit.*
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.properties.Delegates
@@ -41,8 +44,6 @@ class AddTripActivity : AppCompatActivity() {
     private var startDatePicker: DatePicker? = null
     private var endDatePicker: DatePicker? = null
     private val maxTripDay = 30
-    private var listExist = false
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,6 +56,10 @@ class AddTripActivity : AppCompatActivity() {
             .create(AddTripViewModel::class.java)
 
         tripId = createTripId()
+
+        if (startDatePicker != null) {
+            startDatePicker = edit_trip_date_start_picker
+        }
 
         setButton()
     }
@@ -164,8 +169,6 @@ class AddTripActivity : AppCompatActivity() {
 
             tripPlansAdapter = TripPlansListAdapter(dayPlansList)
             recyclerView!!.adapter = tripPlansAdapter
-
-            listExist = true
         }
         else{
             val oldPlansList = ArrayList(tripPlansAdapter.getPlanList())

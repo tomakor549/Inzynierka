@@ -45,6 +45,8 @@ class ArticleActivity : AppCompatActivity() {
             .getInstance(application)
             .create(ArticleActivityViewModel::class.java)
 
+        addToolbar()
+
         phoneNumberEditText = activity_article_phone_edit
         titleEditText = activity_article_title_edit
         websiteEditText = activity_article_website_edit
@@ -77,8 +79,6 @@ class ArticleActivity : AppCompatActivity() {
 
         updateEditText()
         activePhoneAndWebsiteClick(true)
-
-        addToolbar()
         setButtons()
     }
 
@@ -285,7 +285,7 @@ class ArticleActivity : AppCompatActivity() {
     private fun addToolbar(){
         // Dodawanie toolbara
         toolbar = toolbar_article as Toolbar
-        toolbar.title = intent.getStringExtra("title")
+        toolbar.title = "Artykuł"
         setSupportActionBar(toolbar)
         //supportActionBar?.setDisplayHomeAsUpEnabled(true)
         //supportActionBar?.setDisplayShowHomeEnabled(true)
@@ -313,7 +313,7 @@ class ArticleActivity : AppCompatActivity() {
         }
 
         if(id==R.id.action_sharing){
-            val message = "${article.title}\n${article.phoneNumber}\n${article.website}\n\nOpis:\n${article.description}"
+            val message = "${article.title}\n\nTelefon: ${article.phoneNumber}\n\n${article.website}\n\nOpis:\n${article.description}"
             val sendIntent: Intent = Intent().apply {
                 action = Intent.ACTION_SEND
                 putExtra(Intent.EXTRA_TITLE, article.title)

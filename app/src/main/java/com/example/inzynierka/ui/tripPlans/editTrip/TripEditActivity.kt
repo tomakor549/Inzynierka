@@ -1,7 +1,5 @@
 package com.example.inzynierka.ui.tripPlans.editTrip
 
-import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -74,11 +72,12 @@ class TripEditActivity : AppCompatActivity() {
         add_trip_name.setText(tripPlan.trip.tripName)
 
         activity_add_trip_confirm_button.setOnClickListener {
-            hideKeyboard()
+            hideSoftKeyboard()
             if(updateTrip()){
                 onBackPressed()
             }
         }
+
 
         startDatePicker = edit_trip_date_start_picker
         endDatePicker = edit_trip_date_end_picker
@@ -110,6 +109,8 @@ class TripEditActivity : AppCompatActivity() {
             }
             else{
                 Toast.makeText(this,"Wycieczka nie może przekroczyć ${tripDateControl.maxTripDay} dni",Toast.LENGTH_SHORT).show()
+                if(trip_plans_edit_layout.visibility != View.GONE)
+                    trip_plans_edit_layout.visibility = View.GONE
                 return
             }
         }
@@ -164,7 +165,7 @@ class TripEditActivity : AppCompatActivity() {
 
     private fun setStartDate(){
         edit_trip_date_start_button.setOnClickListener {
-            hideKeyboard()
+            hideSoftKeyboard()
             if(edit_trip_date_end_layout.visibility == View.VISIBLE)
                 edit_trip_date_end_layout.visibility = View.GONE
             edit_trip_date_start_layout.visibility = View.VISIBLE
@@ -175,7 +176,7 @@ class TripEditActivity : AppCompatActivity() {
             edit_trip_date_start_button.text = tripDateControl.getStringDate(startDatePicker!!)
             edit_trip_date_start_layout.visibility = View.GONE
 
-            hideKeyboard()
+            hideSoftKeyboard()
 
             if(endDatePicker!=null)
                 updateDate()
@@ -184,7 +185,7 @@ class TripEditActivity : AppCompatActivity() {
 
     private fun setEndDate(){
         edit_trip_date_end_button.setOnClickListener {
-            hideKeyboard()
+            hideSoftKeyboard()
             if(edit_trip_date_start_layout.visibility == View.VISIBLE)
                 edit_trip_date_start_layout.visibility = View.GONE
             edit_trip_date_end_layout.visibility = View.VISIBLE
@@ -196,7 +197,7 @@ class TripEditActivity : AppCompatActivity() {
             edit_trip_date_end_button.text = tripDateControl.getStringDate(endDatePicker!!)
             edit_trip_date_end_layout.visibility = View.GONE
 
-            hideKeyboard()
+            hideSoftKeyboard()
 
             if(startDatePicker!=null)
                 updateDate()
@@ -225,20 +226,17 @@ class TripEditActivity : AppCompatActivity() {
             return false
         }
 
-        editTripViewModel.updateTrip(trip)
         editTripViewModel.deletePlansById(tripId)
+        editTripViewModel.updateTrip(trip)
         editTripViewModel.insertPlans(plansList)
         return true
     }
 
 
-    private fun hideKeyboard(){
-        try {
-            val imm: InputMethodManager =
-                getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
-        } catch (e: Exception) {
-            Toast.makeText(this,"Hide Keyboard Error",Toast.LENGTH_SHORT).show()
+    private fun hideSoftKeyboard() {
+        currentFocus?.let {
+            val inputMethodManager = ContextCompat.getSystemService(this, InputMethodManager::class.java)!!
+            inputMethodManager.hideSoftInputFromWindow(it.windowToken, 0)
         }
     }
 
