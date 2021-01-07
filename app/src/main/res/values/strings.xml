@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Inzynierka</string>
+    <string name="app_name">Mój pomocnik</string>
     <string name="nav_header_title">Pomocnik</string>
     <string name="nav_header_text">"W czym mogę ci pomóc?"</string>
 

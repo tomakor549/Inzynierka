@@ -86,7 +86,7 @@ class ArticleActivity : AppCompatActivity() {
         val clipboard: ClipboardManager = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
 
         phoneNumberEditText.setOnLongClickListener {
-            if(phoneNumberEditText.isFocusable && phoneNumberEditText.text.toString().isNotBlank()){
+            if(!phoneNumberEditText.isFocusableInTouchMode && phoneNumberEditText.text.toString().isNotBlank()){
                 val clip = ClipData.newPlainText("copy", phoneNumberEditText.text.toString())
                 clipboard.setPrimaryClip(clip)
                 Toast.makeText(this,"Tekst skopiowany",Toast.LENGTH_SHORT).show()
@@ -94,7 +94,7 @@ class ArticleActivity : AppCompatActivity() {
             true
         }
         websiteEditText.setOnLongClickListener {
-            if(!websiteEditText.isFocusable && websiteEditText.text.toString().isNotBlank()){
+            if(!websiteEditText.isFocusableInTouchMode && websiteEditText.text.toString().isNotBlank()){
                 val clip = ClipData.newPlainText("copy", websiteEditText.text.toString())
                 clipboard.setPrimaryClip(clip)
                 Toast.makeText(this,"Tekst skopiowany",Toast.LENGTH_SHORT).show()
@@ -102,7 +102,7 @@ class ArticleActivity : AppCompatActivity() {
             true
         }
         titleEditText.setOnLongClickListener {
-            if(!titleEditText.isFocusable && titleEditText.text.toString().isNotBlank()){
+            if(!titleEditText.isFocusableInTouchMode && titleEditText.text.toString().isNotBlank()){
                 val clip = ClipData.newPlainText("copy", titleEditText.text.toString())
                 clipboard.setPrimaryClip(clip)
                 Toast.makeText(this,"Tekst skopiowany",Toast.LENGTH_SHORT).show()
@@ -110,7 +110,7 @@ class ArticleActivity : AppCompatActivity() {
             true
         }
         descEditText.setOnLongClickListener {
-            if(descEditText.isFocusable && descEditText.text.toString().isNotBlank()){
+            if(!descEditText.isFocusableInTouchMode && descEditText.text.toString().isNotBlank()){
                 val clip = ClipData.newPlainText("copy", descEditText.text.toString())
                 clipboard.setPrimaryClip(clip)
                 Toast.makeText(this,"Tekst skopiowany",Toast.LENGTH_SHORT).show()
@@ -177,11 +177,6 @@ class ArticleActivity : AppCompatActivity() {
             phoneNumberEditText.setOnClickListener(null)
             websiteEditText.setOnClickListener(null)
         }else{
-            phoneNumberEditText.isFocusable = false
-            phoneNumberEditText.isFocusableInTouchMode = false
-            websiteEditText.isFocusable = false
-            websiteEditText.isFocusableInTouchMode = false
-
             val phoneNumber = phoneNumberEditText.text.toString()
             if(phoneNumber.length>=3){
                 if(PhoneNumberUtils.isGlobalPhoneNumber(phoneNumber)){
