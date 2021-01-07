@@ -32,11 +32,9 @@ import java.lang.NullPointerException
 class ArticlesActivity : AppCompatActivity() {
     private lateinit var articlesActivityViewModel: ArticlesActivityViewModel
     private lateinit var listOfArticle: LiveData<List<Article>>
-    private lateinit var articleTitleList: List<String>
     private lateinit var toolbar: Toolbar
     private lateinit var searchBar: MaterialSearchBar
     private lateinit var choice: String
-    private var selectedSection: ArticleNameEnum? = null
     private lateinit var arrayAdapter: ArrayAdapter<*>
 
 
@@ -60,36 +58,32 @@ class ArticlesActivity : AppCompatActivity() {
         when(choice){
             ArticleNameEnum.CITY.section ->{
                 addToolbar(ArticleNameEnum.CITY.section)
-                selectedSection = ArticleNameEnum.CITY
                 try {
-                    click(R.raw.city)
+                    click(ArticleNameEnum.CITY)
                 }catch (ex: FileNotFoundException){
                     Toast.makeText(this,"Nie znaleziono pliku z danymi",Toast.LENGTH_SHORT).show()
                 }
             }
             ArticleNameEnum.MOUNTAIN.section ->{
                 addToolbar(ArticleNameEnum.MOUNTAIN.section)
-                selectedSection = ArticleNameEnum.MOUNTAIN
                 try {
-                    click(R.raw.mountain)
+                    click(ArticleNameEnum.MOUNTAIN)
                 }catch (ex: FileNotFoundException){
                     Toast.makeText(this,"Nie znaleziono danych",Toast.LENGTH_SHORT).show()
                 }
             }
             ArticleNameEnum.WATER.section -> {
                 addToolbar(ArticleNameEnum.WATER.section)
-                selectedSection = ArticleNameEnum.WATER
                 try {
-                    click(R.raw.water)
+                    click(ArticleNameEnum.WATER)
                 }catch (ex: FileNotFoundException){
                     Toast.makeText(this,"Nie znaleziono danych",Toast.LENGTH_SHORT).show()
                 }
             }
             ArticleNameEnum.FOREST.section ->{
                 addToolbar(ArticleNameEnum.FOREST.section)
-                selectedSection = ArticleNameEnum.FOREST
                 try {
-                    click(R.raw.forest)
+                    click(ArticleNameEnum.FOREST)
                 }catch (ex: FileNotFoundException){
                     Toast.makeText(this,"Nie znaleziono danych",Toast.LENGTH_SHORT).show()
                 }
@@ -101,15 +95,9 @@ class ArticlesActivity : AppCompatActivity() {
     }
 
 
-    private fun click(@RawRes section: Int){
+    private fun click(selectedSection: ArticleNameEnum){
 
-        if (selectedSection != null) {
-            listOfArticle = articlesActivityViewModel.getUserArticle(selectedSection!!)
-        }
-        else{
-            Toast.makeText(this, "nie ma takich artykułów", Toast.LENGTH_LONG).show()
-            return
-        }
+        listOfArticle = articlesActivityViewModel.getUserArticle(selectedSection)
 
         val titleList = Transformations.map(listOfArticle) { list ->
             list.map { item -> item.title
