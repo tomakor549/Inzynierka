@@ -64,16 +64,12 @@ class MainActivity : AppCompatActivity() {
         val id = item.itemId
 
         if(id==R.id.action_emergency){
-            callEmergency()
+            val intent = Intent(Intent.ACTION_DIAL)
+            intent.data = Uri.parse("tel:" + "112")
+            startActivity(intent)
             return true
         }
 
         return false
-    }
-
-    private fun callEmergency(){
-        val intent = Intent(Intent.ACTION_DIAL)
-        intent.data = Uri.parse("tel:" + "112")
-        startActivity(intent)
     }
 }

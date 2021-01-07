@@ -44,7 +44,6 @@ class ArticleFragment : Fragment() {
             startActivity(intent)
         }
 
-
         root.article_mountain.setOnClickListener{
             val intent = Intent(activity, ArticlesActivity::class.java)
             intent.putExtra(key, ArticleNameEnum.MOUNTAIN.section)

@@ -3,25 +3,27 @@ package com.example.inzynierka
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.util.Log
-import android.view.MotionEvent
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import kotlinx.android.synthetic.main.activity_start.*
 import kotlinx.android.synthetic.main.activity_start.view.*
+import kotlinx.android.synthetic.main.activity_trip_select.*
 
 
 class StartActivity : AppCompatActivity() {
     private lateinit var startActivityViewModel: StartActivityViewModel
     private lateinit var user: User
     private lateinit var phoneNumber: EditText
+    private lateinit var toolbar: Toolbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +45,8 @@ class StartActivity : AppCompatActivity() {
             Log.d("ProfileFragment", "nie ma context")
 
         setContentView(R.layout.activity_start)
+
+        addToolbar(getString(R.string.app_name))
 
         startActivityViewModel = ViewModelProvider
             .AndroidViewModelFactory
@@ -192,16 +196,6 @@ class StartActivity : AppCompatActivity() {
         }
     }
 
-    /*
-    private fun checkData(): Boolean {
-        if (user_name.text.length >= 2) {
-            if (user_ICE1.text.isNotEmpty() || user_ICE2.text.isNotEmpty() || user_ICE3.text.isNotEmpty())
-                return true
-        }
-        return false
-    }
-    */
-
     private fun saveData() {
         user.setName(user_name.text.toString())
         user.setICE1(user_ICE1.text.toString())
@@ -213,6 +207,33 @@ class StartActivity : AppCompatActivity() {
         )
         user.setIllnesses(user_ill.text.toString())
         user.setMedicines(user_medicines.text.toString())
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        // dodanie menu
+        menuInflater.inflate(R.menu.toolbar_menu, menu)
+
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+
+        if(id==R.id.action_emergency){
+            val intent = Intent(Intent.ACTION_DIAL)
+            intent.data = Uri.parse("tel:" + "112")
+            startActivity(intent)
+            return true
+        }
+
+        return false
+    }
+
+    private fun addToolbar(title: String) {
+        // Dodawanie toolbara
+        toolbar = start_toolbar as Toolbar
+        toolbar.title = title
+        setSupportActionBar(toolbar)
     }
 
 }

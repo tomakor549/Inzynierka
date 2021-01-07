@@ -221,12 +221,12 @@ class TripEditActivity : AppCompatActivity() {
         val plansList: List<Plan>
         try {
             plansList = tripPlansAdapter.getPlanList()
+            editTripViewModel.deletePlansById(tripId)
         }catch (e: java.lang.Exception){
             Toast.makeText(this,"Nie znaleziono listy Adaptera", Toast.LENGTH_SHORT).show()
             return false
         }
 
-        editTripViewModel.deletePlansById(tripId)
         editTripViewModel.updateTrip(trip)
         editTripViewModel.insertPlans(plansList)
         return true

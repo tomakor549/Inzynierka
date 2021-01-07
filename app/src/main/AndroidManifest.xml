@@ -3,8 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.inzynierka">
 
-    <!--<uses-permission android:name="android.permission.CALL_PHONE" />-->
-
     <application
         android:allowBackup="true"
         android:fullBackupContent="true"
@@ -17,10 +15,14 @@
             android:screenOrientation="portrait" />
         <activity android:name=".ui.tripPlans.addTrip.AddTripActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.tripPlans.selectTripPlan.TripPlanSelectActivity" />
-        <activity android:name=".ui.articles.articlesList.article.ArticleActivity" />
-        <activity android:name=".ui.articles.articlesList.ArticlesActivity" />
-        <activity android:name=".StartActivity">
+        <activity android:name=".ui.tripPlans.selectTripPlan.TripPlanSelectActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.articles.articlesList.article.ArticleActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.articles.articlesList.ArticlesActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".StartActivity"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -8,20 +8,29 @@
     android:background="@drawable/back_layout"
     tools:context=".StartActivity">
 
+    <include
+        android:id="@+id/start_toolbar"
+        layout="@layout/toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        app:layout_constraintTop_toBottomOf="@+id/start_toolbar">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
             <!-- Imie i nazwisko -->
             <LinearLayout
                 android:id="@+id/linearLayout0"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
                 android:layout_marginStart="20dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginEnd="20dp"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toTopOf="@+id/start_ICE_layout"
@@ -38,8 +47,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/black"
                         android:text="Imię i nazwisko:"
+                        android:textColor="@color/black"
                         android:textSize="20sp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -62,8 +71,8 @@
                 android:id="@+id/start_ICE_layout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toTopOf="@+id/linearLayou"
@@ -80,23 +89,23 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/black"
                         android:text="Numer/numery ICE (wystarczy 1):"
+                        android:textColor="@color/black"
                         android:textSize="20sp"
                         android:textStyle="bold" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/user_ICE1_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/black"
                         android:text="ICE1:"
+                        android:textColor="@color/black"
                         android:textSize="17sp"
                         android:textStyle="bold" />
 
@@ -105,10 +114,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:drawableRight="@drawable/ic_contact"
-                        android:textColor="@color/black"
+                        android:editable="false"
                         android:ems="10"
                         android:inputType="none"
-                        android:editable="false"
+                        android:textColor="@color/black"
                         android:textSize="17sp" />
                 </LinearLayout>
 
@@ -120,8 +129,8 @@
                         android:id="@+id/user_ICE2_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/black"
                         android:text="ICE2:"
+                        android:textColor="@color/black"
                         android:textSize="17sp"
                         android:textStyle="bold" />
 
@@ -129,11 +138,11 @@
                         android:id="@+id/user_ICE2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/black"
                         android:drawableRight="@drawable/ic_contact"
-                        android:inputType="none"
                         android:editable="false"
                         android:ems="10"
+                        android:inputType="none"
+                        android:textColor="@color/black"
                         android:textSize="17sp" />
                 </LinearLayout>
 
@@ -145,8 +154,8 @@
                         android:id="@+id/user_ICE3_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/black"
                         android:text="ICE3:"
+                        android:textColor="@color/black"
                         android:textSize="17sp"
                         android:textStyle="bold" />
 
@@ -155,23 +164,24 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:drawableRight="@drawable/ic_contact"
-                        android:textColor="@color/black"
-                        android:inputType="none"
                         android:editable="false"
                         android:ems="10"
+                        android:inputType="none"
+                        android:textColor="@color/black"
                         android:textSize="17sp" />
                 </LinearLayout>
+
                 <Button
                     android:id="@+id/button_clear"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:background="@color/colorPrimary"
+                    android:gravity="center"
                     android:text="Wyczyść"
                     android:textColor="@color/white"
                     android:textSize="17sp"
-                    android:textStyle="bold"
-                    android:gravity="center"
-                    android:layout_gravity="center"/>
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <!--Spinner -->
@@ -179,8 +189,8 @@
                 android:id="@+id/linearLayou"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:layout_marginStart="50dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginEnd="50dp"
                 android:orientation="horizontal"
                 app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
@@ -193,8 +203,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
                     android:text="Typ krwi: "
+                    android:textColor="@color/black"
                     android:textSize="17sp"
                     android:textStyle="bold" />
 
@@ -202,17 +212,17 @@
                     android:id="@+id/user_blood_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
                     android:layout_weight="1"
-                    android:entries="@array/bloodName" />
+                    android:entries="@array/bloodName"
+                    android:textColor="@color/black" />
 
                 <Spinner
                     android:id="@+id/user_blood_Rh"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
                     android:layout_weight="1"
-                    android:entries="@array/bloodRh" />
+                    android:entries="@array/bloodRh"
+                    android:textColor="@color/black" />
 
             </LinearLayout>
 
@@ -220,8 +230,8 @@
                 android:id="@+id/linearLayout2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
                 android:layout_marginStart="20dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginEnd="20dp"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
@@ -238,8 +248,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/black"
                         android:text="@string/medicines"
+                        android:textColor="@color/black"
                         android:textSize="17sp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -263,8 +273,8 @@
                 android:id="@+id/linearLayout3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
                 android:layout_marginStart="20dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginEnd="20dp"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toTopOf="@+id/go_to_app"
@@ -282,8 +292,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:textColor="@color/black"
                         android:text="@string/ill"
+                        android:textColor="@color/black"
                         android:textSize="17sp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -304,14 +314,15 @@
 
             <Button
                 android:id="@+id/go_to_app"
-                android:layout_width="196dp"
-                android:layout_height="45dp"
-                android:layout_marginTop="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:background="@color/colorPrimary"
-                android:text="Zapisz i przejdź dalej"
+                android:text="Zapisz i\nprzejdź dalej"
                 android:textColor="#FFFFFF"
                 android:textSize="17sp"
                 android:textStyle="bold"
+                android:layout_margin="20dp"
+                android:padding="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
